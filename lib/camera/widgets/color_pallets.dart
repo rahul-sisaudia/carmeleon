@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class ColorPallets extends StatelessWidget {
   ColorPallets({Key key}) : super(key: key);
 
-
   final List<Color> colors = <Color>[
     ColorConstants.blue,
     ColorConstants.black,

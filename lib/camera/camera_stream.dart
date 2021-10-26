@@ -36,6 +36,12 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
   @override
   void dispose() {
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.landscapeRight,
+    //   DeviceOrientation.landscapeLeft,
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.portraitDown,
+    // ]);
     _controller.dispose();
     super.dispose();
   }
@@ -49,10 +55,12 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             future: _initializeControllerFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    child: CameraPreview(_controller));
+                return RotatedBox(
+                    quarterTurns: 4,
+                    child: Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        child: CameraPreview(_controller)));
               } else {
                 return const Center(child: CircularProgressIndicator());
               }
