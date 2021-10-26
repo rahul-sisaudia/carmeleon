@@ -56,7 +56,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return RotatedBox(
-                    quarterTurns: 4,
+                    quarterTurns: 1,
                     child: Container(
                         height: double.infinity,
                         width: double.infinity,
