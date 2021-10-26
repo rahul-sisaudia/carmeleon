@@ -9,7 +9,7 @@ import 'notifier/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.landscapeRight]);
+      [DeviceOrientation.landscapeLeft]);
   final cameras = await availableCameras();
   final firstCamera = cameras.first;
 
