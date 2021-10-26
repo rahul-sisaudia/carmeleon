@@ -1,3 +1,4 @@
+import 'package:carmeleon/notifier/provider.dart';
 import 'package:carmeleon/utils/color_constants.dart';
 import 'package:carmeleon/utils/device_size.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +12,10 @@ class ImageButtonPallets extends StatefulWidget {
 }
 
 class _ImageButtonPalletsState extends State<ImageButtonPallets> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +33,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: () {
-
-                },
+                onTap: () {},
                 child: _buildButtonPalletsView(
                   const Icon(
                     Icons.stars_outlined,
