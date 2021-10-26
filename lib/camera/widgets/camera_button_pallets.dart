@@ -76,13 +76,14 @@ class _CameraButtonPalletsState extends State<CameraButtonPallets> {
                   try {
                     await widget._initializeControllerFuture;
                     final image = await getImage();
-                    if(image!=null)await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => DisplayPictureScreen(
-                          imagePath: image.path,
+                    if (image != null)
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => DisplayPictureScreen(
+                            imagePath: image.path,
+                          ),
                         ),
-                      ),
-                    );
+                      );
                   } catch (e) {
                     print(e);
                   }
