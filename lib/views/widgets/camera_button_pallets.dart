@@ -6,7 +6,7 @@ import 'package:carmeleon/utils/device_size.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../display_image.dart';
+import '../../views/screens/display_image.dart';
 
 class CameraButtonPallets extends StatefulWidget {
   CameraButtonPallets(this._initializeControllerFuture, this._controller);

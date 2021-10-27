@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:camera/camera.dart';
-import 'package:carmeleon/camera/camera_stream.dart';
+import 'package:carmeleon/views/screens/camera_stream.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';

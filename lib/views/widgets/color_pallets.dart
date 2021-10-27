@@ -22,7 +22,7 @@ class ColorPallets extends StatelessWidget {
       left: 10,
       right: 10,
       top: DeviceSize.height(context) / 1.18,
-      child:Container(
+      child: Container(
         height: DeviceSize.height(context) / 7,
         decoration: BoxDecoration(
           color: Colors.white54,

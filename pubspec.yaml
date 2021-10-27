@@ -31,11 +31,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   camera:
   image_picker:
-  provider: ^4.3.2+3
   retrofit:
   json_serializable: ^3.2.3
-
-  video_player:
+  native_device_orientation: ^1.0.0
 
 
 dev_dependencies:

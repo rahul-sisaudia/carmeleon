@@ -1,24 +1,20 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
-import 'camera/camera_stream.dart';
-import 'notifier/provider.dart';
+import 'views/screens/camera_stream.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.landscapeLeft]);
+
   final cameras = await availableCameras();
   final firstCamera = cameras.first;
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
 
-  runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ButtonController>(
-            create: (_) => ButtonController()),
-      ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: TakePictureScreen(camera: firstCamera))));
+  runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: TakePictureScreen(camera: firstCamera)));
 }
