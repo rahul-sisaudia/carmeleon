@@ -8,17 +8,22 @@ import 'notifier/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
   final cameras = await availableCameras();
   final firstCamera = cameras.first;
 
-  runApp(MultiProvider(
+  runApp(
+    MultiProvider(
       providers: [
         ChangeNotifierProvider<ButtonController>(
             create: (_) => ButtonController()),
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: TakePictureScreen(camera: firstCamera))));
+        debugShowCheckedModeBanner: false,
+        home: TakePictureScreen(camera: firstCamera),
+      ),
+    ),
+  );
 }
