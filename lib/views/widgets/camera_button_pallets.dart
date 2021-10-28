@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
-import 'package:carmeleon/constants/color_constants.dart';
-import 'package:carmeleon/constants/device_size.dart';
+import 'package:carmeleon/aspects/constants/color_constants.dart';
+import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

@@ -1,5 +1,5 @@
 import 'package:camera/camera.dart';
-import 'package:carmeleon/constants/device_size.dart';
+import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:carmeleon/views/widgets/camera_button_pallets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

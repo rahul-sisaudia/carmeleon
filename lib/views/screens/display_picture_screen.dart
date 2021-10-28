@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:carmeleon/constants/color_constants.dart';
+import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/views/widgets/color_pallets.dart';
 import 'package:carmeleon/views/widgets/image_button_pallets.dart';
 import 'package:flutter/material.dart';
