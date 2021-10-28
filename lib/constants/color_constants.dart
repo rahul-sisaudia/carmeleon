@@ -12,6 +12,6 @@ class ColorConstants{
   static const Color red = Color(0xFFEF5350);
   static const Color transparentWhite = Colors.white54;
   static const Color white = Colors.white;
-
-
+  static const Color yellow = Colors.yellow;
+  static const Color pink = Colors.pink;
 }

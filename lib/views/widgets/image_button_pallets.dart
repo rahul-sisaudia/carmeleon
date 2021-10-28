@@ -11,6 +11,8 @@ class ImageButtonPallets extends StatefulWidget {
 }
 
 class _ImageButtonPalletsState extends State<ImageButtonPallets> {
+  bool isRimSelected = false;
+  bool isBodySelected = false;
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -22,32 +24,56 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               GestureDetector(
                 onTap: () {
-                  print('tap 1 gesture');
+                  setState(() {
+                    if (!isRimSelected)
+                      isRimSelected = true;
+                    else {
+                      isRimSelected = false;
+                    }
+                  });
                 },
                 child: _buildButtonPalletsView(
-                  const Icon(
-                    Icons.stars_outlined,
-                    size: 35,
-                    color: Colors.black,
-                  ),
+                  isRimSelected
+                      ? const Icon(
+                          Icons.stars_outlined,
+                          size: 35,
+                          color: Colors.blue,
+                        )
+                      : const Icon(
+                          Icons.stars_outlined,
+                          size: 35,
+                          color: Colors.black,
+                        ),
                 ),
               ),
               GestureDetector(
                 onTap: () {
-                  print('tap 2 gesture');
+                  setState(() {
+                    if (!isBodySelected)
+                      isBodySelected = true;
+                    else {
+                      isBodySelected = false;
+                    }
+                  });
                 },
                 child: _buildButtonPalletsView(
-                  const Icon(
-                    Icons.car_repair_rounded,
-                    size: 35,
-                    color: Colors.black,
-                  ),
+                  isBodySelected
+                      ? const Icon(
+                          Icons.car_repair_rounded,
+                          size: 35,
+                          color: Colors.blue,
+                        )
+                      : const Icon(
+                          Icons.car_repair_rounded,
+                          size: 35,
+                          color: Colors.black,
+                        ),
                 ),
               ),
               GestureDetector(

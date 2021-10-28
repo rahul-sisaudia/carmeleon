@@ -20,6 +20,8 @@ class _ColorPalletsState extends State<ColorPallets> {
     ColorConstants.darkBlack,
     ColorConstants.dullWhite,
     ColorConstants.lightBlack,
+    ColorConstants.pink,
+    ColorConstants.yellow,
   ];
 
   @override
@@ -36,33 +38,41 @@ class _ColorPalletsState extends State<ColorPallets> {
         ),
         child: Padding(
           padding:
-              const EdgeInsets.only(left: 10, right: 10, top: 4, bottom: 4),
+              const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 7,
+            itemCount: 9,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
                   setState(() {
                     selectedColorIndex = index;
-                    print(selectedColorIndex);
                   });
                 },
                 child: Container(
-                  margin: EdgeInsets.only(left: 5),
+                  margin: EdgeInsets.only(left: 8),
                   decoration: BoxDecoration(
                     color: selectedColorIndex == index
-                        ? ColorConstants.red
+                        ? colors[index]
                         : ColorConstants.white,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(3.0),
                     child: Container(
-                      width: DeviceSize.width(context) / 22,
                       decoration: BoxDecoration(
-                        color: colors[index],
-                        borderRadius: BorderRadius.circular(40),
+                        color: ColorConstants.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                          width: DeviceSize.width(context) / 26,
+                          decoration: BoxDecoration(
+                            color: colors[index],
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
                       ),
                     ),
                   ),
