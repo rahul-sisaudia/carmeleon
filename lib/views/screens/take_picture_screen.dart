@@ -7,8 +7,8 @@ import 'package:native_device_orientation/native_device_orientation.dart';
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
-    Key key,
-    this.camera,
+    Key? key,
+    required this.camera,
   }) : super(key: key);
   final CameraDescription camera;
 
@@ -17,8 +17,8 @@ class TakePictureScreen extends StatefulWidget {
 }
 
 class TakePictureScreenState extends State<TakePictureScreen> {
-  CameraController _controller;
-  Future<void> _initializeControllerFuture;
+  late CameraController _controller;
+  late Future<void> _initializeControllerFuture;
 
   @override
   void initState() {
@@ -27,7 +27,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       widget.camera,
       ResolutionPreset.ultraHigh,
     );
-
     _initializeControllerFuture = _controller.initialize();
   }
 

@@ -1,25 +1,23 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:camera/camera.dart';
-import 'package:carmeleon/utils/color_constants.dart';
-import 'package:carmeleon/utils/device_size.dart';
+import 'package:carmeleon/constants/color_constants.dart';
+import 'package:carmeleon/constants/device_size.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../views/screens/display_image.dart';
+import '../../views/screens/display_picture_screen.dart';
 
 class CameraButtonPallets extends StatefulWidget {
+  final CameraController _controller;
   CameraButtonPallets(this._initializeControllerFuture, this._controller);
-  CameraController _controller;
-  Future<void> _initializeControllerFuture;
+  final Future<void> _initializeControllerFuture;
   @override
   State<CameraButtonPallets> createState() => _CameraButtonPalletsState();
 }
 
 class _CameraButtonPalletsState extends State<CameraButtonPallets> {
-  final picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
   Future getImage() async {
-    final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
     return pickedFile;
   }
 

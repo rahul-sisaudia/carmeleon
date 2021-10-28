@@ -1,0 +1,1 @@
+enum CarEnum { carBody, carRim }

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:carmeleon/utils/color_constants.dart';
+import 'package:carmeleon/constants/color_constants.dart';
 import 'package:carmeleon/views/widgets/color_pallets.dart';
 import 'package:carmeleon/views/widgets/image_button_pallets.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/rendering.dart';
 class DisplayPictureScreen extends StatefulWidget {
   final String imagePath;
 
-  DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
+  DisplayPictureScreen({Key? key, required this.imagePath}) : super(key: key);
 
   @override
   State<DisplayPictureScreen> createState() => _DisplayPictureScreenState();

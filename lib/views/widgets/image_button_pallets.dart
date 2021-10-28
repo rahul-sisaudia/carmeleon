@@ -1,10 +1,10 @@
-import 'package:carmeleon/utils/color_constants.dart';
-import 'package:carmeleon/utils/device_size.dart';
+import 'package:carmeleon/constants/color_constants.dart';
+import 'package:carmeleon/constants/device_size.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ImageButtonPallets extends StatefulWidget {
-  const ImageButtonPallets({Key key}) : super(key: key);
+  const ImageButtonPallets({Key? key}) : super(key: key);
 
   @override
   State<ImageButtonPallets> createState() => _ImageButtonPalletsState();
