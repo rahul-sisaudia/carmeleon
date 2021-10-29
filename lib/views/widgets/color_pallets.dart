@@ -1,17 +1,23 @@
 import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/aspects/constants/device_size.dart';
+import 'package:carmeleon/aspects/dimensions/dimensions.dart';
+import 'package:carmeleon/core/modals/car_history_modal.dart';
+import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ColorPallets extends StatefulWidget {
-  ColorPallets({Key? key}) : super(key: key);
+  final DesignScreenProvider designScreenProvider;
+  ColorPallets({Key? key, required this.designScreenProvider})
+      : super(key: key);
 
   @override
   State<ColorPallets> createState() => _ColorPalletsState();
 }
 
 class _ColorPalletsState extends State<ColorPallets> {
-  int selectedColorIndex = 0;
+  late DesignScreenProvider designScreenProvider;
+  final List<CarHistoryData> historyList = <CarHistoryData>[];
   final List<Color> colors = <Color>[
     ColorConstants.blue,
     ColorConstants.black,
@@ -31,10 +37,10 @@ class _ColorPalletsState extends State<ColorPallets> {
       right: 10,
       top: DeviceSize.height(context) / 1.18,
       child: Container(
-        height: DeviceSize.height(context) / 7,
+        height: DeviceSize.height(context) / Dimensions.px7,
         decoration: BoxDecoration(
           color: Colors.white54,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(Dimensions.px20),
         ),
         child: Padding(
           padding:
@@ -46,23 +52,25 @@ class _ColorPalletsState extends State<ColorPallets> {
               return GestureDetector(
                 onTap: () {
                   setState(() {
-                    selectedColorIndex = index;
+                    widget.designScreenProvider.selectedIndex = index;
+                    //historyList.add(CarHistoryData(colorCode:'blue', bodyPart: ));
                   });
+                  // print('${historyList[index].bodyPart} + ${historyList[index].colorCode}');
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: 8),
                   decoration: BoxDecoration(
-                    color: selectedColorIndex == index
+                    color: widget.designScreenProvider.selectedIndex == index
                         ? colors[index]
                         : ColorConstants.white,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(Dimensions.px20),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(3.0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: ColorConstants.white,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(Dimensions.px20),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
@@ -70,7 +78,8 @@ class _ColorPalletsState extends State<ColorPallets> {
                           width: DeviceSize.width(context) / 26,
                           decoration: BoxDecoration(
                             color: colors[index],
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.px40),
                           ),
                         ),
                       ),

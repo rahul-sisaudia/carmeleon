@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:carmeleon/aspects/constants/color_constants.dart';
+import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:carmeleon/views/widgets/color_pallets.dart';
 import 'package:carmeleon/views/widgets/image_button_pallets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
 class DisplayPictureScreen extends StatefulWidget {
   final String imagePath;
@@ -17,37 +19,54 @@ class DisplayPictureScreen extends StatefulWidget {
 
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   bool _isVisible = true;
+  late DesignScreenProvider designScreenProvider;
+
+  @override
+  void initState() {
+    designScreenProvider = DesignScreenProvider();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                if (!_isVisible)
-                  _isVisible = true;
-                else {
-                  _isVisible = false;
-                }
-              });
-            },
-            child: Container(
-              color: ColorConstants.white,
-              height: double.infinity,
-              width: double.infinity,
-              child: Image.file(
-                File(
-                  widget.imagePath,
+    return ChangeNotifierProvider.value(
+      value: designScreenProvider,
+      child: Consumer<DesignScreenProvider>(
+        builder: (_, _designScreenProvider, __) {
+          return Scaffold(
+            body: Stack(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (!_isVisible)
+                        _isVisible = true;
+                      else {
+                        _isVisible = false;
+                      }
+                    });
+                  },
+                  child: Container(
+                    color: ColorConstants.white,
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: Image.file(
+                      File(
+                        widget.imagePath,
+                      ),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                 ),
-                fit: BoxFit.fill,
-              ),
+                if (_isVisible)
+                  ImageButtonPallets(
+                      designScreenProvider: _designScreenProvider),
+                if (_isVisible)
+                  ColorPallets(designScreenProvider: _designScreenProvider),
+              ],
             ),
-          ),
-          if (_isVisible) ImageButtonPallets(),
-          if (_isVisible) ColorPallets(),
-        ],
+          );
+        },
       ),
     );
   }

@@ -1,27 +1,28 @@
 import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/aspects/constants/device_size.dart';
+import 'package:carmeleon/aspects/dimensions/dimensions.dart';
+import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ImageButtonPallets extends StatefulWidget {
-  const ImageButtonPallets({Key? key}) : super(key: key);
-
+  final DesignScreenProvider designScreenProvider;
+  ImageButtonPallets({Key? key, required this.designScreenProvider})
+      : super(key: key);
   @override
   State<ImageButtonPallets> createState() => _ImageButtonPalletsState();
 }
 
 class _ImageButtonPalletsState extends State<ImageButtonPallets> {
-  bool isRimSelected = false;
-  bool isBodySelected = false;
   @override
   Widget build(BuildContext context) {
     return Positioned(
       right: 10,
-      top: DeviceSize.height(context) / 5,
+      top: DeviceSize.height(context) / Dimensions.px5,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(Dimensions.px15),
         ),
         child: Padding(
           padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
@@ -31,23 +32,23 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    if (!isRimSelected)
-                      isRimSelected = true;
+                    if (!widget.designScreenProvider.isRimSelected)
+                      widget.designScreenProvider.isRimSelected = true;
                     else {
-                      isRimSelected = false;
+                      widget.designScreenProvider.isRimSelected = false;
                     }
                   });
                 },
                 child: _buildButtonPalletsView(
-                  isRimSelected
+                  widget.designScreenProvider.isRimSelected
                       ? const Icon(
                           Icons.stars_outlined,
-                          size: 35,
+                          size: Dimensions.px35,
                           color: Colors.blue,
                         )
                       : const Icon(
                           Icons.stars_outlined,
-                          size: 35,
+                          size: Dimensions.px35,
                           color: Colors.black,
                         ),
                 ),
@@ -55,23 +56,23 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    if (!isBodySelected)
-                      isBodySelected = true;
+                    if (!widget.designScreenProvider.isBodySelected)
+                      widget.designScreenProvider.isBodySelected = true;
                     else {
-                      isBodySelected = false;
+                      widget.designScreenProvider.isBodySelected = false;
                     }
                   });
                 },
                 child: _buildButtonPalletsView(
-                  isBodySelected
+                  widget.designScreenProvider.isBodySelected
                       ? const Icon(
                           Icons.car_repair_rounded,
-                          size: 35,
+                          size: Dimensions.px35,
                           color: Colors.blue,
                         )
                       : const Icon(
                           Icons.car_repair_rounded,
-                          size: 35,
+                          size: Dimensions.px35,
                           color: Colors.black,
                         ),
                 ),
@@ -81,7 +82,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
                 child: _buildButtonPalletsView(
                   const Icon(
                     Icons.save,
-                    size: 35,
+                    size: Dimensions.px35,
                     color: Colors.black,
                   ),
                 ),
@@ -93,7 +94,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
                 child: _buildButtonPalletsView(
                   const Icon(
                     Icons.share,
-                    size: 35,
+                    size: Dimensions.px35,
                     color: Colors.black,
                   ),
                 ),
@@ -105,7 +106,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
                 child: _buildButtonPalletsView(
                   const Icon(
                     Icons.undo_rounded,
-                    size: 35,
+                    size: Dimensions.px35,
                     color: Colors.black,
                   ),
                 ),
