@@ -5,7 +5,7 @@ part 'car_history_modal.g.dart';
 
 @JsonSerializable()
 class CarHistoryData {
-  BodyEnum bodyPart;
+  CarEnum bodyPart;
   String colorCode;
 
   CarHistoryData({required this.colorCode, required this.bodyPart});

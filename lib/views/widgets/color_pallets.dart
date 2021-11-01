@@ -1,6 +1,7 @@
 import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:carmeleon/aspects/dimensions/dimensions.dart';
+import 'package:carmeleon/aspects/enum/body_enum.dart';
 import 'package:carmeleon/core/modals/car_history_modal.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,6 +31,22 @@ class _ColorPalletsState extends State<ColorPallets> {
     ColorConstants.yellow,
   ];
 
+  void onColorTap(int index) {
+    widget.designScreenProvider.selectedIndex = index;
+    historyList.add(CarHistoryData(
+        colorCode: colors[widget.designScreenProvider.selectedIndex].toString(),
+        bodyPart: CarEnum.carBody));
+
+    //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    for (int i = 0; i < historyList.length; i++) {
+      print('${historyList[i].bodyPart}:' + '${historyList[i].colorCode}');
+    }
+    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -50,13 +67,7 @@ class _ColorPalletsState extends State<ColorPallets> {
             itemCount: 9,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    widget.designScreenProvider.selectedIndex = index;
-                    //historyList.add(CarHistoryData(colorCode:'blue', bodyPart: ));
-                  });
-                  // print('${historyList[index].bodyPart} + ${historyList[index].colorCode}');
-                },
+                onTap: () => onColorTap(index),
                 child: Container(
                   margin: EdgeInsets.only(left: 8),
                   decoration: BoxDecoration(
@@ -75,7 +86,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Container(
-                          width: DeviceSize.width(context) / 26,
+                          width: DeviceSize.width(context) / Dimensions.px26,
                           decoration: BoxDecoration(
                             color: colors[index],
                             borderRadius:

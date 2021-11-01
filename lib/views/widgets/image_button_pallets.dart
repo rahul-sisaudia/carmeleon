@@ -4,6 +4,7 @@ import 'package:carmeleon/aspects/dimensions/dimensions.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class ImageButtonPallets extends StatefulWidget {
   final DesignScreenProvider designScreenProvider;
@@ -31,13 +32,12 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
             children: [
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    if (!widget.designScreenProvider.isRimSelected)
-                      widget.designScreenProvider.isRimSelected = true;
-                    else {
-                      widget.designScreenProvider.isRimSelected = false;
-                    }
-                  });
+                  if (!widget.designScreenProvider.isRimSelected) {
+                    widget.designScreenProvider.isRimSelected = true;
+                  } else {
+                    widget.designScreenProvider.isRimSelected = false;
+                  }
+                  setState(() {});
                 },
                 child: _buildButtonPalletsView(
                   widget.designScreenProvider.isRimSelected
@@ -55,13 +55,12 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
               ),
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    if (!widget.designScreenProvider.isBodySelected)
-                      widget.designScreenProvider.isBodySelected = true;
-                    else {
-                      widget.designScreenProvider.isBodySelected = false;
-                    }
-                  });
+                  if (!widget.designScreenProvider.isBodySelected) {
+                    widget.designScreenProvider.isBodySelected = true;
+                  } else {
+                    widget.designScreenProvider.isBodySelected = false;
+                  }
+                  setState(() {});
                 },
                 child: _buildButtonPalletsView(
                   widget.designScreenProvider.isBodySelected
@@ -89,7 +88,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
               ),
               GestureDetector(
                 onTap: () {
-                  print('tap 3 gesture');
+                  Share.share('Share Carmeleon App');
                 },
                 child: _buildButtonPalletsView(
                   const Icon(
@@ -101,7 +100,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
               ),
               GestureDetector(
                 onTap: () {
-                  print('tap 4 gesture');
+                  print('tap undo Btn gesture');
                 },
                 child: _buildButtonPalletsView(
                   const Icon(

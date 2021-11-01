@@ -29,7 +29,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
+    return ChangeNotifierProvider<DesignScreenProvider>.value(
       value: designScreenProvider,
       child: Consumer<DesignScreenProvider>(
         builder: (_, _designScreenProvider, __) {
@@ -61,7 +61,9 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                 if (_isVisible)
                   ImageButtonPallets(
                       designScreenProvider: _designScreenProvider),
-                if (_isVisible)
+                if (_isVisible &&
+                    (_designScreenProvider.isRimSelected ||
+                        _designScreenProvider.isBodySelected))
                   ColorPallets(designScreenProvider: _designScreenProvider),
               ],
             ),
