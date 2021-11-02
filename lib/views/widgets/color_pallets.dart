@@ -43,8 +43,6 @@ class _ColorPalletsState extends State<ColorPallets> {
       print('${historyList[i].bodyPart}:' + '${historyList[i].colorCode}');
     }
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    setState(() {});
   }
 
   @override

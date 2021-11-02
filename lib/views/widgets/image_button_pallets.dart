@@ -37,7 +37,6 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
                   } else {
                     widget.designScreenProvider.isRimSelected = false;
                   }
-                  setState(() {});
                 },
                 child: _buildButtonPalletsView(
                   widget.designScreenProvider.isRimSelected
@@ -60,7 +59,6 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
                   } else {
                     widget.designScreenProvider.isBodySelected = false;
                   }
-                  setState(() {});
                 },
                 child: _buildButtonPalletsView(
                   widget.designScreenProvider.isBodySelected

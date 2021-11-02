@@ -18,7 +18,6 @@ class DisplayPictureScreen extends StatefulWidget {
 }
 
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
-  bool _isVisible = true;
   late DesignScreenProvider designScreenProvider;
 
   @override
@@ -38,13 +37,11 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      if (!_isVisible)
-                        _isVisible = true;
-                      else {
-                        _isVisible = false;
-                      }
-                    });
+                    if (!_designScreenProvider.isOptionVisible)
+                      _designScreenProvider.isOptionVisible = true;
+                    else {
+                      _designScreenProvider.isOptionVisible = false;
+                    }
                   },
                   child: Container(
                     color: ColorConstants.white,
@@ -58,10 +55,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                     ),
                   ),
                 ),
-                if (_isVisible)
+                if (_designScreenProvider.isOptionVisible)
                   ImageButtonPallets(
                       designScreenProvider: _designScreenProvider),
-                if (_isVisible &&
+                if (_designScreenProvider.isOptionVisible &&
                     (_designScreenProvider.isRimSelected ||
                         _designScreenProvider.isBodySelected))
                   ColorPallets(designScreenProvider: _designScreenProvider),
