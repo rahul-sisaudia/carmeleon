@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:carmeleon/aspects/constants/color_constants.dart';
+import 'package:carmeleon/aspects/enum/body_enum.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:carmeleon/views/widgets/color_pallets.dart';
 import 'package:carmeleon/views/widgets/image_button_pallets.dart';
@@ -59,8 +60,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                   ImageButtonPallets(
                       designScreenProvider: _designScreenProvider),
                 if (_designScreenProvider.isOptionVisible &&
-                    (_designScreenProvider.isRimSelected ||
-                        _designScreenProvider.isBodySelected))
+                    (_designScreenProvider.bodyPart == CarEnum.carBody ||
+                        _designScreenProvider.bodyPart == CarEnum.carRim))
                   ColorPallets(designScreenProvider: _designScreenProvider),
               ],
             ),

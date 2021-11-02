@@ -1,6 +1,8 @@
 import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:carmeleon/aspects/dimensions/dimensions.dart';
+import 'package:carmeleon/aspects/enum/body_enum.dart';
+import 'package:carmeleon/core/history_list/history_list.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,23 @@ class ImageButtonPallets extends StatefulWidget {
 }
 
 class _ImageButtonPalletsState extends State<ImageButtonPallets> {
+  void onUndoBtnTap() {
+    if (HistoryList.historyList.isNotEmpty) {
+      HistoryList.historyList.removeLast();
+
+      //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      for (int i = 0; i < HistoryList.historyList.length; i++) {
+        print('${HistoryList.historyList[i].bodyPart} => ' +
+            '${HistoryList.historyList[i].colorCode}');
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(" History List is empty ")),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -32,14 +51,14 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
             children: [
               GestureDetector(
                 onTap: () {
-                  if (!widget.designScreenProvider.isRimSelected) {
-                    widget.designScreenProvider.isRimSelected = true;
+                  if (widget.designScreenProvider.bodyPart != CarEnum.carRim) {
+                    widget.designScreenProvider.bodyPart = CarEnum.carRim;
                   } else {
-                    widget.designScreenProvider.isRimSelected = false;
+                    widget.designScreenProvider.bodyPart = null;
                   }
                 },
                 child: _buildButtonPalletsView(
-                  widget.designScreenProvider.isRimSelected
+                  widget.designScreenProvider.bodyPart == CarEnum.carRim
                       ? const Icon(
                           Icons.stars_outlined,
                           size: Dimensions.px35,
@@ -54,14 +73,14 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
               ),
               GestureDetector(
                 onTap: () {
-                  if (!widget.designScreenProvider.isBodySelected) {
-                    widget.designScreenProvider.isBodySelected = true;
+                  if (widget.designScreenProvider.bodyPart != CarEnum.carBody) {
+                    widget.designScreenProvider.bodyPart = CarEnum.carBody;
                   } else {
-                    widget.designScreenProvider.isBodySelected = false;
+                    widget.designScreenProvider.bodyPart = null;
                   }
                 },
                 child: _buildButtonPalletsView(
-                  widget.designScreenProvider.isBodySelected
+                  widget.designScreenProvider.bodyPart == CarEnum.carBody
                       ? const Icon(
                           Icons.car_repair_rounded,
                           size: Dimensions.px35,
@@ -99,6 +118,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
               GestureDetector(
                 onTap: () {
                   print('tap undo Btn gesture');
+                  onUndoBtnTap();
                 },
                 child: _buildButtonPalletsView(
                   const Icon(

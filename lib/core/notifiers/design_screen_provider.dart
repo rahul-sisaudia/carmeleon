@@ -1,24 +1,18 @@
+import 'package:carmeleon/aspects/enum/body_enum.dart';
 import 'package:flutter/material.dart';
 
 class DesignScreenProvider extends ChangeNotifier {
-  bool _isRimSelected = false;
-  bool _isBodySelected = false;
+  CarEnum? _bodyPart;
   bool _isOptionVisible = false;
   int _selectedIndex = 0;
 
-  bool get isRimSelected => _isRimSelected;
+  CarEnum? get bodyPart => _bodyPart;
 
-  set isRimSelected(bool value) {
-    _isRimSelected = value;
+  set bodyPart(CarEnum? value) {
+    _bodyPart = value;
     notifyListeners();
   }
 
-  bool get isBodySelected => _isBodySelected;
-
-  set isBodySelected(bool value) {
-    _isBodySelected = value;
-    notifyListeners();
-  }
   bool get isOptionVisible => _isOptionVisible;
 
   set isOptionVisible(bool value) {
