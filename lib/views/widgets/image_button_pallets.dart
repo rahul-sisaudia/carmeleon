@@ -1,32 +1,32 @@
+import 'package:flutter/material.dart';
+import 'package:share/share.dart';
+
 import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:carmeleon/aspects/dimensions/dimensions.dart';
 import 'package:carmeleon/aspects/enum/body_enum.dart';
-import 'package:carmeleon/core/history_list/history_list.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:share/share.dart';
 
 class ImageButtonPallets extends StatefulWidget {
   final DesignScreenProvider designScreenProvider;
-  ImageButtonPallets({Key? key, required this.designScreenProvider})
-      : super(key: key);
+
+  ImageButtonPallets({required this.designScreenProvider});
+
   @override
   State<ImageButtonPallets> createState() => _ImageButtonPalletsState();
 }
 
 class _ImageButtonPalletsState extends State<ImageButtonPallets> {
   void onUndoBtnTap() {
-    if (HistoryList.historyList.isNotEmpty) {
-      HistoryList.historyList.removeLast();
-
-      //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-      for (int i = 0; i < HistoryList.historyList.length; i++) {
-        print('${HistoryList.historyList[i].bodyPart} => ' +
-            '${HistoryList.historyList[i].colorCode}');
-      }
+    if (widget.designScreenProvider.historyList.isNotEmpty) {
+      widget.designScreenProvider.historyList.removeLast();
+      //
+      // //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+      //
+      // for (int i = 0; i < widget.designScreenProvider.historyList.length; i++) {
+      //   print('${widget.designScreenProvider.historyList[i].bodyPart} => ' +
+      //       '${widget.designScreenProvider.historyList[i].colorCode}');
+      // }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(" History List is empty ")),

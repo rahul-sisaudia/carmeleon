@@ -1,10 +1,13 @@
-import 'package:carmeleon/aspects/enum/body_enum.dart';
 import 'package:flutter/material.dart';
+
+import 'package:carmeleon/aspects/enum/body_enum.dart';
+import 'package:carmeleon/core/modals/car_history_modal.dart';
 
 class DesignScreenProvider extends ChangeNotifier {
   CarEnum? _bodyPart;
-  bool _isOptionVisible = false;
-  int _selectedIndex = 0;
+  bool _isOptionVisible = true;
+  int? _currentBpSelectedIndex;
+  List<CarHistoryData> historyList = <CarHistoryData>[];
 
   CarEnum? get bodyPart => _bodyPart;
 
@@ -20,10 +23,10 @@ class DesignScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int get selectedIndex => _selectedIndex;
+  int? get selectedIndex => _currentBpSelectedIndex;
 
-  set selectedIndex(int value) {
-    _selectedIndex = value;
+  set selectedIndex(int? value) {
+    _currentBpSelectedIndex = value;
     notifyListeners();
   }
 }

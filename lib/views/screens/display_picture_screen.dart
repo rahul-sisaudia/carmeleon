@@ -12,25 +12,25 @@ import 'package:provider/provider.dart';
 class DisplayPictureScreen extends StatefulWidget {
   final String imagePath;
 
-  DisplayPictureScreen({Key? key, required this.imagePath}) : super(key: key);
+  DisplayPictureScreen({required this.imagePath});
 
   @override
   State<DisplayPictureScreen> createState() => _DisplayPictureScreenState();
 }
 
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
-  late DesignScreenProvider designScreenProvider;
+  late DesignScreenProvider _designScreenProvider;
 
   @override
   void initState() {
-    designScreenProvider = DesignScreenProvider();
+    _designScreenProvider = DesignScreenProvider();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<DesignScreenProvider>.value(
-      value: designScreenProvider,
+      value: _designScreenProvider,
       child: Consumer<DesignScreenProvider>(
         builder: (_, _designScreenProvider, __) {
           return Scaffold(
@@ -49,10 +49,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                     height: double.infinity,
                     width: double.infinity,
                     child: Image.file(
-                      File(
-                        widget.imagePath,
-                      ),
-                      fit: BoxFit.fill,
+                      File(widget.imagePath),
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),

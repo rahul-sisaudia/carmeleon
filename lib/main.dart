@@ -1,16 +1,18 @@
-import 'package:carmeleon/views/screens/take_picture_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'core/notifiers/design_screen_provider.dart';
+import 'package:carmeleon/views/screens/take_picture_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-  SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight])
-      .then((value) => runApp(MyApp()));
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

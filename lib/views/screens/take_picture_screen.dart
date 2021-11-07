@@ -1,8 +1,8 @@
 import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
+
 import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:carmeleon/views/widgets/camera_button_pallets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({Key? key}) : super(key: key);
@@ -14,69 +14,36 @@ class TakePictureScreen extends StatefulWidget {
 class _TakePictureScreenState extends State<TakePictureScreen>
     with WidgetsBindingObserver {
   CameraController? controller;
-  List<CameraDescription> cameras = [];
   Future<void>? _initializeControllerFuture;
-  int selectedCamera = 0;
-
-  Future<void> initializeCamera(int cameraIndex) async {
-    cameras = await availableCameras();
-    controller = CameraController(
-      cameras[cameraIndex],
-      ResolutionPreset.medium,
-    );
-
-    return controller!.initialize();
-  }
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
-    print("Init!");
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    _initializeControllerFuture = initializeCamera(0);
-    print("Camera Initializing ....");
+
+    WidgetsBinding.instance?.addObserver(this);
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+      _initializeControllerFuture = initializeCamera();
+
+      setState(() {});
+    });
   }
 
-  //ToDo: Implement camera re-initialization on AppState change.
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   // App state changed before we got the chance to initialize.
-  //   if (state == AppLifecycleState.paused) {
-  //     controller!.dispose();
-  //     print('AppLifecycleState:$state');
-  //   } else if (state == AppLifecycleState.resumed) {
-  //    initializeCamera(0);
-  //     print('AppLifecycleState:$state');
-  //   }
-  // }
+  Future<void> initializeCamera() async {
+    List<CameraDescription> _cameras = await availableCameras();
+    controller = CameraController(
+      _cameras.first,
+      ResolutionPreset.medium,
+    );
+
+    return controller?.initialize();
+  }
 
   @override
   void dispose() {
-    controller!.dispose();
-    WidgetsBinding.instance!.removeObserver(this);
+    controller?.dispose();
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
-  }
-
-  Widget getCameraPreview() {
-    final deviceRatio = DeviceSize.width(context) / DeviceSize.height(context);
-    final controllerAspectRatio = controller!.value.aspectRatio;
-    print(controller.toString());
-    return Stack(
-      children: <Widget>[
-        Center(
-          child: Transform.scale(
-            //ToDo: Test on more devices and screen sizes to confirm the scaling factor
-            scale: deviceRatio / controllerAspectRatio,
-            child: new AspectRatio(
-              aspectRatio: controllerAspectRatio,
-              child: new CameraPreview(controller!),
-            ),
-          ),
-        ),
-        CameraButtonPallets(_initializeControllerFuture!, controller!),
-      ],
-    );
   }
 
   @override
@@ -92,6 +59,26 @@ class _TakePictureScreenState extends State<TakePictureScreen>
           return Text("Camera Initializing...");
         },
       ),
+    );
+  }
+
+  Widget getCameraPreview() {
+    final deviceRatio = DeviceSize.width(context) / DeviceSize.height(context);
+    final controllerAspectRatio = controller?.value.aspectRatio ?? 1;
+
+    return Stack(
+      children: <Widget>[
+        Center(
+          child: Transform.scale(
+            scale: deviceRatio / controllerAspectRatio,
+            child: new AspectRatio(
+              aspectRatio: controllerAspectRatio,
+              child: new CameraPreview(controller!),
+            ),
+          ),
+        ),
+        CameraButtonPallets(_initializeControllerFuture!, controller!),
+      ],
     );
   }
 }

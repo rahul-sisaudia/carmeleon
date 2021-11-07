@@ -1,17 +1,16 @@
+import 'package:flutter/material.dart';
+
 import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:carmeleon/aspects/dimensions/dimensions.dart';
-import 'package:carmeleon/core/history_list/color_list.dart';
-import 'package:carmeleon/core/history_list/history_list.dart';
+import 'package:carmeleon/aspects/constants/color_list.dart';
 import 'package:carmeleon/core/modals/car_history_modal.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class ColorPallets extends StatefulWidget {
   final DesignScreenProvider designScreenProvider;
-  ColorPallets({Key? key, required this.designScreenProvider})
-      : super(key: key);
+
+  ColorPallets({required this.designScreenProvider});
 
   @override
   State<ColorPallets> createState() => _ColorPalletsState();
@@ -20,17 +19,17 @@ class ColorPallets extends StatefulWidget {
 class _ColorPalletsState extends State<ColorPallets> {
   void onColorBtnTap(int index) {
     widget.designScreenProvider.selectedIndex = index;
-    HistoryList.historyList.add(CarHistoryData(
-        colorCode: ColorList.colors[widget.designScreenProvider.selectedIndex]
-            .toString(),
-        bodyPart: widget.designScreenProvider.bodyPart));
+    final _hist = CarHistoryData(
+        colorCode: ColorList.colors[index].toString(),
+        bodyPart: widget.designScreenProvider.bodyPart);
+    widget.designScreenProvider.historyList.add(_hist);
 
-    //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    for (int i = 0; i < HistoryList.historyList.length; i++) {
-      print('${HistoryList.historyList[i].bodyPart} => ' +
-          '${HistoryList.historyList[i].colorCode}');
-    }
+    // //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //
+    // for (int i = 0; i < HistoryList.historyList.length; i++) {
+    //   print('${HistoryList.historyList[i].bodyPart} => ' +
+    //       '${HistoryList.historyList[i].colorCode}');
+    // }
   }
 
   @override
@@ -57,9 +56,12 @@ class _ColorPalletsState extends State<ColorPallets> {
                 child: Container(
                   margin: EdgeInsets.only(left: 8),
                   decoration: BoxDecoration(
-                    color: widget.designScreenProvider.selectedIndex == index
-                        ? ColorList.colors[index]
-                        : ColorConstants.white,
+                    color:
+                        ((widget.designScreenProvider.selectedIndex != null) &&
+                                (widget.designScreenProvider.selectedIndex ==
+                                    index))
+                            ? ColorList.colors[index]
+                            : ColorConstants.white,
                     borderRadius: BorderRadius.circular(Dimensions.px20),
                   ),
                   child: Padding(
