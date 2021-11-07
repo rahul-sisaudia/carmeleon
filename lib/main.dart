@@ -7,6 +7,7 @@ import 'package:carmeleon/views/screens/take_picture_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
