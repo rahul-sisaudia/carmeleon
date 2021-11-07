@@ -1,26 +1,56 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:camera/camera.dart';
-import 'package:carmeleon/utils/color_constants.dart';
-import 'package:carmeleon/utils/device_size.dart';
+import 'package:carmeleon/aspects/constants/color_constants.dart';
+import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../display_image.dart';
+import '../../views/screens/display_picture_screen.dart';
 
 class CameraButtonPallets extends StatefulWidget {
-  CameraButtonPallets(this._initializeControllerFuture, this._controller);
-  CameraController _controller;
-  Future<void> _initializeControllerFuture;
+  final CameraController cameraController;
+  final Future<void> _initializeControllerFuture;
+
+  CameraButtonPallets(this._initializeControllerFuture, this.cameraController);
+
   @override
   State<CameraButtonPallets> createState() => _CameraButtonPalletsState();
 }
 
 class _CameraButtonPalletsState extends State<CameraButtonPallets> {
-  final picker = ImagePicker();
-  Future getImage() async {
-    final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+  final ImagePicker _picker = ImagePicker();
+
+  Future _getImageFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     return pickedFile;
+  }
+
+  _cameraBtnClicked() async {
+    try {
+      await widget._initializeControllerFuture;
+      widget.cameraController.setFlashMode(FlashMode.off);
+      final image = await widget.cameraController.takePicture();
+      final _route = MaterialPageRoute(
+        builder: (context) => DisplayPictureScreen(imagePath: image.path),
+      );
+      Navigator.of(context).push(_route);
+    } catch (e) {
+      print('_cameraBtnClicked error: $e');
+    }
+  }
+
+  _libraryBtnClicked() async {
+    try {
+      await widget._initializeControllerFuture;
+      final image = await _getImageFromGallery();
+      if (image != null) {
+        final _route = MaterialPageRoute(
+          builder: (context) => DisplayPictureScreen(imagePath: image.path),
+        );
+        await Navigator.of(context).push(_route);
+      }
+    } catch (e) {
+      print('_libraryBtnClicked error: $e');
+    }
   }
 
   @override
@@ -40,22 +70,7 @@ class _CameraButtonPalletsState extends State<CameraButtonPallets> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: () async {
-                  try {
-                    await widget._initializeControllerFuture;
-                    widget._controller.setFlashMode(FlashMode.off);
-                    final image = await widget._controller.takePicture();
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => DisplayPictureScreen(
-                          imagePath: image.path,
-                        ),
-                      ),
-                    );
-                  } catch (e) {
-                    print(e);
-                  }
-                },
+                onTap: _cameraBtnClicked,
                 child: Container(
                   decoration: BoxDecoration(
                     color: ColorConstants.white,
@@ -68,26 +83,9 @@ class _CameraButtonPalletsState extends State<CameraButtonPallets> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               GestureDetector(
-                onTap: () async {
-                  try {
-                    await widget._initializeControllerFuture;
-                    final image = await getImage();
-                    if (image != null)
-                      await Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => DisplayPictureScreen(
-                            imagePath: image.path,
-                          ),
-                        ),
-                      );
-                  } catch (e) {
-                    print(e);
-                  }
-                },
+                onTap: _libraryBtnClicked,
                 child: Container(
                   decoration: BoxDecoration(
                     color: ColorConstants.white,

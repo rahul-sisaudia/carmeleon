@@ -1,29 +1,35 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'camera/camera_stream.dart';
-import 'notifier/provider.dart';
+import 'core/notifiers/design_screen_provider.dart';
+import 'package:carmeleon/views/screens/take_picture_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
-  final cameras = await availableCameras();
-  final firstCamera = cameras.first;
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
+  runApp(MyApp());
+}
 
-  runApp(
-    MultiProvider(
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ButtonController>(
-            create: (_) => ButtonController()),
+        ChangeNotifierProvider(create: (_) => DesignScreenProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: TakePictureScreen(camera: firstCamera),
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: TakePictureScreen(),
       ),
-    ),
-  );
+    );
+  }
 }
