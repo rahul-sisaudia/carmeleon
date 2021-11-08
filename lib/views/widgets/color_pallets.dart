@@ -43,14 +43,14 @@ class _ColorPalletsState extends State<ColorPallets> {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Container(
-              height: DeviceSize.height(context) / Dimensions.px10,
+              height: DeviceSize.height(context) / Dimensions.px9,
               decoration: BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.circular(Dimensions.px10),
               ),
               child: const Icon(
                 Icons.chevron_left,
-                size: Dimensions.px20,
+                size: Dimensions.px25,
                 color: Colors.black,
               ),
             ),
@@ -146,14 +146,14 @@ class _ColorPalletsState extends State<ColorPallets> {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Container(
-              height: DeviceSize.height(context) / Dimensions.px10,
+              height: DeviceSize.height(context) / Dimensions.px9,
               decoration: BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.circular(Dimensions.px10),
               ),
               child: const Icon(
                 Icons.chevron_right,
-                size: Dimensions.px20,
+                size: Dimensions.px25,
                 color: Colors.black,
               ),
             ),
