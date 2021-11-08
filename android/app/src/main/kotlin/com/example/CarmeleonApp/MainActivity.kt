@@ -1,4 +1,4 @@
-package com.example.carmeleon
+package me.carmeleon.app
 
 import io.flutter.embedding.android.FlutterActivity
 

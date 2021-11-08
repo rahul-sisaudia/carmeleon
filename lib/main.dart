@@ -1,14 +1,16 @@
+import 'package:carmeleon/views/screens/CameraPreview.dart';
+import 'package:carmeleon/views/screens/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'core/notifiers/design_screen_provider.dart';
-import 'package:carmeleon/views/screens/take_picture_screen.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  // Enable full screen mode for the app
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  // Fix camera orientation
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
@@ -24,11 +26,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DesignScreenProvider()),
       ],
       child: MaterialApp(
+        title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: TakePictureScreen(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => SplashScreen(),
+          '/cameraPreview/': (context) => CameraPreviewScreen(),
+        },
       ),
     );
   }

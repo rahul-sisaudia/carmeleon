@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:carmeleon/views/widgets/camera_button_pallets.dart';
 
-class TakePictureScreen extends StatefulWidget {
-  const TakePictureScreen({Key? key}) : super(key: key);
+class CameraPreviewScreen extends StatefulWidget {
+  const CameraPreviewScreen({Key? key}) : super(key: key);
 
   @override
-  _TakePictureScreenState createState() => _TakePictureScreenState();
+  _CameraPreviewScreenState createState() => _CameraPreviewScreenState();
 }
 
-class _TakePictureScreenState extends State<TakePictureScreen>
+class _CameraPreviewScreenState extends State<CameraPreviewScreen>
     with WidgetsBindingObserver {
   CameraController? controller;
   Future<void>? _initializeControllerFuture;
