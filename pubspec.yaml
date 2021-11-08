@@ -37,7 +37,7 @@ dev_dependencies:
   
 flutter_native_splash:
   color: "#ffffff"
-  image: "Images/logo.png"
+  image: "assets/images/logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -52,7 +52,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - Images/logo.png
+    - assets/images/logo.png
     # - Images/signup.gif
     # - Images/login.gif
     # - Images/facebook.png
@@ -76,7 +76,7 @@ flutter:
   fonts:
     - family: Schyler
       fonts:
-         - asset: Fonts/Lily.ttf
+         - asset: assets/fonts/Lily.ttf
            style: italic
   #   - family: Trajan Pro
   #     fonts:

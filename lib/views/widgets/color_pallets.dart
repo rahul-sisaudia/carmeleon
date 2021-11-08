@@ -38,57 +38,127 @@ class _ColorPalletsState extends State<ColorPallets> {
       left: 10,
       right: 10,
       top: DeviceSize.height(context) / 1.18,
-      child: Container(
-        height: DeviceSize.height(context) / Dimensions.px7,
-        decoration: BoxDecoration(
-          color: Colors.white54,
-          borderRadius: BorderRadius.circular(Dimensions.px20),
-        ),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 9,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => onColorBtnTap(index),
-                child: Container(
-                  margin: EdgeInsets.only(left: 8),
-                  decoration: BoxDecoration(
-                    color:
-                        ((widget.designScreenProvider.selectedIndex != null) &&
-                                (widget.designScreenProvider.selectedIndex ==
-                                    index))
-                            ? ColorList.colors[index]
-                            : ColorConstants.white,
-                    borderRadius: BorderRadius.circular(Dimensions.px20),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: ColorConstants.white,
-                        borderRadius: BorderRadius.circular(Dimensions.px20),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          width: DeviceSize.width(context) / Dimensions.px26,
-                          decoration: BoxDecoration(
-                            color: ColorList.colors[index],
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.px40),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              height: DeviceSize.height(context) / Dimensions.px10,
+              decoration: BoxDecoration(
+                color: Colors.white54,
+                borderRadius: BorderRadius.circular(Dimensions.px10),
+              ),
+              child: const Icon(
+                Icons.chevron_left,
+                size: Dimensions.px20,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              height: DeviceSize.height(context) / Dimensions.px7,
+              decoration: BoxDecoration(
+                color: Colors.white54,
+                borderRadius: BorderRadius.circular(Dimensions.px20),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 10, right: 10, top: 5, bottom: 5),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        print('Tap Add color Btn');
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                          color: ColorConstants.white,
+                          borderRadius: BorderRadius.circular(Dimensions.px20),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Container(
+                            //width: DeviceSize.width(context) / Dimensions.px26,
+                            child: const Icon(
+                              Icons.add,
+                              size: Dimensions.px42,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
+                    Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 9,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () => onColorBtnTap(index),
+                            child: Container(
+                              margin: EdgeInsets.only(left: 8),
+                              decoration: BoxDecoration(
+                                color: ((widget.designScreenProvider
+                                                .selectedIndex !=
+                                            null) &&
+                                        (widget.designScreenProvider
+                                                .selectedIndex ==
+                                            index))
+                                    ? ColorList.colors[index]
+                                    : ColorConstants.white,
+                                borderRadius:
+                                    BorderRadius.circular(Dimensions.px20),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: ColorConstants.white,
+                                    borderRadius:
+                                        BorderRadius.circular(Dimensions.px20),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Container(
+                                      width: DeviceSize.width(context) /
+                                          Dimensions.px26,
+                                      decoration: BoxDecoration(
+                                        color: ColorList.colors[index],
+                                        borderRadius: BorderRadius.circular(
+                                            Dimensions.px40),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              );
-            },
+              ),
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              height: DeviceSize.height(context) / Dimensions.px10,
+              decoration: BoxDecoration(
+                color: Colors.white54,
+                borderRadius: BorderRadius.circular(Dimensions.px10),
+              ),
+              child: const Icon(
+                Icons.chevron_right,
+                size: Dimensions.px20,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
