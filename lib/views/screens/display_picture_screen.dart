@@ -10,9 +10,13 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class DisplayPictureScreen extends StatefulWidget {
+  final bool isColorPicker;
   final String imagePath;
 
-  DisplayPictureScreen({required this.imagePath});
+  DisplayPictureScreen({
+    required this.imagePath,
+    required this.isColorPicker,
+  });
 
   @override
   State<DisplayPictureScreen> createState() => _DisplayPictureScreenState();
@@ -56,10 +60,13 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                 ),
                 if (_designScreenProvider.isOptionVisible)
                   ImageButtonPallets(
-                      designScreenProvider: _designScreenProvider),
+                    designScreenProvider: _designScreenProvider,
+                    isColorPicker: widget.isColorPicker,
+                  ),
                 if (_designScreenProvider.isOptionVisible &&
                     (_designScreenProvider.bodyPart == CarEnum.carBody ||
-                        _designScreenProvider.bodyPart == CarEnum.carRim))
+                        _designScreenProvider.bodyPart == CarEnum.carRim ||
+                        _designScreenProvider.isDoneBtnClicked))
                   ColorPallets(designScreenProvider: _designScreenProvider),
               ],
             ),

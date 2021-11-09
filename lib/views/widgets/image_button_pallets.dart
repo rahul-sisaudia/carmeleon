@@ -1,4 +1,7 @@
+import 'package:carmeleon/views/screens/CameraPreview.dart';
+import 'package:carmeleon/views/screens/display_picture_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:share/share.dart';
 
 import 'package:carmeleon/aspects/constants/color_constants.dart';
@@ -7,26 +10,198 @@ import 'package:carmeleon/aspects/dimensions/dimensions.dart';
 import 'package:carmeleon/aspects/enum/body_enum.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 
+import 'color_picker_Button_pallets.dart';
+
 class ImageButtonPallets extends StatefulWidget {
+  final bool isColorPicker;
   final DesignScreenProvider designScreenProvider;
 
-  ImageButtonPallets({required this.designScreenProvider});
+  ImageButtonPallets({
+    required this.designScreenProvider,
+    required this.isColorPicker,
+  });
 
   @override
   State<ImageButtonPallets> createState() => _ImageButtonPalletsState();
 }
 
 class _ImageButtonPalletsState extends State<ImageButtonPallets> {
+  final ImagePicker _picker = ImagePicker();
+
+  _buildDesignScreenButtonPallets() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: () {
+            if (widget.designScreenProvider.bodyPart != CarEnum.carRim) {
+              widget.designScreenProvider.bodyPart = CarEnum.carRim;
+            } else {
+              widget.designScreenProvider.bodyPart = null;
+            }
+          },
+          child: _buildButtonPalletsView(
+            widget.designScreenProvider.bodyPart == CarEnum.carRim
+                ? const Icon(
+                    Icons.stars_outlined,
+                    size: Dimensions.px35,
+                    color: Colors.blue,
+                  )
+                : const Icon(
+                    Icons.stars_outlined,
+                    size: Dimensions.px35,
+                    color: Colors.black,
+                  ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            if (widget.designScreenProvider.bodyPart != CarEnum.carBody) {
+              widget.designScreenProvider.bodyPart = CarEnum.carBody;
+            } else {
+              widget.designScreenProvider.bodyPart = null;
+            }
+          },
+          child: _buildButtonPalletsView(
+            widget.designScreenProvider.bodyPart == CarEnum.carBody
+                ? const Icon(
+                    Icons.car_repair_rounded,
+                    size: Dimensions.px35,
+                    color: Colors.blue,
+                  )
+                : const Icon(
+                    Icons.car_repair_rounded,
+                    size: Dimensions.px35,
+                    color: Colors.black,
+                  ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {},
+          child: _buildButtonPalletsView(
+            const Icon(
+              Icons.save,
+              size: Dimensions.px35,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Share.share('Share Carmeleon App');
+          },
+          child: _buildButtonPalletsView(
+            const Icon(
+              Icons.share,
+              size: Dimensions.px35,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            onUndoBtnTap();
+          },
+          child: _buildButtonPalletsView(
+            const Icon(
+              Icons.undo_rounded,
+              size: Dimensions.px35,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _buildColorPickerScreenButtonPallets() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: _cameraBtnClicked,
+          child: _buildButtonPalletsView(
+            const Icon(
+              Icons.camera_enhance_outlined,
+              size: Dimensions.px35,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: _libraryBtnClicked,
+          child: _buildButtonPalletsView(
+            const Icon(
+              Icons.photo_library_outlined,
+              size: Dimensions.px35,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {},
+          child: _buildButtonPalletsView(
+            const Icon(
+              Icons.delete_outline,
+              size: Dimensions.px35,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            widget.designScreenProvider.isDoneBtnClicked = true;
+          },
+          child: _buildButtonPalletsView(
+            const Icon(
+              Icons.done_rounded,
+              size: Dimensions.px35,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _cameraBtnClicked() async {
+    try {
+      final _route = MaterialPageRoute(
+        builder: (context) => CameraPreviewScreen(
+          isColorPicker: widget.isColorPicker,
+        ),
+      );
+      Navigator.of(context).push(_route);
+    } catch (e) {
+      print('_cameraBtnClicked error: $e');
+    }
+  }
+
+  _libraryBtnClicked() async {
+    try {
+      final image = await _getImageFromGallery();
+      if (image != null) {
+        final _route = MaterialPageRoute(
+          builder: (context) => DisplayPictureScreen(
+            imagePath: image.path,
+            isColorPicker: widget.isColorPicker,
+          ),
+        );
+        await Navigator.of(context).push(_route);
+      }
+    } catch (e) {
+      print('_libraryBtnClicked error: $e');
+    }
+  }
+
+  Future _getImageFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    return pickedFile;
+  }
+
   void onUndoBtnTap() {
     if (widget.designScreenProvider.historyList.isNotEmpty) {
       widget.designScreenProvider.historyList.removeLast();
-      //
-      // //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-      //
-      // for (int i = 0; i < widget.designScreenProvider.historyList.length; i++) {
-      //   print('${widget.designScreenProvider.historyList[i].bodyPart} => ' +
-      //       '${widget.designScreenProvider.historyList[i].colorCode}');
-      // }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(" History List is empty ")),
@@ -37,8 +212,10 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      right: 10,
-      top: DeviceSize.height(context) / Dimensions.px5,
+      right: Dimensions.px10,
+      top: widget.designScreenProvider.isDoneBtnClicked
+          ? DeviceSize.height(context) / 3.2
+          : DeviceSize.height(context) / Dimensions.px5,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,
@@ -46,90 +223,11 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
         ),
         child: Padding(
           padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  if (widget.designScreenProvider.bodyPart != CarEnum.carRim) {
-                    widget.designScreenProvider.bodyPart = CarEnum.carRim;
-                  } else {
-                    widget.designScreenProvider.bodyPart = null;
-                  }
-                },
-                child: _buildButtonPalletsView(
-                  widget.designScreenProvider.bodyPart == CarEnum.carRim
-                      ? const Icon(
-                          Icons.stars_outlined,
-                          size: Dimensions.px35,
-                          color: Colors.blue,
-                        )
-                      : const Icon(
-                          Icons.stars_outlined,
-                          size: Dimensions.px35,
-                          color: Colors.black,
-                        ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (widget.designScreenProvider.bodyPart != CarEnum.carBody) {
-                    widget.designScreenProvider.bodyPart = CarEnum.carBody;
-                  } else {
-                    widget.designScreenProvider.bodyPart = null;
-                  }
-                },
-                child: _buildButtonPalletsView(
-                  widget.designScreenProvider.bodyPart == CarEnum.carBody
-                      ? const Icon(
-                          Icons.car_repair_rounded,
-                          size: Dimensions.px35,
-                          color: Colors.blue,
-                        )
-                      : const Icon(
-                          Icons.car_repair_rounded,
-                          size: Dimensions.px35,
-                          color: Colors.black,
-                        ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {},
-                child: _buildButtonPalletsView(
-                  const Icon(
-                    Icons.save,
-                    size: Dimensions.px35,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Share.share('Share Carmeleon App');
-                },
-                child: _buildButtonPalletsView(
-                  const Icon(
-                    Icons.share,
-                    size: Dimensions.px35,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  print('tap undo Btn gesture');
-                  onUndoBtnTap();
-                },
-                child: _buildButtonPalletsView(
-                  const Icon(
-                    Icons.undo_rounded,
-                    size: Dimensions.px35,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          child: widget.isColorPicker
+              ? widget.designScreenProvider.isDoneBtnClicked
+                  ? ColorPickerButtonPallets()
+                  : _buildColorPickerScreenButtonPallets()
+              : _buildDesignScreenButtonPallets(),
         ),
       ),
     );
@@ -137,11 +235,11 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
 
   _buildButtonPalletsView(Widget icon) {
     return Padding(
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(Dimensions.px5),
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.white,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(Dimensions.px10),
         ),
         child: Padding(
           padding: const EdgeInsets.all(2),

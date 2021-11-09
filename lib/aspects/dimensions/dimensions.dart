@@ -11,7 +11,9 @@ class Dimensions {
   static const double px10 = 10;
   static const double px15 = 15;
   static const double px20 = 20;
+  static const double px25 = 25;
   static const double px26 = 26;
   static const double px35 = 35;
   static const double px40 = 40;
+  static const double px42 = 42;
 }

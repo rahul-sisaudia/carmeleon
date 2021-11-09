@@ -5,7 +5,8 @@ import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:carmeleon/views/widgets/camera_button_pallets.dart';
 
 class CameraPreviewScreen extends StatefulWidget {
-  const CameraPreviewScreen({Key? key}) : super(key: key);
+  final bool isColorPicker;
+  CameraPreviewScreen({required this.isColorPicker});
 
   @override
   _CameraPreviewScreenState createState() => _CameraPreviewScreenState();
@@ -77,7 +78,8 @@ class _CameraPreviewScreenState extends State<CameraPreviewScreen>
             ),
           ),
         ),
-        CameraButtonPallets(_initializeControllerFuture!, controller!),
+        CameraButtonPallets(
+            _initializeControllerFuture!, controller!, widget.isColorPicker),
       ],
     );
   }

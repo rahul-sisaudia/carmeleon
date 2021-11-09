@@ -5,6 +5,7 @@ import 'package:carmeleon/core/modals/car_history_modal.dart';
 
 class DesignScreenProvider extends ChangeNotifier {
   CarEnum? _bodyPart;
+  bool _isDoneBtnClicked = false;
   bool _isOptionVisible = true;
   int? _currentBpSelectedIndex;
   List<CarHistoryData> historyList = <CarHistoryData>[];
@@ -13,6 +14,13 @@ class DesignScreenProvider extends ChangeNotifier {
 
   set bodyPart(CarEnum? value) {
     _bodyPart = value;
+    notifyListeners();
+  }
+
+  bool get isDoneBtnClicked => _isDoneBtnClicked;
+
+  set isDoneBtnClicked(bool value) {
+    _isDoneBtnClicked = value;
     notifyListeners();
   }
 
