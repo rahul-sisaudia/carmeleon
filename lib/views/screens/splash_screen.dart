@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:carmeleon/aspects/constants/image_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Center(
             child: Image.asset(
-              'assets/images/logo.png',
+              ImageConstants.imageSplashScreenPng,
               height: 300.0,
               width: 300.0,
             ),
