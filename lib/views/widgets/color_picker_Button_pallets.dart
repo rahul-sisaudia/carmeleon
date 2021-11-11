@@ -1,30 +1,31 @@
 import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/aspects/dimensions/dimensions.dart';
+import 'package:cyclop/cyclop.dart';
 import 'package:flutter/material.dart';
 
 class ColorPickerButtonPallets extends StatefulWidget {
-  const ColorPickerButtonPallets({Key? key}) : super(key: key);
-
   @override
   _ColorPickerButtonPalletsState createState() =>
       _ColorPickerButtonPalletsState();
 }
 
 class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
+  Color backgroundColor = ColorConstants.yellow;
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        GestureDetector(
-          onTap: () {},
-          child: _buildButtonPalletsView(
-            const Icon(
-              Icons.push_pin_outlined,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
-          ),
+        _buildButtonPalletsView(
+          EyedropperButton(
+              iconColor: ColorConstants.black,
+              icon: Icons.colorize,
+              onColor: (value) {
+                setState(() {
+                  backgroundColor = value;
+                  print('########################## $backgroundColor');
+                });
+              }),
         ),
         GestureDetector(
           onTap: () {
