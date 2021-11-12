@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/aspects/constants/device_size.dart';
+import 'package:carmeleon/core/helpers/helper_imports.dart';
 import 'package:carmeleon/views/screens/display_picture_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CameraButtonPallets extends StatefulWidget {
   final CameraController cameraController;
@@ -20,72 +21,20 @@ class CameraButtonPallets extends StatefulWidget {
 
 class _CameraButtonPalletsState extends State<CameraButtonPallets> {
   final ImagePicker _picker = ImagePicker();
-  File? imageFile;
-
-  Future<void> _cropImage() async {
-    File? croppedFile = await ImageCropper.cropImage(
-        sourcePath: imageFile!.path,
-        aspectRatioPresets: Platform.isAndroid
-            ? [
-                CropAspectRatioPreset.square,
-                CropAspectRatioPreset.ratio3x2,
-                CropAspectRatioPreset.original,
-                CropAspectRatioPreset.ratio4x3,
-                CropAspectRatioPreset.ratio16x9
-              ]
-            : [
-                CropAspectRatioPreset.original,
-                CropAspectRatioPreset.square,
-                CropAspectRatioPreset.ratio3x2,
-                CropAspectRatioPreset.ratio4x3,
-                CropAspectRatioPreset.ratio5x3,
-                CropAspectRatioPreset.ratio5x4,
-                CropAspectRatioPreset.ratio7x5,
-                CropAspectRatioPreset.ratio16x9
-              ],
-        androidUiSettings: const AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: Colors.deepOrange,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false),
-        iosUiSettings: const IOSUiSettings(
-          title: 'Cropper',
-        ));
-    if (croppedFile != null) {
-      imageFile = croppedFile;
-      setState(() {});
-    }
-  }
-
-  Future _getImageFromGallery() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    imageFile = pickedFile != null ? File(pickedFile.path) : null;
-    if (imageFile != null) {
-      _cropImage().then((value) {
-        final _route = MaterialPageRoute(
-          builder: (context) =>
-              DisplayPictureScreen(imagePath: imageFile!.path),
-        );
-        Navigator.of(context).push(_route);
-      });
-    }
-  }
 
   _cameraBtnClicked() async {
     try {
       await widget._initializeControllerFuture;
       widget.cameraController.setFlashMode(FlashMode.off);
-      final pickedFile = await widget.cameraController.takePicture();
-      imageFile = pickedFile != null ? File(pickedFile.path) : null;
-      if (imageFile != null) {
-        _cropImage().then((value) {
-          final _route = MaterialPageRoute(
-            builder: (context) =>
-                DisplayPictureScreen(imagePath: imageFile!.path),
+      final _pickedFile = await widget.cameraController.takePicture();
+      File? _imageFile = _pickedFile != null ? File(_pickedFile.path) : null;
+      if (_imageFile != null) {
+        final _croppedFile = await AppHelper.cropImage(_imageFile);
+        if (_croppedFile != null)
+          RoutingHelper.pushToScreen(
+            ctx: context,
+            screen: DisplayPictureScreen(imagePath: _croppedFile.path),
           );
-          Navigator.of(context).push(_route);
-        });
       }
     } catch (e) {
       print('_cameraBtnClicked error: $e');
@@ -95,12 +44,15 @@ class _CameraButtonPalletsState extends State<CameraButtonPallets> {
   _libraryBtnClicked() async {
     try {
       await widget._initializeControllerFuture;
-      final image = await _getImageFromGallery();
-      if (image != null) {
-        final _route = MaterialPageRoute(
-          builder: (context) => DisplayPictureScreen(imagePath: image.path),
-        );
-        await Navigator.of(context).push(_route);
+      final _pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      File? _imageFile = _pickedFile != null ? File(_pickedFile.path) : null;
+      if (_imageFile != null) {
+        final _croppedFile = await AppHelper.cropImage(_imageFile);
+        if (_croppedFile != null)
+          RoutingHelper.pushToScreen(
+            ctx: context,
+            screen: DisplayPictureScreen(imagePath: _croppedFile.path),
+          );
       }
     } catch (e) {
       print('_libraryBtnClicked error: $e');
