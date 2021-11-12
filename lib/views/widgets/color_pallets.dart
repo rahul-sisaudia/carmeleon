@@ -5,13 +5,20 @@ import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:carmeleon/aspects/dimensions/dimensions.dart';
 import 'package:carmeleon/aspects/constants/color_list.dart';
-import 'package:carmeleon/core/modals/car_history_modal.dart';
-import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 
 class ColorPallets extends StatefulWidget {
-  final DesignScreenProvider designScreenProvider;
+  final bool isShowAddColorBtn;
+  final bool isColorPicker;
+  final bool isDoneBtnClicked;
+  dynamic selectedIndex;
+  final List hist;
 
-  ColorPallets({required this.designScreenProvider});
+  ColorPallets(
+      {this.selectedIndex,
+      this.isShowAddColorBtn = false,
+      required this.hist,
+      this.isColorPicker = false,
+      this.isDoneBtnClicked = false});
 
   @override
   State<ColorPallets> createState() => _ColorPalletsState();
@@ -19,13 +26,14 @@ class ColorPallets extends StatefulWidget {
 
 class _ColorPalletsState extends State<ColorPallets> {
   void onColorBtnTap(int index) {
-    widget.designScreenProvider.selectedIndex = index;
-    if (!widget.designScreenProvider.isDoneBtnClicked) {
-      final _hist = CarHistoryData(
-          colorCode: ColorList.colors[index].toString(),
-          bodyPart: widget.designScreenProvider.bodyPart);
-      widget.designScreenProvider.historyList.add(_hist);
-    }
+    widget.selectedIndex = index;
+    setState(() {});
+    // if (!widget.isDoneBtnClicked) {
+    //   final _hist = CarHistoryData(
+    //       colorCode: ColorList.colors[index].toString(),
+    //       bodyPart: widget.designScreenProvider.bodyPart);
+    //   widget.designScreenProvider.historyList.add(_hist);
+    // }
 
     // //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     //
@@ -70,7 +78,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                     left: 10, right: 10, top: 5, bottom: 5),
                 child: Row(
                   children: [
-                    widget.designScreenProvider.isDoneBtnClicked
+                    widget.isColorPicker
                         ? Container()
                         : GestureDetector(
                             onTap: () async {
@@ -110,12 +118,8 @@ class _ColorPalletsState extends State<ColorPallets> {
                             child: Container(
                               margin: EdgeInsets.only(left: 8),
                               decoration: BoxDecoration(
-                                color: ((widget.designScreenProvider
-                                                .selectedIndex !=
-                                            null) &&
-                                        (widget.designScreenProvider
-                                                .selectedIndex ==
-                                            index))
+                                color: ((widget.selectedIndex != null) &&
+                                        (widget.selectedIndex == index))
                                     ? ColorList.colors[index]
                                     : ColorConstants.white,
                                 borderRadius:

@@ -34,7 +34,9 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => SplashScreen(),
-          '/cameraPreview/': (context) => CameraPreviewScreen(isColorPicker: false,),
+          '/cameraPreview/': (context) => CameraPreviewScreen(
+                isColorPicker: false,
+              ),
         },
       ),
     );

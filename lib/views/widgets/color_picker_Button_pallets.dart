@@ -3,6 +3,8 @@ import 'package:carmeleon/aspects/dimensions/dimensions.dart';
 import 'package:cyclop/cyclop.dart';
 import 'package:flutter/material.dart';
 
+import 'build_buttons_view.dart';
+
 class ColorPickerButtonPallets extends StatefulWidget {
   @override
   _ColorPickerButtonPalletsState createState() =>
@@ -16,22 +18,25 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        _buildButtonPalletsView(
+        BuildButtonsView().buildButtonPalletsView(
           EyedropperButton(
-              iconColor: ColorConstants.black,
-              icon: Icons.colorize,
-              onColor: (value) {
-                setState(() {
+            iconColor: ColorConstants.black,
+            icon: Icons.colorize,
+            onColor: (value) {
+              setState(
+                () {
                   backgroundColor = value;
-                  print('########################## $backgroundColor');
-                });
-              }),
+                  print('########################## ColorCode: $backgroundColor');
+                },
+              );
+            },
+          ),
         ),
         GestureDetector(
           onTap: () {
             //implement color save functionality
           },
-          child: _buildButtonPalletsView(
+          child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.delete_outline,
               size: Dimensions.px35,
@@ -41,7 +46,7 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
         ),
         GestureDetector(
           onTap: () {},
-          child: _buildButtonPalletsView(
+          child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.done_rounded,
               size: Dimensions.px35,
@@ -50,22 +55,6 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
           ),
         ),
       ],
-    );
-  }
-
-  _buildButtonPalletsView(Widget icon) {
-    return Padding(
-      padding: const EdgeInsets.all(Dimensions.px5),
-      child: Container(
-        decoration: BoxDecoration(
-          color: ColorConstants.white,
-          borderRadius: BorderRadius.circular(Dimensions.px10),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(2),
-          child: icon,
-        ),
-      ),
     );
   }
 }

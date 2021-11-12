@@ -48,7 +48,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                         _designScreenProvider.isOptionVisible = true;
                       else {
                         _designScreenProvider.isOptionVisible = false;
-                        
                       }
                     },
                     child: Container(
@@ -70,7 +69,12 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                       (_designScreenProvider.bodyPart == CarEnum.carBody ||
                           _designScreenProvider.bodyPart == CarEnum.carRim ||
                           _designScreenProvider.isDoneBtnClicked))
-                    ColorPallets(designScreenProvider: _designScreenProvider),
+                    ColorPallets(
+                      isShowAddColorBtn: true,
+                      selectedIndex: _designScreenProvider.selectedIndex,
+                      hist: _designScreenProvider.historyList,
+                      isColorPicker: widget.isColorPicker,
+                    ),
                 ],
               ),
             );

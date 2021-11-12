@@ -10,6 +10,7 @@ import 'package:carmeleon/aspects/dimensions/dimensions.dart';
 import 'package:carmeleon/aspects/enum/body_enum.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 
+import 'build_buttons_view.dart';
 import 'color_picker_Button_pallets.dart';
 
 class ImageButtonPallets extends StatefulWidget {
@@ -40,7 +41,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
               widget.designScreenProvider.bodyPart = null;
             }
           },
-          child: _buildButtonPalletsView(
+          child: BuildButtonsView().buildButtonPalletsView(
             widget.designScreenProvider.bodyPart == CarEnum.carRim
                 ? const Icon(
                     Icons.stars_outlined,
@@ -62,7 +63,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
               widget.designScreenProvider.bodyPart = null;
             }
           },
-          child: _buildButtonPalletsView(
+          child: BuildButtonsView().buildButtonPalletsView(
             widget.designScreenProvider.bodyPart == CarEnum.carBody
                 ? const Icon(
                     Icons.car_repair_rounded,
@@ -78,7 +79,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
         ),
         GestureDetector(
           onTap: () {},
-          child: _buildButtonPalletsView(
+          child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.save,
               size: Dimensions.px35,
@@ -90,7 +91,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
           onTap: () {
             Share.share('Share Carmeleon App');
           },
-          child: _buildButtonPalletsView(
+          child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.share,
               size: Dimensions.px35,
@@ -102,7 +103,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
           onTap: () {
             onUndoBtnTap();
           },
-          child: _buildButtonPalletsView(
+          child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.undo_rounded,
               size: Dimensions.px35,
@@ -120,7 +121,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
       children: [
         GestureDetector(
           onTap: _cameraBtnClicked,
-          child: _buildButtonPalletsView(
+          child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.camera_enhance_outlined,
               size: Dimensions.px35,
@@ -130,7 +131,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
         ),
         GestureDetector(
           onTap: _libraryBtnClicked,
-          child: _buildButtonPalletsView(
+          child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.photo_library_outlined,
               size: Dimensions.px35,
@@ -140,7 +141,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
         ),
         GestureDetector(
           onTap: () {},
-          child: _buildButtonPalletsView(
+          child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.delete_outline,
               size: Dimensions.px35,
@@ -152,7 +153,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
           onTap: () {
             widget.designScreenProvider.isDoneBtnClicked = true;
           },
-          child: _buildButtonPalletsView(
+          child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.done_rounded,
               size: Dimensions.px35,
@@ -228,22 +229,6 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
                   ? ColorPickerButtonPallets()
                   : _buildColorPickerScreenButtonPallets()
               : _buildDesignScreenButtonPallets(),
-        ),
-      ),
-    );
-  }
-
-  _buildButtonPalletsView(Widget icon) {
-    return Padding(
-      padding: const EdgeInsets.all(Dimensions.px5),
-      child: Container(
-        decoration: BoxDecoration(
-          color: ColorConstants.white,
-          borderRadius: BorderRadius.circular(Dimensions.px10),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(2),
-          child: icon,
         ),
       ),
     );
