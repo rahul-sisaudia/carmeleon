@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RoutingHelper {
-  static void buildAndShowModalBottomSheetFor({
+ class RoutingHelper {
+   void buildAndShowModalBottomSheetFor({
     bool isScrollControlled = true,
     required BuildContext ctx,
     required Widget widget,

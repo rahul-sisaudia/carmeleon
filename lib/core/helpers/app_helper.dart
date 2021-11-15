@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
 import 'package:image_cropper/image_cropper.dart';
 
+
 class AppHelper {
-  static Future<File?> cropImage(File? imageFile) async {
-    File? _croppedFile = await ImageCropper.cropImage(
+   Future<File?> cropImage(File? imageFile) async {
+    var _croppedFile = await ImageCropper.cropImage(
       sourcePath: imageFile!.path,
       aspectRatioPresets: Platform.isAndroid
           ? [

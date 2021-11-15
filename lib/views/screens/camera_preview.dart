@@ -1,8 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-import 'package:carmeleon/aspects/constants/device_size.dart';
-import 'package:carmeleon/views/widgets/camera_button_pallets.dart';
+import '../../aspects/constants/device_size.dart';
+import '../widgets/camera_button_pallets.dart';
 
 class CameraPreviewScreen extends StatefulWidget {
   const CameraPreviewScreen({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class _CameraPreviewScreenState extends State<CameraPreviewScreen>
   }
 
   Future<void> initializeCamera() async {
-    List<CameraDescription> _cameras = await availableCameras();
+    var _cameras = await availableCameras();
     controller = CameraController(
       _cameras.first,
       ResolutionPreset.medium,
@@ -63,7 +63,8 @@ class _CameraPreviewScreenState extends State<CameraPreviewScreen>
   }
 
   Widget getCameraPreview() {
-    final deviceRatio = DeviceSize.width(context) / DeviceSize.height(context);
+    final deviceRatio =
+        DeviceSize.width(context) / DeviceSize().height(context);
     final controllerAspectRatio = controller?.value.aspectRatio ?? 1;
 
     return Stack(
@@ -71,9 +72,9 @@ class _CameraPreviewScreenState extends State<CameraPreviewScreen>
         Center(
           child: Transform.scale(
             scale: deviceRatio / controllerAspectRatio,
-            child: new AspectRatio(
+            child: AspectRatio(
               aspectRatio: controllerAspectRatio,
-              child: new CameraPreview(controller!),
+              child: CameraPreview(controller!),
             ),
           ),
         ),

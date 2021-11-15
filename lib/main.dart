@@ -1,10 +1,10 @@
-import 'package:carmeleon/views/screens/camera_preview.dart';
-import 'package:carmeleon/views/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'core/notifiers/design_screen_provider.dart';
+import 'views/screens/camera_preview.dart';
+import 'views/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

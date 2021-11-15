@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/constants/device_size.dart';
-import 'package:carmeleon/aspects/dimensions/dimensions.dart';
-import 'package:carmeleon/aspects/constants/color_list.dart';
-import 'package:carmeleon/core/modals/car_history_modal.dart';
-import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
+import '../../aspects/constants/color_constants.dart';
+import '../../aspects/constants/color_list.dart';
+import '../../aspects/constants/device_size.dart';
+import '../../aspects/dimensions/dimensions.dart';
+import '../../core/modals/car_history_modal.dart';
+import '../../core/notifiers/design_screen_provider.dart';
 
 class ColorPallets extends StatefulWidget {
   final DesignScreenProvider designScreenProvider;
@@ -20,7 +20,7 @@ class _ColorPalletsState extends State<ColorPallets> {
   void onColorBtnTap(int index) {
     widget.designScreenProvider.selectedIndex = index;
     final _hist = CarHistoryData(
-        colorCode: ColorList.colors[index].toString(),
+        colorCode: ColorList().colors[index].toString(),
         bodyPart: widget.designScreenProvider.bodyPart);
     widget.designScreenProvider.historyList.add(_hist);
 
@@ -37,13 +37,13 @@ class _ColorPalletsState extends State<ColorPallets> {
     return Positioned(
       left: 10,
       right: 10,
-      top: DeviceSize.height(context) / 1.18,
+      top: DeviceSize().height(context) / 1.18,
       child: Row(
         children: [
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Container(
-              height: DeviceSize.height(context) / Dimensions.px9,
+              height: DeviceSize().height(context) / Dimensions.px9,
               decoration: BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.circular(Dimensions.px10),
@@ -57,7 +57,7 @@ class _ColorPalletsState extends State<ColorPallets> {
           ),
           Expanded(
             child: Container(
-              height: DeviceSize.height(context) / Dimensions.px7,
+              height: DeviceSize().height(context) / Dimensions.px7,
               decoration: BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.circular(Dimensions.px20),
@@ -106,7 +106,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                                         (widget.designScreenProvider
                                                 .selectedIndex ==
                                             index))
-                                    ? ColorList.colors[index]
+                                    ? ColorList().colors[index]
                                     : ColorConstants.white,
                                 borderRadius:
                                     BorderRadius.circular(Dimensions.px20),
@@ -125,7 +125,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                                       width: DeviceSize.width(context) /
                                           Dimensions.px26,
                                       decoration: BoxDecoration(
-                                        color: ColorList.colors[index],
+                                        color: ColorList().colors[index],
                                         borderRadius: BorderRadius.circular(
                                             Dimensions.px40),
                                       ),
@@ -146,7 +146,7 @@ class _ColorPalletsState extends State<ColorPallets> {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Container(
-              height: DeviceSize.height(context) / Dimensions.px9,
+              height: DeviceSize().height(context) / Dimensions.px9,
               decoration: BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.circular(Dimensions.px10),

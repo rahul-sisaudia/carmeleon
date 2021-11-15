@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class DeviceSize {
-  static double height(BuildContext context) {
+  double height(BuildContext context) {
     double height;
     height = MediaQuery.of(context).size.height;
     return height;

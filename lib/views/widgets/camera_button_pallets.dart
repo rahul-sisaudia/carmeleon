@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/constants/device_size.dart';
-import 'package:carmeleon/core/helpers/helper_imports.dart';
-import 'package:carmeleon/views/screens/display_picture_screen.dart';
+import '../../aspects/constants/color_constants.dart';
+import '../../aspects/constants/device_size.dart';
+import '../../core/helpers/helper_imports.dart';
+import '../screens/display_picture_screen.dart';
 
 class CameraButtonPallets extends StatefulWidget {
   final CameraController cameraController;
@@ -27,16 +28,15 @@ class _CameraButtonPalletsState extends State<CameraButtonPallets> {
       await widget._initializeControllerFuture;
       widget.cameraController.setFlashMode(FlashMode.off);
       final _pickedFile = await widget.cameraController.takePicture();
-      File? _imageFile = _pickedFile != null ? File(_pickedFile.path) : null;
-      if (_imageFile != null) {
-        final _croppedFile = await AppHelper.cropImage(_imageFile);
-        if (_croppedFile != null)
-          RoutingHelper.pushToScreen(
-            ctx: context,
-            screen: DisplayPictureScreen(imagePath: _croppedFile.path),
-          );
+      var _imageFile = File(_pickedFile.path);
+      final _croppedFile = await AppHelper().cropImage(_imageFile);
+      if (_croppedFile != null) {
+        RoutingHelper.pushToScreen(
+          ctx: context,
+          screen: DisplayPictureScreen(imagePath: _croppedFile.path),
+        );
       }
-    } catch (e) {
+    } on Exception catch (e) {
       print('_cameraBtnClicked error: $e');
     }
   }
@@ -45,16 +45,17 @@ class _CameraButtonPalletsState extends State<CameraButtonPallets> {
     try {
       await widget._initializeControllerFuture;
       final _pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-      File? _imageFile = _pickedFile != null ? File(_pickedFile.path) : null;
+      var _imageFile = _pickedFile != null ? File(_pickedFile.path) : null;
       if (_imageFile != null) {
-        final _croppedFile = await AppHelper.cropImage(_imageFile);
-        if (_croppedFile != null)
+        final _croppedFile = await AppHelper().cropImage(_imageFile);
+        if (_croppedFile != null) {
           RoutingHelper.pushToScreen(
             ctx: context,
             screen: DisplayPictureScreen(imagePath: _croppedFile.path),
           );
+        }
       }
-    } catch (e) {
+    } on Exception catch (e) {
       print('_libraryBtnClicked error: $e');
     }
   }
@@ -63,7 +64,7 @@ class _CameraButtonPalletsState extends State<CameraButtonPallets> {
   Widget build(BuildContext context) {
     return Positioned(
       right: DeviceSize.width(context) / 100,
-      top: DeviceSize.height(context) / 2.6,
+      top: DeviceSize().height(context) / 2.6,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
-import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/constants/device_size.dart';
-import 'package:carmeleon/aspects/dimensions/dimensions.dart';
-import 'package:carmeleon/aspects/enum/body_enum.dart';
-import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
+import '../../aspects/constants/color_constants.dart';
+import '../../aspects/constants/device_size.dart';
+import '../../aspects/dimensions/dimensions.dart';
+import '../../aspects/enum/body_enum.dart';
+import '../../core/notifiers/design_screen_provider.dart';
 
 class ImageButtonPallets extends StatefulWidget {
   final DesignScreenProvider designScreenProvider;
@@ -23,8 +23,10 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
       //
       // //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
       //
-      // for (int i = 0; i < widget.designScreenProvider.historyList.length; i++) {
-      //   print('${widget.designScreenProvider.historyList[i].bodyPart} => ' +
+      // for (int i = 0; i < widget.designScreenProvider
+      // .historyList.length; i++) {
+      //   print('${widget.designScreenProvider
+      //   .historyList[i].bodyPart} => ' +
       //       '${widget.designScreenProvider.historyList[i].colorCode}');
       // }
     } else {
@@ -38,7 +40,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
   Widget build(BuildContext context) {
     return Positioned(
       right: 10,
-      top: DeviceSize.height(context) / Dimensions.px5,
+      top: DeviceSize().height(context) / Dimensions.px5,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,
