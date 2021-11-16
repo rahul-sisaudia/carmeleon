@@ -40,7 +40,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
   Widget build(BuildContext context) {
     return Positioned(
       right: 10,
-      top: DeviceSize().height(context) / Dimensions.px5,
+      top: DeviceSize.height(context) / Dimensions.px5,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,

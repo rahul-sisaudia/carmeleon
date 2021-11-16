@@ -64,7 +64,7 @@ class _CameraButtonPalletsState extends State<CameraButtonPallets> {
   Widget build(BuildContext context) {
     return Positioned(
       right: DeviceSize.width(context) / 100,
-      top: DeviceSize().height(context) / 2.6,
+      top: DeviceSize.height(context) / 2.6,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,

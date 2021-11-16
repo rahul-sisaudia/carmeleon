@@ -64,7 +64,7 @@ class _CameraPreviewScreenState extends State<CameraPreviewScreen>
 
   Widget getCameraPreview() {
     final deviceRatio =
-        DeviceSize.width(context) / DeviceSize().height(context);
+        DeviceSize.width(context) / DeviceSize.height(context);
     final controllerAspectRatio = controller?.value.aspectRatio ?? 1;
 
     return Stack(

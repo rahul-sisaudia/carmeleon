@@ -37,13 +37,13 @@ class _ColorPalletsState extends State<ColorPallets> {
     return Positioned(
       left: 10,
       right: 10,
-      top: DeviceSize().height(context) / 1.18,
+      top: DeviceSize.height(context) / 1.18,
       child: Row(
         children: [
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Container(
-              height: DeviceSize().height(context) / Dimensions.px9,
+              height: DeviceSize.height(context) / Dimensions.px9,
               decoration: BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.circular(Dimensions.px10),
@@ -57,7 +57,7 @@ class _ColorPalletsState extends State<ColorPallets> {
           ),
           Expanded(
             child: Container(
-              height: DeviceSize().height(context) / Dimensions.px7,
+              height: DeviceSize.height(context) / Dimensions.px7,
               decoration: BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.circular(Dimensions.px20),
@@ -146,7 +146,7 @@ class _ColorPalletsState extends State<ColorPallets> {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Container(
-              height: DeviceSize().height(context) / Dimensions.px9,
+              height: DeviceSize.height(context) / Dimensions.px9,
               decoration: BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.circular(Dimensions.px10),
