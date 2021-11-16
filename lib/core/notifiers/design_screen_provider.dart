@@ -1,3 +1,4 @@
+import 'package:carmeleon/aspects/constants/color_list.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carmeleon/aspects/enum/body_enum.dart';
@@ -8,7 +9,9 @@ class DesignScreenProvider extends ChangeNotifier {
   bool _isDoneBtnClicked = false;
   bool _isOptionVisible = true;
   int? _currentBpSelectedIndex;
+  int? _tempColorListLength;
   List<CarHistoryData> historyList = <CarHistoryData>[];
+  List<Color> _temColorList = List.from(ColorList.colors);
 
   CarEnum? get bodyPart => _bodyPart;
 
@@ -31,10 +34,24 @@ class DesignScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  dynamic get temColorList => _temColorList;
+
+  set temColorList(dynamic value) {
+    _temColorList.add(value);
+    notifyListeners();
+  }
+
   int? get selectedIndex => _currentBpSelectedIndex;
 
   set selectedIndex(int? value) {
     _currentBpSelectedIndex = value;
+    notifyListeners();
+  }
+
+  int? get tempColorListLength => _tempColorListLength;
+
+  set tempColorListLength(int? value) {
+    _tempColorListLength = _temColorList.length;
     notifyListeners();
   }
 }

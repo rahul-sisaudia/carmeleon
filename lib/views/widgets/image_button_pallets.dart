@@ -226,7 +226,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
           padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
           child: widget.isColorPicker
               ? widget.designScreenProvider.isDoneBtnClicked
-                  ? ColorPickerButtonPallets()
+                  ? ColorPickerButtonPallets(widget.designScreenProvider)
                   : _buildColorPickerScreenButtonPallets()
               : _buildDesignScreenButtonPallets(),
         ),

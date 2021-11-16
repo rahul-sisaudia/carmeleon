@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:carmeleon/aspects/constants/color_constants.dart';
+import 'package:carmeleon/aspects/constants/color_list.dart';
 import 'package:carmeleon/aspects/enum/body_enum.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:carmeleon/views/widgets/color_pallets.dart';
@@ -71,8 +72,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                           _designScreenProvider.isDoneBtnClicked))
                     ColorPallets(
                       isShowAddColorBtn: true,
-                      selectedIndex: _designScreenProvider.selectedIndex,
-                      hist: _designScreenProvider.historyList,
+                      designScreenProvider: _designScreenProvider,
                       isColorPicker: widget.isColorPicker,
                     ),
                 ],

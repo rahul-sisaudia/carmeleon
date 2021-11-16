@@ -1,3 +1,5 @@
+import 'package:carmeleon/core/modals/car_history_modal.dart';
+import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:carmeleon/views/screens/CameraPreview.dart';
 import 'package:flutter/material.dart';
 
@@ -10,13 +12,11 @@ class ColorPallets extends StatefulWidget {
   final bool isShowAddColorBtn;
   final bool isColorPicker;
   final bool isDoneBtnClicked;
-  dynamic selectedIndex;
-  final List hist;
+  final DesignScreenProvider designScreenProvider;
 
   ColorPallets(
-      {this.selectedIndex,
+      {required this.designScreenProvider,
       this.isShowAddColorBtn = false,
-      required this.hist,
       this.isColorPicker = false,
       this.isDoneBtnClicked = false});
 
@@ -26,21 +26,25 @@ class ColorPallets extends StatefulWidget {
 
 class _ColorPalletsState extends State<ColorPallets> {
   void onColorBtnTap(int index) {
-    widget.selectedIndex = index;
+    widget.designScreenProvider.selectedIndex = index;
     setState(() {});
-    // if (!widget.isDoneBtnClicked) {
-    //   final _hist = CarHistoryData(
-    //       colorCode: ColorList.colors[index].toString(),
-    //       bodyPart: widget.designScreenProvider.bodyPart);
-    //   widget.designScreenProvider.historyList.add(_hist);
-    // }
+    if (!widget.designScreenProvider.isDoneBtnClicked) {
+      final _hist = CarHistoryData(
+          colorCode: ColorList.colors[index].toString(),
+          bodyPart: widget.designScreenProvider.bodyPart);
+      widget.designScreenProvider.historyList.add(_hist);
+      //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    // //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    //
-    // for (int i = 0; i < HistoryList.historyList.length; i++) {
-    //   print('${HistoryList.historyList[i].bodyPart} => ' +
-    //       '${HistoryList.historyList[i].colorCode}');
-    // }
+      for (int i = 0; i < widget.designScreenProvider.historyList.length; i++) {
+        print('${widget.designScreenProvider.historyList[i].bodyPart} => ' +
+            '${widget.designScreenProvider.historyList[i].colorCode}');
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -111,16 +115,25 @@ class _ColorPalletsState extends State<ColorPallets> {
                     Expanded(
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 9,
+                        itemCount: widget.isColorPicker
+                            ? widget.designScreenProvider.temColorList.length
+                            : ColorList.colors.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () => onColorBtnTap(index),
                             child: Container(
                               margin: EdgeInsets.only(left: 8),
                               decoration: BoxDecoration(
-                                color: ((widget.selectedIndex != null) &&
-                                        (widget.selectedIndex == index))
-                                    ? ColorList.colors[index]
+                                color: ((widget.designScreenProvider
+                                                .selectedIndex !=
+                                            null) &&
+                                        (widget.designScreenProvider
+                                                .selectedIndex ==
+                                            index))
+                                    ? widget.isColorPicker
+                                        ? widget.designScreenProvider
+                                            .temColorList[index]
+                                        : ColorList.colors[index]
                                     : ColorConstants.white,
                                 borderRadius:
                                     BorderRadius.circular(Dimensions.px20),
@@ -139,7 +152,10 @@ class _ColorPalletsState extends State<ColorPallets> {
                                       width: DeviceSize.width(context) /
                                           Dimensions.px26,
                                       decoration: BoxDecoration(
-                                        color: ColorList.colors[index],
+                                        color: widget.isColorPicker
+                                            ? widget.designScreenProvider
+                                                .temColorList[index]
+                                            : ColorList.colors[index],
                                         borderRadius: BorderRadius.circular(
                                             Dimensions.px40),
                                       ),
