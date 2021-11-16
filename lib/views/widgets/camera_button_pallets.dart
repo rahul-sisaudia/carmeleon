@@ -29,7 +29,7 @@ class _CameraButtonPalletsState extends State<CameraButtonPallets> {
       widget.cameraController.setFlashMode(FlashMode.off);
       final _pickedFile = await widget.cameraController.takePicture();
       var _imageFile = File(_pickedFile.path);
-      final _croppedFile = await AppHelper().cropImage(_imageFile);
+      final _croppedFile = await AppHelper.cropImage(_imageFile);
       if (_croppedFile != null) {
         RoutingHelper.pushToScreen(
           ctx: context,
@@ -47,7 +47,7 @@ class _CameraButtonPalletsState extends State<CameraButtonPallets> {
       final _pickedFile = await _picker.pickImage(source: ImageSource.gallery);
       var _imageFile = _pickedFile != null ? File(_pickedFile.path) : null;
       if (_imageFile != null) {
-        final _croppedFile = await AppHelper().cropImage(_imageFile);
+        final _croppedFile = await AppHelper.cropImage(_imageFile);
         if (_croppedFile != null) {
           RoutingHelper.pushToScreen(
             ctx: context,

@@ -20,7 +20,7 @@ class _ColorPalletsState extends State<ColorPallets> {
   void onColorBtnTap(int index) {
     widget.designScreenProvider.selectedIndex = index;
     final _hist = CarHistoryData(
-        colorCode: ColorList().colors[index].toString(),
+        colorCode: ColorList.colors[index].toString(),
         bodyPart: widget.designScreenProvider.bodyPart);
     widget.designScreenProvider.historyList.add(_hist);
 
@@ -106,7 +106,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                                         (widget.designScreenProvider
                                                 .selectedIndex ==
                                             index))
-                                    ? ColorList().colors[index]
+                                    ? ColorList.colors[index]
                                     : ColorConstants.white,
                                 borderRadius:
                                     BorderRadius.circular(Dimensions.px20),
@@ -125,7 +125,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                                       width: DeviceSize.width(context) /
                                           Dimensions.px26,
                                       decoration: BoxDecoration(
-                                        color: ColorList().colors[index],
+                                        color: ColorList.colors[index],
                                         borderRadius: BorderRadius.circular(
                                             Dimensions.px40),
                                       ),

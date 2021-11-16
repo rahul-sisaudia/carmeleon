@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'color_constants.dart';
 
 class ColorList {
-  List<Color> colors = <Color>[
+  static List<Color> colors = <Color>[
     ColorConstants.blue,
     ColorConstants.black,
     ColorConstants.grey,
