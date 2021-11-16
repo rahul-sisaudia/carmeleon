@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:carmeleon/aspects/constants/image_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../aspects/constants/image_constants.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen();
@@ -47,7 +48,8 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
 
           ///TODO: Replace this with appropriate widget/animation to navigate
-          ///to the next screen. If Login is implemeted navigate to login screen
+          ///to the next screen. If Login is
+          /// implemented navigate to login screen
           ///else to the CameraPreview Screen
           Center(
             child: _initializationComplete

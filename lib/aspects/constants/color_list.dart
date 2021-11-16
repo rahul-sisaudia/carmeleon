@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:carmeleon/aspects/constants/color_constants.dart';
+import 'color_constants.dart';
 
 class ColorList {
   static List<Color> colors = <Color>[

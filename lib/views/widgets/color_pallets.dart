@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/constants/device_size.dart';
-import 'package:carmeleon/aspects/dimensions/dimensions.dart';
-import 'package:carmeleon/aspects/constants/color_list.dart';
-import 'package:carmeleon/core/modals/car_history_modal.dart';
-import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
+import '../../aspects/constants/color_constants.dart';
+import '../../aspects/constants/color_list.dart';
+import '../../aspects/constants/device_size.dart';
+import '../../aspects/dimensions/dimensions.dart';
+import '../../core/modals/car_history_modal.dart';
+import '../../core/notifiers/design_screen_provider.dart';
 
 class ColorPallets extends StatefulWidget {
   final DesignScreenProvider designScreenProvider;
