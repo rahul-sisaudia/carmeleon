@@ -33,6 +33,28 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
     }
   }
 
+  void onDeleteColor() {
+    if (widget.designScreenProvider.selectedIndex != null) {
+      widget.designScreenProvider.temColorList
+          .removeAt(widget.designScreenProvider.selectedIndex);
+      widget.designScreenProvider.selectedIndex = null;
+    } else {
+      AppHelper.showSimpleDialogue(
+          title: 'Alert',
+          message: 'Please Select the color from color pallets',
+          btnTitle: 'Back',
+          context: context,);
+    }
+  }
+
+  void onDoneBtnClicked() {
+
+
+
+    ColorList.colors = List.from(widget.designScreenProvider.temColorList);
+    print('colorList item:${ColorList.colors.length}');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -55,19 +77,7 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
           ),
         ),
         GestureDetector(
-          onTap: () {
-            if (widget.designScreenProvider.selectedIndex != null) {
-              widget.designScreenProvider.temColorList
-                  .removeAt(widget.designScreenProvider.selectedIndex);
-              widget.designScreenProvider.selectedIndex = null;
-            } else {
-              AppHelper.showSimpleDialogue(
-                  title: 'Alert',
-                  message: 'Please Select the color from color pallets',
-                  btnTitle: 'Back',
-                  context: context);
-            }
-          },
+          onTap: () => onDeleteColor,
           child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.delete_outline,
@@ -77,11 +87,8 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
           ),
         ),
         GestureDetector(
-          onTap: () {
-            ColorList.colors =
-                List.from(widget.designScreenProvider.temColorList);
-            print('colorList item:${ColorList.colors.length}');
-          },
+          onTap: () => onDoneBtnClicked,
+
           child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.done_rounded,
