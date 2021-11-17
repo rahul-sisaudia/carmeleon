@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/constants/color_list.dart';
 import 'package:carmeleon/aspects/enum/body_enum.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:carmeleon/views/widgets/color_pallets.dart';

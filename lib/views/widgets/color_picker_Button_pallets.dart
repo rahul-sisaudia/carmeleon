@@ -40,17 +40,15 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
       widget.designScreenProvider.selectedIndex = null;
     } else {
       AppHelper.showSimpleDialogue(
-          title: 'Alert',
-          message: 'Please Select the color from color pallets',
-          btnTitle: 'Back',
-          context: context,);
+        title: 'Alert',
+        message: 'Please Select the color from color pallets',
+        btnTitle: 'Back',
+        context: context,
+      );
     }
   }
 
   void onDoneBtnClicked() {
-
-
-
     ColorList.colors = List.from(widget.designScreenProvider.temColorList);
     print('colorList item:${ColorList.colors.length}');
   }
@@ -77,7 +75,7 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
           ),
         ),
         GestureDetector(
-          onTap: () => onDeleteColor,
+          onTap: () => onDeleteColor(),
           child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.delete_outline,
@@ -87,8 +85,11 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
           ),
         ),
         GestureDetector(
-          onTap: () => onDoneBtnClicked,
-
+          onTap: () {
+            //int count =0;
+            onDoneBtnClicked();
+            //Navigator.of(context).popUntil((_) => count++ >= 2);
+          },
           child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.done_rounded,
