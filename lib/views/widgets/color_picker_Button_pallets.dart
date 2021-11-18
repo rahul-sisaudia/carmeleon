@@ -34,18 +34,9 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
   }
 
   void onDeleteColor() {
-    if (widget.designScreenProvider.selectedIndex != null) {
-      widget.designScreenProvider.temColorList
-          .removeAt(widget.designScreenProvider.selectedIndex);
-      widget.designScreenProvider.selectedIndex = null;
-    } else {
-      AppHelper.showSimpleDialogue(
-        title: 'Alert',
-        message: 'Please Select the color from color pallets',
-        btnTitle: 'Back',
-        context: context,
-      );
-    }
+    widget.designScreenProvider.temColorList
+        .removeAt(widget.designScreenProvider.selectedIndex);
+    widget.designScreenProvider.selectedIndex = null;
   }
 
   void onDoneBtnClicked() {
@@ -75,7 +66,30 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
           ),
         ),
         GestureDetector(
-          onTap: () => onDeleteColor(),
+          onTap: () {
+            if (widget.designScreenProvider.selectedIndex != null) {
+              AppHelper.showSimpleDialogue(
+                onClick: () {
+                  onDeleteColor();
+                },
+                showNoButton: true,
+                showOkayButton: true,
+                cancelBtnTitle: 'Cancel',
+                title: 'Alert',
+                message: 'Do you want to delete the color',
+                okBtnTitle: 'Delete',
+                context: context,
+              );
+            } else {
+              AppHelper.showSimpleDialogue(
+                showNoButton: true,
+                title: 'Alert',
+                message: 'Please Select the color from color pallets',
+                cancelBtnTitle: 'Close',
+                context: context,
+              );
+            }
+          },
           child: BuildButtonsView().buildButtonPalletsView(
             const Icon(
               Icons.delete_outline,
@@ -86,9 +100,18 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
         ),
         GestureDetector(
           onTap: () {
-            //int count =0;
-            onDoneBtnClicked();
-            //Navigator.of(context).popUntil((_) => count++ >= 2);
+            AppHelper.showSimpleDialogue(
+              onClick: () {
+                onDoneBtnClicked();
+              },
+              showNoButton: true,
+              showOkayButton: true,
+              cancelBtnTitle: 'Discard',
+              title: 'Alert',
+              message: 'Do you want to save the changes',
+              okBtnTitle: 'Save',
+              context: context,
+            );
           },
           child: BuildButtonsView().buildButtonPalletsView(
             const Icon(

@@ -1,14 +1,22 @@
+import 'dart:ui';
+
 import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/aspects/constants/device_size.dart';
 import 'package:carmeleon/aspects/dimensions/dimensions.dart';
 import 'package:flutter/material.dart';
 
+import 'app_text_style.dart';
+
 class AppHelper {
   static Future<void> showSimpleDialogue<T>({
-    String btnTitle = 'Ok',
+    bool showOkayButton = false,
+    bool showNoButton = false,
+    String cancelBtnTitle = 'cancel',
+    String okBtnTitle = 'Ok',
     required BuildContext context,
     String title = 'Alert',
     String message = '',
+    Function? onClick,
   }) async {
     await showDialog<T>(
       // barrierDismissible: false,
@@ -36,6 +44,11 @@ class AppHelper {
                       Text(
                         title,
                         textAlign: TextAlign.center,
+                        style: AppTextStyles.semiBoldText(
+                          fontSize: 18,
+                          color: ColorConstants.black,
+                          decoration: false,
+                        ),
                       ),
                       SizedBox(
                         height: Dimensions.px10,
@@ -43,19 +56,54 @@ class AppHelper {
                       Text(
                         message,
                         textAlign: TextAlign.center,
+                        style: AppTextStyles.regularText(
+                          fontSize: 14,
+                          color: ColorConstants.black,
+                          decoration: false,
+                        ),
                       ),
                       SizedBox(
                         height: Dimensions.px25,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          GestureDetector(
-                            child: Container(child: Text(btnTitle)),
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                          ),
+                          if (showNoButton)
+                            GestureDetector(
+                              child: Container(
+                                child: Text(
+                                  cancelBtnTitle,
+                                  textAlign: TextAlign.center,
+                                  style: AppTextStyles.semiBoldText(
+                                    fontSize: 14,
+                                    color: ColorConstants.black,
+                                    decoration: false,
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          // Spacer(),
+                          if (showOkayButton)
+                            GestureDetector(
+                              child: Container(
+                                child: Text(
+                                  okBtnTitle,
+                                  textAlign: TextAlign.center,
+                                  style: AppTextStyles.semiBoldText(
+                                    fontSize: 14,
+                                    color: ColorConstants.black,
+                                    decoration: false,
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                onClick!.call();
+                                Navigator.pop(context);
+                              },
+                            ),
                         ],
                       ),
                       SizedBox(height: Dimensions.px10),

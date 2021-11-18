@@ -26,6 +26,14 @@ class DisplayPictureScreen extends StatefulWidget {
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   late DesignScreenProvider _designScreenProvider;
 
+  onTapScreen() {
+    if (!_designScreenProvider.isOptionVisible)
+      _designScreenProvider.isOptionVisible = true;
+    else {
+      _designScreenProvider.isOptionVisible = false;
+    }
+  }
+
   @override
   void initState() {
     _designScreenProvider = DesignScreenProvider();
@@ -44,11 +52,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      if (!_designScreenProvider.isOptionVisible)
-                        _designScreenProvider.isOptionVisible = true;
-                      else {
-                        _designScreenProvider.isOptionVisible = false;
-                      }
+                      onTapScreen();
                     },
                     child: Container(
                       color: ColorConstants.white,
