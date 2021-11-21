@@ -1,15 +1,13 @@
-import 'package:carmeleon/views/screens/camera_screen.dart';
-import 'package:carmeleon/views/screens/display_picture_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share/share.dart';
 
-import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/core/helper/device_size_helper.dart';
-import 'package:carmeleon/aspects/constants/dimension_constants.dart';
-import 'package:carmeleon/aspects/enum/body_enum.dart';
-import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
-
+import '../../aspects/constants/contant_imports.dart';
+import '../../aspects/enum/body_enum.dart';
+import '../../core/helper/helper_imports.dart';
+import '../../core/notifiers/design_screen_provider.dart';
+import '../screens/camera_screen.dart';
+import '../screens/display_picture_screen.dart';
 import 'build_buttons_view.dart';
 import 'color_picker_Button_pallets.dart';
 
@@ -100,9 +98,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
           ),
         ),
         GestureDetector(
-          onTap: () {
-            onUndoBtnTap();
-          },
+          onTap: onUndoBtnTap,
           child: BuildButtonsView(
             icon: const Icon(
               Icons.undo_rounded,
@@ -173,7 +169,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
         ),
       );
       Navigator.of(context).push(_route);
-    } catch (e) {
+    } on Exception catch (e) {
       print('_cameraBtnClicked error: $e');
     }
   }
@@ -190,7 +186,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
         );
         await Navigator.of(context).push(_route);
       }
-    } catch (e) {
+    } on Exception catch (e) {
       print('_libraryBtnClicked error: $e');
     }
   }

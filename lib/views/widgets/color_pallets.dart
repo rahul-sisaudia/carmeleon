@@ -1,12 +1,10 @@
-import 'package:carmeleon/core/modals/car_history_modal.dart';
-import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
-import 'package:carmeleon/views/screens/camera_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/core/helper/device_size_helper.dart';
-import 'package:carmeleon/aspects/constants/dimension_constants.dart';
-import 'package:carmeleon/aspects/constants/color_list.dart';
+import '../../aspects/constants/contant_imports.dart';
+import '../../core/helper/helper_imports.dart';
+import '../../core/modals/car_history_modal.dart';
+import '../../core/notifiers/design_screen_provider.dart';
+import '../screens/camera_screen.dart';
 
 class ColorPallets extends StatefulWidget {
   final bool isShowAddColorBtn;
@@ -14,11 +12,12 @@ class ColorPallets extends StatefulWidget {
   final bool isDoneBtnClicked;
   final DesignScreenProvider designScreenProvider;
 
-  ColorPallets(
-      {required this.designScreenProvider,
-      this.isShowAddColorBtn = false,
-      this.isColorPicker = false,
-      this.isDoneBtnClicked = false});
+  ColorPallets({
+    required this.designScreenProvider,
+    this.isShowAddColorBtn = false,
+    this.isColorPicker = false,
+    this.isDoneBtnClicked = false,
+  });
 
   @override
   State<ColorPallets> createState() => _ColorPalletsState();

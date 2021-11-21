@@ -1,8 +1,8 @@
 import 'package:carmeleon/aspects/constants/color_list.dart';
 import 'package:flutter/material.dart';
 
-import 'package:carmeleon/aspects/enum/body_enum.dart';
-import 'package:carmeleon/core/modals/car_history_modal.dart';
+import '../../aspects/enum/body_enum.dart';
+import '../modals/car_history_modal.dart';
 
 class DesignScreenProvider extends ChangeNotifier {
   CarEnum? _bodyPart;

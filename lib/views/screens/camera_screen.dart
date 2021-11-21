@@ -2,8 +2,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:carmeleon/core/helper/helper_imports.dart';
-import 'package:carmeleon/views/widgets/camera_buttons_pallet.dart';
+import '../../core/helper/helper_imports.dart';
+import '../widgets/camera_buttons_pallet.dart';
 import 'display_picture_screen.dart';
 
 class CameraScreen extends StatefulWidget {

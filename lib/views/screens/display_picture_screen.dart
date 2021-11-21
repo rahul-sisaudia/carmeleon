@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
-import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/enum/body_enum.dart';
-import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
-import 'package:carmeleon/views/widgets/color_pallets.dart';
-import 'package:carmeleon/views/widgets/image_button_pallets.dart';
+import '../../aspects/constants/color_constants.dart';
+import '../../aspects/enum/body_enum.dart';
+import '../../core/notifiers/design_screen_provider.dart';
+import '../widgets/color_pallets.dart';
+import '../widgets/image_button_pallets.dart';
 
 class DisplayPictureScreen extends StatefulWidget {
   final bool isColorPicker;
@@ -28,9 +28,9 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   late DesignScreenProvider _designScreenProvider;
 
   _onScreenTap() {
-    if (!_designScreenProvider.isOptionVisible)
+    if (!_designScreenProvider.isOptionVisible) {
       _designScreenProvider.isOptionVisible = true;
-    else {
+    } else {
       _designScreenProvider.isOptionVisible = false;
     }
   }
@@ -43,6 +43,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+// <<<<<<< HEAD
     return EyeDrop(
       child: ChangeNotifierProvider<DesignScreenProvider>.value(
         value: _designScreenProvider,
@@ -52,9 +53,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
               body: Stack(
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      _onScreenTap();
-                    },
+                    onTap: _onScreenTap,
                     child: Container(
                       color: ColorConstants.white,
                       height: double.infinity,

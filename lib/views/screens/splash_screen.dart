@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:carmeleon/core/helper/helper_imports.dart';
-import 'package:carmeleon/views/screens/camera_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatefulWidget {
-  SplashScreen();
+import 'package:carmeleon/aspects/constants/contant_imports.dart';
+import 'package:carmeleon/core/helper/helper_imports.dart';
+import 'package:carmeleon/views/screens/camera_screen.dart';
 
+class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -42,14 +41,15 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Center(
             child: Image.asset(
-              'Images/logo.png',
+              ImageConstants.imageSplashScreenPng,
               height: 300.0,
               width: 300.0,
             ),
           ),
 
           ///TODO: Replace this with appropriate widget/animation to navigate
-          ///to the next screen. If Login is implemeted navigate to login screen
+          ///to the next screen. If Login is
+          /// implemented navigate to login screen
           ///else to the CameraPreview Screen
           Center(
             child: _initializationComplete

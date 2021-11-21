@@ -2,9 +2,9 @@ import 'package:cyclop/cyclop.dart';
 import 'package:flutter/material.dart';
 
 import 'build_buttons_view.dart';
-import 'package:carmeleon/aspects/constants/contant_imports.dart';
-import 'package:carmeleon/core/helper/helper_imports.dart';
-import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
+import '../../aspects/constants/contant_imports.dart';
+import '../../core/helper/helper_imports.dart';
+import '../../core/notifiers/design_screen_provider.dart';
 
 class ColorPickerButtonPallets extends StatefulWidget {
   final DesignScreenProvider designScreenProvider;
