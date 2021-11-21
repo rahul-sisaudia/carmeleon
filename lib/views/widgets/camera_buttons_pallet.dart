@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/core/helper/helper_imports.dart';
+import '../../aspects/constants/color_constants.dart';
+import '../../core/helper/helper_imports.dart';
 
 class CameraButtonsPallet extends StatefulWidget {
   final VoidCallback cameraBtnClicked;

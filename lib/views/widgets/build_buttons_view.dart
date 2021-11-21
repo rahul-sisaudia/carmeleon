@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:carmeleon/aspects/constants/contant_imports.dart';
+import '../../aspects/constants/contant_imports.dart';
 
 class BuildButtonsView extends StatelessWidget {
   final Widget icon;

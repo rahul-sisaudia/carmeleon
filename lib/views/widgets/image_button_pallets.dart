@@ -9,7 +9,7 @@ import '../../core/notifiers/design_screen_provider.dart';
 import '../screens/camera_screen.dart';
 import '../screens/display_picture_screen.dart';
 import 'build_buttons_view.dart';
-import 'color_picker_Button_pallets.dart';
+import 'color_picker_buttons_pallet.dart';
 
 class ImageButtonPallets extends StatefulWidget {
   final bool isColorPicker;
@@ -222,7 +222,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
           padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
           child: widget.isColorPicker
               ? widget.designScreenProvider.isDoneBtnClicked
-                  ? ColorPickerButtonPallets(widget.designScreenProvider)
+                  ? ColorPickerButtonsPallet(widget.designScreenProvider)
                   : _buildColorPickerScreenButtonPallets()
               : _buildDesignScreenButtonPallets(),
         ),

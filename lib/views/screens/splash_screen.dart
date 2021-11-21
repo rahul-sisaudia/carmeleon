@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:carmeleon/aspects/constants/contant_imports.dart';
-import 'package:carmeleon/core/helper/helper_imports.dart';
-import 'package:carmeleon/views/screens/camera_screen.dart';
+import '../../aspects/constants/contant_imports.dart';
+import '../../core/helper/helper_imports.dart';
+import 'camera_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

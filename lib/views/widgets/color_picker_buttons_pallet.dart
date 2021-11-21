@@ -1,22 +1,22 @@
 import 'package:cyclop/cyclop.dart';
 import 'package:flutter/material.dart';
 
-import 'build_buttons_view.dart';
 import '../../aspects/constants/contant_imports.dart';
 import '../../core/helper/helper_imports.dart';
 import '../../core/notifiers/design_screen_provider.dart';
+import 'build_buttons_view.dart';
 
-class ColorPickerButtonPallets extends StatefulWidget {
+class ColorPickerButtonsPallet extends StatefulWidget {
   final DesignScreenProvider designScreenProvider;
 
-  ColorPickerButtonPallets(this.designScreenProvider);
+  ColorPickerButtonsPallet(this.designScreenProvider);
 
   @override
-  _ColorPickerButtonPalletsState createState() =>
-      _ColorPickerButtonPalletsState();
+  _ColorPickerButtonsPalletState createState() =>
+      _ColorPickerButtonsPalletState();
 }
 
-class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
+class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
   void onAddNewColor(value) {
     if (widget.designScreenProvider.selectedIndex != null) {
       widget.designScreenProvider.temColorList

@@ -42,7 +42,7 @@ class _CameraScreenState extends State<CameraScreen>
   }
 
   Future<void> _initializeCamera() async {
-    List<CameraDescription> _cameras = await availableCameras();
+    var _cameras = await availableCameras();
     _cameraController = CameraController(
       _cameras.first,
       ResolutionPreset.medium,
@@ -70,7 +70,7 @@ class _CameraScreenState extends State<CameraScreen>
           ),
         );
       }
-    } catch (e) {
+    } on Exception catch (e) {
       print('_cameraBtnClicked error: $e');
     }
   }
@@ -88,7 +88,7 @@ class _CameraScreenState extends State<CameraScreen>
         );
         await Navigator.of(context).push(_route);
       }
-    } catch (e) {
+    } on Exception catch (e) {
       print('_libraryBtnClicked error: $e');
     }
   }
@@ -119,9 +119,9 @@ class _CameraScreenState extends State<CameraScreen>
         Center(
           child: Transform.scale(
             scale: deviceRatio / controllerAspectRatio,
-            child: new AspectRatio(
+            child: AspectRatio(
               aspectRatio: controllerAspectRatio,
-              child: new CameraPreview(_cameraController!),
+              child: CameraPreview(_cameraController!),
             ),
           ),
         ),

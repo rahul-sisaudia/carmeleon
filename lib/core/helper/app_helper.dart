@@ -1,11 +1,11 @@
 import 'dart:ui';
 
-import 'package:carmeleon/aspects/constants/contant_imports.dart';
-import 'package:carmeleon/aspects/constants/dimension_constants.dart';
-import 'package:carmeleon/core/helper/helper_imports.dart';
 import 'package:flutter/material.dart';
 
 import '../../aspects/constants/app_text_style.dart';
+import '../../aspects/constants/contant_imports.dart';
+import '../../aspects/constants/dimension_constants.dart';
+import 'helper_imports.dart';
 
 class AppHelper {
   static Future<void> showSimpleDialogue<T>({
@@ -21,7 +21,7 @@ class AppHelper {
     await showDialog<T>(
       // barrierDismissible: false,
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return Dialog(
           backgroundColor: Colors.transparent,
           child: Column(

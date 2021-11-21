@@ -1,6 +1,6 @@
-import 'package:carmeleon/aspects/constants/color_list.dart';
 import 'package:flutter/material.dart';
 
+import '../../aspects/constants/color_list.dart';
 import '../../aspects/enum/body_enum.dart';
 import '../modals/car_history_modal.dart';
 
@@ -11,7 +11,7 @@ class DesignScreenProvider extends ChangeNotifier {
   int? _currentBpSelectedIndex;
   int? _tempColorListLength;
   List<CarHistoryData> historyList = <CarHistoryData>[];
-  List<Color> _temColorList = List.from(ColorList.colors);
+  final List<Color> _temColorList = List.from(ColorList.colors);
 
   CarEnum? get bodyPart => _bodyPart;
 
