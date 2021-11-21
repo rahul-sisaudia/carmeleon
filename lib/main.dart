@@ -1,9 +1,8 @@
-import 'package:carmeleon/views/screens/camera_screen.dart';
-import 'package:carmeleon/views/screens/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'package:carmeleon/views/screens/splash_screen.dart';
 import 'core/notifiers/design_screen_provider.dart';
 
 void main() async {
@@ -31,13 +30,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => SplashScreen(),
-          '/cameraPreview/': (context) => CameraScreen(
-                isColorPicker: false,
-              ),
-        },
+        home: SplashScreen(),
       ),
     );
   }

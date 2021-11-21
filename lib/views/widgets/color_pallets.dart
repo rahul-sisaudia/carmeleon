@@ -88,7 +88,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                             onTap: () async {
                               final _route = MaterialPageRoute(
                                 builder: (context) =>
-                                    CameraScreen(isColorPicker: true),
+                                    CameraScreen(isForColorPicker: true),
                               );
                               await Navigator.of(context).push(_route);
                             },

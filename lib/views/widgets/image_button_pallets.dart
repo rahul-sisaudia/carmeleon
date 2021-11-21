@@ -41,8 +41,8 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
               widget.designScreenProvider.bodyPart = null;
             }
           },
-          child: BuildButtonsView().buildButtonPalletsView(
-            widget.designScreenProvider.bodyPart == CarEnum.carRim
+          child: BuildButtonsView(
+            icon: widget.designScreenProvider.bodyPart == CarEnum.carRim
                 ? const Icon(
                     Icons.stars_outlined,
                     size: Dimensions.px35,
@@ -63,8 +63,8 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
               widget.designScreenProvider.bodyPart = null;
             }
           },
-          child: BuildButtonsView().buildButtonPalletsView(
-            widget.designScreenProvider.bodyPart == CarEnum.carBody
+          child: BuildButtonsView(
+            icon: widget.designScreenProvider.bodyPart == CarEnum.carBody
                 ? const Icon(
                     Icons.car_repair_rounded,
                     size: Dimensions.px35,
@@ -79,8 +79,8 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
         ),
         GestureDetector(
           onTap: () {},
-          child: BuildButtonsView().buildButtonPalletsView(
-            const Icon(
+          child: BuildButtonsView(
+            icon: const Icon(
               Icons.save,
               size: Dimensions.px35,
               color: Colors.black,
@@ -91,8 +91,8 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
           onTap: () {
             Share.share('Share Carmeleon App');
           },
-          child: BuildButtonsView().buildButtonPalletsView(
-            const Icon(
+          child: BuildButtonsView(
+            icon: const Icon(
               Icons.share,
               size: Dimensions.px35,
               color: Colors.black,
@@ -103,8 +103,8 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
           onTap: () {
             onUndoBtnTap();
           },
-          child: BuildButtonsView().buildButtonPalletsView(
-            const Icon(
+          child: BuildButtonsView(
+            icon: const Icon(
               Icons.undo_rounded,
               size: Dimensions.px35,
               color: Colors.black,
@@ -121,8 +121,8 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
       children: [
         GestureDetector(
           onTap: _cameraBtnClicked,
-          child: BuildButtonsView().buildButtonPalletsView(
-            const Icon(
+          child: BuildButtonsView(
+            icon: const Icon(
               Icons.camera_enhance_outlined,
               size: Dimensions.px35,
               color: Colors.black,
@@ -131,8 +131,8 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
         ),
         GestureDetector(
           onTap: _libraryBtnClicked,
-          child: BuildButtonsView().buildButtonPalletsView(
-            const Icon(
+          child: BuildButtonsView(
+            icon: const Icon(
               Icons.photo_library_outlined,
               size: Dimensions.px35,
               color: Colors.black,
@@ -141,8 +141,8 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
         ),
         GestureDetector(
           onTap: () {},
-          child: BuildButtonsView().buildButtonPalletsView(
-            const Icon(
+          child: BuildButtonsView(
+            icon: const Icon(
               Icons.delete_outline,
               size: Dimensions.px35,
               color: Colors.black,
@@ -153,8 +153,8 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
           onTap: () {
             widget.designScreenProvider.isDoneBtnClicked = true;
           },
-          child: BuildButtonsView().buildButtonPalletsView(
-            const Icon(
+          child: BuildButtonsView(
+            icon: const Icon(
               Icons.done_rounded,
               size: Dimensions.px35,
               color: Colors.black,
@@ -169,7 +169,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
     try {
       final _route = MaterialPageRoute(
         builder: (context) => CameraScreen(
-          isColorPicker: widget.isColorPicker,
+          isForColorPicker: widget.isColorPicker,
         ),
       );
       Navigator.of(context).push(_route);

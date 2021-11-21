@@ -1,17 +1,16 @@
-import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/constants/color_list.dart';
-import 'package:carmeleon/aspects/constants/dimension_constants.dart';
-import 'package:carmeleon/core/helper/app_helper.dart';
-import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:cyclop/cyclop.dart';
 import 'package:flutter/material.dart';
 
 import 'build_buttons_view.dart';
+import 'package:carmeleon/aspects/constants/contant_imports.dart';
+import 'package:carmeleon/core/helper/helper_imports.dart';
+import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 
 class ColorPickerButtonPallets extends StatefulWidget {
   final DesignScreenProvider designScreenProvider;
 
   ColorPickerButtonPallets(this.designScreenProvider);
+
   @override
   _ColorPickerButtonPalletsState createState() =>
       _ColorPickerButtonPalletsState();
@@ -54,8 +53,8 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        BuildButtonsView().buildButtonPalletsView(
-          EyedropperButton(
+        BuildButtonsView(
+          icon: EyedropperButton(
             iconColor: ColorConstants.black,
             icon: Icons.colorize,
             onColor: (value) {
@@ -90,8 +89,8 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
               );
             }
           },
-          child: BuildButtonsView().buildButtonPalletsView(
-            const Icon(
+          child: BuildButtonsView(
+            icon: const Icon(
               Icons.delete_outline,
               size: Dimensions.px35,
               color: Colors.black,
@@ -113,8 +112,8 @@ class _ColorPickerButtonPalletsState extends State<ColorPickerButtonPallets> {
               context: context,
             );
           },
-          child: BuildButtonsView().buildButtonPalletsView(
-            const Icon(
+          child: BuildButtonsView(
+            icon: const Icon(
               Icons.done_rounded,
               size: Dimensions.px35,
               color: Colors.black,
