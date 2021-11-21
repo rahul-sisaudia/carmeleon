@@ -1,5 +1,5 @@
 import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/dimensions/dimensions.dart';
+import 'package:carmeleon/aspects/constants/dimension_constants.dart';
 import 'package:flutter/material.dart';
 
 class BuildButtonsView {

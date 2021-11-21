@@ -1,11 +1,11 @@
 import 'dart:ui';
 
-import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/constants/device_size.dart';
-import 'package:carmeleon/aspects/dimensions/dimensions.dart';
+import 'package:carmeleon/aspects/constants/contant_imports.dart';
+import 'package:carmeleon/aspects/constants/dimension_constants.dart';
+import 'package:carmeleon/core/helper/helper_imports.dart';
 import 'package:flutter/material.dart';
 
-import 'app_text_style.dart';
+import '../../aspects/constants/app_text_style.dart';
 
 class AppHelper {
   static Future<void> showSimpleDialogue<T>({
@@ -28,7 +28,7 @@ class AppHelper {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: DeviceSize.width(context) / Dimensions.px3,
+                width: DeviceSizeHelper.width(context) / Dimensions.px3,
                 decoration: BoxDecoration(
                     color: ColorConstants.white,
                     borderRadius: BorderRadius.circular(Dimensions.px10)),

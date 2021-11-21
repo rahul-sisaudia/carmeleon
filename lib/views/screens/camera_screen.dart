@@ -1,0 +1,88 @@
+import 'package:camera/camera.dart';
+import 'package:carmeleon/core/helper/helper_imports.dart';
+import 'package:flutter/material.dart';
+
+import 'package:carmeleon/views/widgets/camera_button_pallets.dart';
+
+class CameraScreen extends StatefulWidget {
+  final bool isColorPicker;
+
+  CameraScreen({required this.isColorPicker});
+
+  @override
+  _CameraScreenState createState() => _CameraScreenState();
+}
+
+class _CameraScreenState extends State<CameraScreen>
+    with WidgetsBindingObserver {
+  CameraController? controller;
+  Future<void>? _initializeControllerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance?.addObserver(this);
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+      _initializeControllerFuture = initializeCamera();
+
+      setState(() {});
+    });
+  }
+
+  Future<void> initializeCamera() async {
+    List<CameraDescription> _cameras = await availableCameras();
+    controller = CameraController(
+      _cameras.first,
+      ResolutionPreset.medium,
+    );
+
+    return controller?.initialize();
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: FutureBuilder(
+        future: _initializeControllerFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return getCameraPreview();
+          }
+          return Text("Camera Initializing...");
+        },
+      ),
+    );
+  }
+
+  Widget getCameraPreview() {
+    final deviceRatio =
+        DeviceSizeHelper.width(context) / DeviceSizeHelper.height(context);
+    final controllerAspectRatio = controller?.value.aspectRatio ?? 1;
+
+    return Stack(
+      children: <Widget>[
+        Center(
+          child: Transform.scale(
+            scale: deviceRatio / controllerAspectRatio,
+            child: new AspectRatio(
+              aspectRatio: controllerAspectRatio,
+              child: new CameraPreview(controller!),
+            ),
+          ),
+        ),
+        CameraButtonPallets(
+            _initializeControllerFuture!, controller!, widget.isColorPicker),
+      ],
+    );
+  }
+}

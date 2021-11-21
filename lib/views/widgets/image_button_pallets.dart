@@ -1,12 +1,12 @@
-import 'package:carmeleon/views/screens/CameraPreview.dart';
+import 'package:carmeleon/views/screens/camera_screen.dart';
 import 'package:carmeleon/views/screens/display_picture_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share/share.dart';
 
 import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/constants/device_size.dart';
-import 'package:carmeleon/aspects/dimensions/dimensions.dart';
+import 'package:carmeleon/core/helper/device_size_helper.dart';
+import 'package:carmeleon/aspects/constants/dimension_constants.dart';
 import 'package:carmeleon/aspects/enum/body_enum.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 
@@ -168,7 +168,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
   _cameraBtnClicked() async {
     try {
       final _route = MaterialPageRoute(
-        builder: (context) => CameraPreviewScreen(
+        builder: (context) => CameraScreen(
           isColorPicker: widget.isColorPicker,
         ),
       );
@@ -215,8 +215,8 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
     return Positioned(
       right: Dimensions.px10,
       top: widget.designScreenProvider.isDoneBtnClicked
-          ? DeviceSize.height(context) / 3.2
-          : DeviceSize.height(context) / Dimensions.px5,
+          ? DeviceSizeHelper.height(context) / 3.2
+          : DeviceSizeHelper.height(context) / Dimensions.px5,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,

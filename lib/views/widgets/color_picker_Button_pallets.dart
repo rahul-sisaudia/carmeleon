@@ -1,6 +1,6 @@
 import 'package:carmeleon/aspects/constants/color_constants.dart';
 import 'package:carmeleon/aspects/constants/color_list.dart';
-import 'package:carmeleon/aspects/dimensions/dimensions.dart';
+import 'package:carmeleon/aspects/constants/dimension_constants.dart';
 import 'package:carmeleon/core/helper/app_helper.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
 import 'package:cyclop/cyclop.dart';

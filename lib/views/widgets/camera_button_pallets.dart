@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/constants/device_size.dart';
+import 'package:carmeleon/core/helper/device_size_helper.dart';
 import 'package:carmeleon/views/screens/display_picture_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -63,8 +63,8 @@ class _CameraButtonPalletsState extends State<CameraButtonPallets> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      right: DeviceSize.width(context) / 100,
-      top: DeviceSize.height(context) / 2.6,
+      right: DeviceSizeHelper.width(context) / 100,
+      top: DeviceSizeHelper.height(context) / 2.6,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,

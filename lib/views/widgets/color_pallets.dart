@@ -1,11 +1,11 @@
 import 'package:carmeleon/core/modals/car_history_modal.dart';
 import 'package:carmeleon/core/notifiers/design_screen_provider.dart';
-import 'package:carmeleon/views/screens/CameraPreview.dart';
+import 'package:carmeleon/views/screens/camera_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carmeleon/aspects/constants/color_constants.dart';
-import 'package:carmeleon/aspects/constants/device_size.dart';
-import 'package:carmeleon/aspects/dimensions/dimensions.dart';
+import 'package:carmeleon/core/helper/device_size_helper.dart';
+import 'package:carmeleon/aspects/constants/dimension_constants.dart';
 import 'package:carmeleon/aspects/constants/color_list.dart';
 
 class ColorPallets extends StatefulWidget {
@@ -52,13 +52,13 @@ class _ColorPalletsState extends State<ColorPallets> {
     return Positioned(
       left: 10,
       right: 10,
-      top: DeviceSize.height(context) / 1.18,
+      top: DeviceSizeHelper.height(context) / 1.18,
       child: Row(
         children: [
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Container(
-              height: DeviceSize.height(context) / Dimensions.px9,
+              height: DeviceSizeHelper.height(context) / Dimensions.px9,
               decoration: BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.circular(Dimensions.px10),
@@ -72,7 +72,7 @@ class _ColorPalletsState extends State<ColorPallets> {
           ),
           Expanded(
             child: Container(
-              height: DeviceSize.height(context) / Dimensions.px7,
+              height: DeviceSizeHelper.height(context) / Dimensions.px7,
               decoration: BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.circular(Dimensions.px20),
@@ -88,7 +88,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                             onTap: () async {
                               final _route = MaterialPageRoute(
                                 builder: (context) =>
-                                    CameraPreviewScreen(isColorPicker: true),
+                                    CameraScreen(isColorPicker: true),
                               );
                               await Navigator.of(context).push(_route);
                             },
@@ -149,7 +149,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Container(
-                                      width: DeviceSize.width(context) /
+                                      width: DeviceSizeHelper.width(context) /
                                           Dimensions.px26,
                                       decoration: BoxDecoration(
                                         color: widget.isColorPicker
@@ -176,7 +176,7 @@ class _ColorPalletsState extends State<ColorPallets> {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Container(
-              height: DeviceSize.height(context) / Dimensions.px9,
+              height: DeviceSizeHelper.height(context) / Dimensions.px9,
               decoration: BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.circular(Dimensions.px10),

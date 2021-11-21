@@ -1,4 +1,4 @@
-import 'package:carmeleon/views/screens/CameraPreview.dart';
+import 'package:carmeleon/views/screens/camera_screen.dart';
 import 'package:carmeleon/views/screens/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => SplashScreen(),
-          '/cameraPreview/': (context) => CameraPreviewScreen(
+          '/cameraPreview/': (context) => CameraScreen(
                 isColorPicker: false,
               ),
         },
