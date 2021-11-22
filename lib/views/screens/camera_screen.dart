@@ -41,6 +41,9 @@ class _CameraScreenState extends State<CameraScreen>
     super.dispose();
   }
 
+  /// in thi function initialize the camera controller
+  /// and set the camera is first and also set the resolution is medium
+  /// and return the camera controller initialization
   Future<void> _initializeCamera() async {
     var _cameras = await availableCameras();
     _cameraController = CameraController(
@@ -51,11 +54,16 @@ class _CameraScreenState extends State<CameraScreen>
     return _cameraController?.initialize();
   }
 
+  /// this function is used for take a image from device gallery
+  /// and its type is XFile
+  /// and return the picked file
   Future<XFile?> _getImageFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     return pickedFile;
   }
 
+  /// this function is used for click image from device camera
+  /// and pushed to the DisplayPictureScreen
   _cameraBtnClicked() async {
     try {
       await _initializeControllerFuture;
@@ -75,6 +83,8 @@ class _CameraScreenState extends State<CameraScreen>
     }
   }
 
+  /// this function is used for call the _getImageFromGallery fuction
+  /// and pushed to the DisplayPictureScreen
   _libraryBtnClicked() async {
     try {
       await _initializeControllerFuture;

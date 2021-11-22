@@ -25,6 +25,11 @@ class ColorPallets extends StatefulWidget {
 }
 
 class _ColorPalletsState extends State<ColorPallets> {
+
+  /// this function takes  integer index value
+  /// tap on any color then the index value of that color will be sett as
+  /// selected index
+  /// and add the store thr selection of car parts with color in history list
   void _onColorBtnTap(int index) {
     widget.designScreenProvider.selectedIndex = index;
     setState(() {});

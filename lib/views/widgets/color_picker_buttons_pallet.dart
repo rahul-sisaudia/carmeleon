@@ -17,6 +17,11 @@ class ColorPickerButtonsPallet extends StatefulWidget {
 }
 
 class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
+
+  /// this function takes color value from color picker
+  /// first this function check which index is selected then replace the color
+  /// with selected index color otherwise add as a new color in color pallets
+
   void onAddNewColor(dynamic value) {
     if (widget.designScreenProvider.selectedIndex != null) {
       widget.designScreenProvider.temColorList
@@ -32,12 +37,16 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
     }
   }
 
+  /// this function is called when delete the color from color pallets
+  /// and sett the selected index is null
   void onDeleteColor() {
     widget.designScreenProvider.temColorList
         .removeAt(widget.designScreenProvider.selectedIndex);
     widget.designScreenProvider.selectedIndex = null;
   }
 
+  /// this function is called when save the color selection
+  /// function copy  the temp list data to the ColorList.color
   void onDoneBtnClicked() {
     ColorList.colors = List.from(widget.designScreenProvider.temColorList);
     print('colorList item:${ColorList.colors.length}');

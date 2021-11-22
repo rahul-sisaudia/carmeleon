@@ -29,6 +29,9 @@ class DisplayPictureScreen extends StatefulWidget {
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   late DesignScreenProvider _designScreenProvider;
 
+  /// this function called when the user tap on add color button
+  /// and this function navigate to the CameraScreen for
+  /// choosing image fo picked colour from image
   _onAddColorTap() async {
     RoutingHelper.pushToScreen(
       ctx: context,
@@ -36,11 +39,22 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     );
   }
 
+  /// this function is used for show and hide color pallets and
+  /// button pallets show on editing screen
   _onScreenTap() {
     if (!_designScreenProvider.isOptionVisible) {
       _designScreenProvider.isOptionVisible = true;
     } else {
       _designScreenProvider.isOptionVisible = false;
+    }
+  }
+
+  /// this function is used for select car part from enum
+  void _onSelectCarEnum() {
+    if (_designScreenProvider.bodyPart != CarEnum.carRim) {
+      _designScreenProvider.bodyPart = CarEnum.carRim;
+    } else {
+      _designScreenProvider.bodyPart = null;
     }
   }
 
@@ -95,13 +109,5 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
         ),
       ),
     );
-  }
-
-  void _onSelectCarEnum() {
-    if (_designScreenProvider.bodyPart != CarEnum.carRim) {
-      _designScreenProvider.bodyPart = CarEnum.carRim;
-    } else {
-      _designScreenProvider.bodyPart = null;
-    }
   }
 }
