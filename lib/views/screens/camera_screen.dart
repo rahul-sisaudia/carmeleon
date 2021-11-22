@@ -51,7 +51,7 @@ class _CameraScreenState extends State<CameraScreen>
     return _cameraController?.initialize();
   }
 
-  Future _getImageFromGallery() async {
+  Future<XFile?> _getImageFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     return pickedFile;
   }
@@ -78,15 +78,15 @@ class _CameraScreenState extends State<CameraScreen>
   _libraryBtnClicked() async {
     try {
       await _initializeControllerFuture;
-      final image = await _getImageFromGallery();
-      if (image != null) {
-        final _route = MaterialPageRoute(
-          builder: (context) => DisplayPictureScreen(
-            imagePath: image.path,
+      final _image = await _getImageFromGallery();
+      if (_image != null) {
+        RoutingHelper.pushToScreen(
+          ctx: context,
+          screen: DisplayPictureScreen(
+            imagePath: _image.path,
             isColorPicker: widget.isForColorPicker,
           ),
         );
-        await Navigator.of(context).push(_route);
       }
     } on Exception catch (e) {
       print('_libraryBtnClicked error: $e');

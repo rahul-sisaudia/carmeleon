@@ -37,13 +37,11 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   @override
   void initState() {
-    _designScreenProvider = DesignScreenProvider();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-// <<<<<<< HEAD
     return EyeDrop(
       child: ChangeNotifierProvider<DesignScreenProvider>.value(
         value: _designScreenProvider,
