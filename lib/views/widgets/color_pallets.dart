@@ -34,8 +34,8 @@ class _ColorPalletsState extends State<ColorPallets> {
       widget.designScreenProvider.historyList.add(_hist);
       //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-      for (int i = 0; i < widget.designScreenProvider.historyList.length; i++) {
-        print('${widget.designScreenProvider.historyList[i].bodyPart} => ' +
+      for (var i = 0; i < widget.designScreenProvider.historyList.length; i++) {
+        print('${widget.designScreenProvider.historyList[i].bodyPart} => '
             '${widget.designScreenProvider.historyList[i].colorCode}');
       }
     }

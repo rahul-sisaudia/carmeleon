@@ -17,7 +17,7 @@ class ColorPickerButtonsPallet extends StatefulWidget {
 }
 
 class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
-  void onAddNewColor(value) {
+  void onAddNewColor(dynamic value) {
     if (widget.designScreenProvider.selectedIndex != null) {
       widget.designScreenProvider.temColorList
           .removeAt(widget.designScreenProvider.selectedIndex);
