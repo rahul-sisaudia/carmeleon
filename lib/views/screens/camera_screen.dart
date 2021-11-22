@@ -2,7 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../core/helper/helper_imports.dart';
+import '../../core/helpers/helper_imports.dart';
 import '../widgets/camera_buttons_pallet.dart';
 import 'display_picture_screen.dart';
 

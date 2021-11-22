@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../aspects/constants/contant_imports.dart';
-import '../../core/helper/helper_imports.dart';
+import '../../core/helpers/helper_imports.dart';
 import '../../core/modals/car_history_modal.dart';
 import '../../core/notifiers/design_screen_provider.dart';
 import '../screens/camera_screen.dart';

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../aspects/constants/contant_imports.dart';
-import '../../core/helper/helper_imports.dart';
+import '../../core/helpers/helper_imports.dart';
 import 'camera_screen.dart';
 
 class SplashScreen extends StatefulWidget {
