@@ -4,19 +4,20 @@ import '../../aspects/constants/contant_imports.dart';
 import '../../core/helpers/helper_imports.dart';
 import '../../core/modals/car_history_modal.dart';
 import '../../core/notifiers/design_screen_provider.dart';
-import '../screens/camera_screen.dart';
 
 class ColorPallets extends StatefulWidget {
   final bool isShowAddColorBtn;
   final bool isColorPicker;
   final bool isDoneBtnClicked;
   final DesignScreenProvider designScreenProvider;
+  final VoidCallback onAddColorBtnTap;
 
   ColorPallets({
     required this.designScreenProvider,
     this.isShowAddColorBtn = false,
     this.isColorPicker = false,
     this.isDoneBtnClicked = false,
+    required this.onAddColorBtnTap,
   });
 
   @override
@@ -24,7 +25,7 @@ class ColorPallets extends StatefulWidget {
 }
 
 class _ColorPalletsState extends State<ColorPallets> {
-  void onColorBtnTap(int index) {
+  void _onColorBtnTap(int index) {
     widget.designScreenProvider.selectedIndex = index;
     setState(() {});
     if (!widget.designScreenProvider.isDoneBtnClicked) {
@@ -84,13 +85,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                     widget.isColorPicker
                         ? Container()
                         : GestureDetector(
-                            onTap: () async {
-                              final _route = MaterialPageRoute(
-                                builder: (context) =>
-                                    CameraScreen(isForColorPicker: true),
-                              );
-                              await Navigator.of(context).push(_route);
-                            },
+                            onTap: () => widget.onAddColorBtnTap(),
                             child: Container(
                               margin: EdgeInsets.only(left: 8),
                               decoration: BoxDecoration(
@@ -119,7 +114,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                             : ColorList.colors.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () => onColorBtnTap(index),
+                            onTap: () => _onColorBtnTap(index),
                             child: Container(
                               margin: EdgeInsets.only(left: 8),
                               decoration: BoxDecoration(
