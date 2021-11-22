@@ -74,6 +74,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                   ),
                   if (_designScreenProvider.isOptionVisible)
                     ImageButtonPallets(
+                      onSelectCarEnum: _onSelectCarEnum,
                       designScreenProvider: _designScreenProvider,
                       isColorPicker: widget.isColorPicker,
                     ),
@@ -94,5 +95,13 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
         ),
       ),
     );
+  }
+
+  void _onSelectCarEnum() {
+    if (_designScreenProvider.bodyPart != CarEnum.carRim) {
+      _designScreenProvider.bodyPart = CarEnum.carRim;
+    } else {
+      _designScreenProvider.bodyPart = null;
+    }
   }
 }

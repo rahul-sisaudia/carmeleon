@@ -14,10 +14,12 @@ import 'color_picker_buttons_pallet.dart';
 class ImageButtonPallets extends StatefulWidget {
   final bool isColorPicker;
   final DesignScreenProvider designScreenProvider;
+  final VoidCallback onSelectCarEnum;
 
   ImageButtonPallets({
     required this.designScreenProvider,
     required this.isColorPicker,
+    required this.onSelectCarEnum,
   });
 
   @override
@@ -32,13 +34,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: () {
-            if (widget.designScreenProvider.bodyPart != CarEnum.carRim) {
-              widget.designScreenProvider.bodyPart = CarEnum.carRim;
-            } else {
-              widget.designScreenProvider.bodyPart = null;
-            }
-          },
+          onTap: ()=>widget.onSelectCarEnum(),
           child: BuildButtonsView(
             icon: widget.designScreenProvider.bodyPart == CarEnum.carRim
                 ? const Icon(
