@@ -11,12 +11,15 @@ class ColorPallets extends StatefulWidget {
   final bool isColorPicker;
   final bool isDoneBtnClicked;
   final DesignScreenProvider designScreenProvider;
+  final VoidCallback? onAddColorBtn;
+
 
   ColorPallets({
     required this.designScreenProvider,
     this.isShowAddColorBtn = false,
     this.isColorPicker = false,
     this.isDoneBtnClicked = false,
+    this.onAddColorBtn,
   });
 
   @override
@@ -24,7 +27,6 @@ class ColorPallets extends StatefulWidget {
 }
 
 class _ColorPalletsState extends State<ColorPallets> {
-
   /// this function takes  integer index value
   /// tap on any color then the index value of that color will be sett as
   /// selected index
@@ -46,15 +48,7 @@ class _ColorPalletsState extends State<ColorPallets> {
     }
   }
 
-  /// this function called when the user tap on add color button
-  /// and this function navigate to the CameraScreen for
-  /// choosing image fo picked colour from image
-  _onAddColorTap() async {
-    RoutingHelper.pushToScreen(
-      ctx: context,
-      screen: CameraScreen(isForColorPicker: true),
-    );
-  }
+
 
   @override
   void initState() {
@@ -99,7 +93,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                     widget.isColorPicker
                         ? Container()
                         : GestureDetector(
-                            onTap: _onAddColorTap,
+                            onTap: widget.onAddColorBtn,
                             child: Container(
                               margin: EdgeInsets.only(left: 8),
                               decoration: BoxDecoration(

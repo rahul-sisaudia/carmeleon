@@ -85,8 +85,8 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
   void onDoneBtnClicked() {
     ColorList.colors = List.from(widget.designScreenProvider.temColorList);
     print('colorList item:${ColorList.colors.length}');
-    Navigator.pop(context);
-    Navigator.pop(context);
+    Navigator.pop(context,true);
+    Navigator.pop(context,true);
   }
 
   @override

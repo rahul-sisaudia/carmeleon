@@ -9,6 +9,7 @@ import '../../aspects/enum/body_enum.dart';
 import '../../core/notifiers/design_screen_provider.dart';
 import '../widgets/color_pallets.dart';
 import '../widgets/image_button_pallets.dart';
+import 'camera_screen.dart';
 
 class DisplayPictureScreen extends StatefulWidget {
   final bool isColorPicker;
@@ -43,6 +44,15 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     } else {
       _designScreenProvider.bodyPart = null;
     }
+  }
+
+  /// this function called when the user tap on add color button
+  /// and this function navigate to the CameraScreen for
+  /// choosing image fo picked colour from image
+  _onAddColorTap() async {
+    final route = MaterialPageRoute(
+        builder: (context) => CameraScreen(isForColorPicker: true));
+    Navigator.push(context, route).then((value) => setState(() {}));
   }
 
   @override
@@ -82,7 +92,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                     (_designScreenProvider.bodyPart == CarEnum.carBody ||
                         _designScreenProvider.bodyPart == CarEnum.carRim ||
                         _designScreenProvider.isDoneBtnClicked))
-                  ColorPallets(
+                  ColorPallets(onAddColorBtn: _onAddColorTap,
                     isShowAddColorBtn: true,
                     designScreenProvider: _designScreenProvider,
                     isColorPicker: widget.isColorPicker,
