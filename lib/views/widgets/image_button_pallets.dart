@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:share/share.dart';
 
 import '../../aspects/constants/contant_imports.dart';
 import '../../aspects/enum/body_enum.dart';
 import '../../core/helpers/helper_imports.dart';
 import '../../core/notifiers/design_screen_provider.dart';
-import '../screens/camera_screen.dart';
-import '../screens/display_picture_screen.dart';
 import 'build_buttons_view.dart';
-import 'color_picker_buttons_pallet.dart';
 
 class ImageButtonPallets extends StatefulWidget {
   final bool isColorPicker;
@@ -27,14 +23,12 @@ class ImageButtonPallets extends StatefulWidget {
 }
 
 class _ImageButtonPalletsState extends State<ImageButtonPallets> {
-  final ImagePicker _picker = ImagePicker();
-
   _buildDesignScreenButtonPallets() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: ()=>widget.onSelectCarEnum(),
+          onTap: () => widget.onSelectCarEnum(),
           child: BuildButtonsView(
             icon: widget.designScreenProvider.bodyPart == CarEnum.carRim
                 ? const Icon(
@@ -107,91 +101,6 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
     );
   }
 
-  _buildColorPickerScreenButtonPallets() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        GestureDetector(
-          onTap: _cameraBtnClicked,
-          child: BuildButtonsView(
-            icon: const Icon(
-              Icons.camera_enhance_outlined,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: _libraryBtnClicked,
-          child: BuildButtonsView(
-            icon: const Icon(
-              Icons.photo_library_outlined,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {},
-          child: BuildButtonsView(
-            icon: const Icon(
-              Icons.delete_outline,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            widget.designScreenProvider.isDoneBtnClicked = true;
-          },
-          child: BuildButtonsView(
-            icon: const Icon(
-              Icons.done_rounded,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  _cameraBtnClicked() async {
-    try {
-      final _route = MaterialPageRoute(
-        builder: (context) => CameraScreen(
-          isForColorPicker: widget.isColorPicker,
-        ),
-      );
-      Navigator.of(context).push(_route);
-    } on Exception catch (e) {
-      print('_cameraBtnClicked error: $e');
-    }
-  }
-
-  _libraryBtnClicked() async {
-    try {
-      final image = await _getImageFromGallery();
-      if (image != null) {
-        final _route = MaterialPageRoute(
-          builder: (context) => DisplayPictureScreen(
-            imagePath: image.path,
-            isColorPicker: widget.isColorPicker,
-          ),
-        );
-        await Navigator.of(context).push(_route);
-      }
-    } on Exception catch (e) {
-      print('_libraryBtnClicked error: $e');
-    }
-  }
-
-  Future _getImageFromGallery() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    return pickedFile;
-  }
-
   void onUndoBtnTap() {
     if (widget.designScreenProvider.historyList.isNotEmpty) {
       widget.designScreenProvider.historyList.removeLast();
@@ -206,9 +115,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
   Widget build(BuildContext context) {
     return Positioned(
       right: Dimensions.px10,
-      top: widget.designScreenProvider.isDoneBtnClicked
-          ? DeviceSizeHelper.height(context) / 3.2
-          : DeviceSizeHelper.height(context) / Dimensions.px5,
+      top: DeviceSizeHelper.height(context) / Dimensions.px5,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,
@@ -216,11 +123,7 @@ class _ImageButtonPalletsState extends State<ImageButtonPallets> {
         ),
         child: Padding(
           padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
-          child: widget.isColorPicker
-              ? widget.designScreenProvider.isDoneBtnClicked
-                  ? ColorPickerButtonsPallet(widget.designScreenProvider)
-                  : _buildColorPickerScreenButtonPallets()
-              : _buildDesignScreenButtonPallets(),
+          child: _buildDesignScreenButtonPallets(),
         ),
       ),
     );

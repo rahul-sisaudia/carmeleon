@@ -1,3 +1,4 @@
+import 'package:carmeleon/views/screens/camera_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../aspects/constants/contant_imports.dart';
@@ -10,14 +11,12 @@ class ColorPallets extends StatefulWidget {
   final bool isColorPicker;
   final bool isDoneBtnClicked;
   final DesignScreenProvider designScreenProvider;
-  final VoidCallback onAddColorBtnTap;
 
   ColorPallets({
     required this.designScreenProvider,
     this.isShowAddColorBtn = false,
     this.isColorPicker = false,
     this.isDoneBtnClicked = false,
-    required this.onAddColorBtnTap,
   });
 
   @override
@@ -45,6 +44,16 @@ class _ColorPalletsState extends State<ColorPallets> {
             '${widget.designScreenProvider.historyList[i].colorCode}');
       }
     }
+  }
+
+  /// this function called when the user tap on add color button
+  /// and this function navigate to the CameraScreen for
+  /// choosing image fo picked colour from image
+  _onAddColorTap() async {
+    RoutingHelper.pushToScreen(
+      ctx: context,
+      screen: CameraScreen(isForColorPicker: true),
+    );
   }
 
   @override
@@ -90,7 +99,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                     widget.isColorPicker
                         ? Container()
                         : GestureDetector(
-                            onTap: () => widget.onAddColorBtnTap(),
+                            onTap: _onAddColorTap,
                             child: Container(
                               margin: EdgeInsets.only(left: 8),
                               decoration: BoxDecoration(

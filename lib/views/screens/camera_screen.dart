@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../core/helpers/helper_imports.dart';
 import '../widgets/camera_buttons_pallet.dart';
+import 'color_picker_screen.dart';
 import 'display_picture_screen.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -70,13 +71,21 @@ class _CameraScreenState extends State<CameraScreen>
       _cameraController?.setFlashMode(FlashMode.off);
       final _image = await _cameraController?.takePicture();
       if (_image != null) {
-        RoutingHelper.pushToScreen(
-          ctx: context,
-          screen: DisplayPictureScreen(
-            imagePath: _image.path,
-            isColorPicker: widget.isForColorPicker,
-          ),
-        );
+        widget.isForColorPicker
+            ? RoutingHelper.pushToScreen(
+                ctx: context,
+                screen: ColorPickerScreen(
+                  imagePath: _image.path,
+                  isColorPicker: widget.isForColorPicker,
+                ),
+              )
+            : RoutingHelper.pushToScreen(
+                ctx: context,
+                screen: DisplayPictureScreen(
+                  imagePath: _image.path,
+                  isColorPicker: widget.isForColorPicker,
+                ),
+              );
       }
     } on Exception catch (e) {
       print('_cameraBtnClicked error: $e');
@@ -90,13 +99,21 @@ class _CameraScreenState extends State<CameraScreen>
       await _initializeControllerFuture;
       final _image = await _getImageFromGallery();
       if (_image != null) {
-        RoutingHelper.pushToScreen(
-          ctx: context,
-          screen: DisplayPictureScreen(
-            imagePath: _image.path,
-            isColorPicker: widget.isForColorPicker,
-          ),
-        );
+        widget.isForColorPicker
+            ? RoutingHelper.pushToScreen(
+                ctx: context,
+                screen: ColorPickerScreen(
+                  imagePath: _image.path,
+                  isColorPicker: widget.isForColorPicker,
+                ),
+              )
+            : RoutingHelper.pushToScreen(
+                ctx: context,
+                screen: DisplayPictureScreen(
+                  imagePath: _image.path,
+                  isColorPicker: widget.isForColorPicker,
+                ),
+              );
       }
     } on Exception catch (e) {
       print('_libraryBtnClicked error: $e');
