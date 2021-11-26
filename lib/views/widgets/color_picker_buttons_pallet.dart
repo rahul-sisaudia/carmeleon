@@ -1,9 +1,10 @@
 import 'package:cyclop/cyclop.dart';
 import 'package:flutter/material.dart';
 
-import '../../aspects/constants/contant_imports.dart';
+import '../../aspects/constants/constant_imports.dart';
 import '../../core/helpers/helper_imports.dart';
 import '../../core/notifiers/design_screen_provider.dart';
+import '../../core/shared_preference/preference_connector.dart';
 import 'build_buttons_view.dart';
 
 class ColorPickerButtonsPallet extends StatefulWidget {
@@ -17,12 +18,11 @@ class ColorPickerButtonsPallet extends StatefulWidget {
 }
 
 class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
-  // final ImagePicker _picker = ImagePicker();
-
   /// this function takes color value from color picker
   /// first this function check which index is selected then replace the color
   /// with selected index color otherwise add as a new color in color pallets
-  void onAddNewColor(dynamic value) {
+  Future<void> onAddNewColor(dynamic value) async {
+    await PreferenceConnector.preferenceInitializer();
     if (widget.designScreenProvider.selectedIndex != null) {
       widget.designScreenProvider.temColorList
           .removeAt(widget.designScreenProvider.selectedIndex);
@@ -30,47 +30,20 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
           .insert(widget.designScreenProvider.selectedIndex!, value);
       widget.designScreenProvider.selectedIndex =
           widget.designScreenProvider.tempColorListLength;
+      PreferenceConnector.setColors(
+          'colorData', widget.designScreenProvider.temColorList.toString());
+      print('Shared Preference Data: '
+          '${PreferenceConnector.getColors('colorData')}');
     } else {
       widget.designScreenProvider.temColorList.add(value);
       widget.designScreenProvider.selectedIndex =
           widget.designScreenProvider.tempColorListLength;
+      PreferenceConnector.setColors(
+          'colorData', widget.designScreenProvider.temColorList.toString());
+      print('Shared Preference Data: '
+          '${PreferenceConnector.getColors('colorData')}');
     }
   }
-
-  // _cameraBtnClicked() async {
-  //   try {
-  //     final _route = MaterialPageRoute(
-  //       builder: (context) => CameraScreen(
-  //         isForColorPicker: true,
-  //       ),
-  //     );
-  //     Navigator.of(context).push(_route);
-  //   } on Exception catch (e) {
-  //     print('_cameraBtnClicked error: $e');
-  //   }
-  // }
-  //
-  // _libraryBtnClicked() async {
-  //   try {
-  //     final image = await _getImageFromGallery();
-  //     if (image != null) {
-  //       final _route = MaterialPageRoute(
-  //         builder: (context) => ColorPickerScreen(
-  //           imagePath: image.path,
-  //           isColorPicker: true,
-  //         ),
-  //       );
-  //       await Navigator.of(context).push(_route);
-  //     }
-  //   } on Exception catch (e) {
-  //     print('_libraryBtnClicked error: $e');
-  //   }
-  // }
-  //
-  // Future _getImageFromGallery() async {
-  //   final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-  //   return pickedFile;
-  // }
 
   /// this function is called when delete the color from color pallets
   /// and sett the selected index is null
@@ -85,8 +58,8 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
   void onDoneBtnClicked() {
     ColorList.colors = List.from(widget.designScreenProvider.temColorList);
     print('colorList item:${ColorList.colors.length}');
-    Navigator.pop(context,true);
-    Navigator.pop(context,true);
+    Navigator.pop(context, true);
+    Navigator.pop(context, true);
   }
 
   @override

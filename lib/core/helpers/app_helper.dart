@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 
-import '../../aspects/constants/contant_imports.dart';
+import '../../aspects/constants/constant_imports.dart';
 import 'helper_imports.dart';
 
 /// A convenient class wraps all functions of **AppHelper**

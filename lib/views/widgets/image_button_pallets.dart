@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
-import '../../aspects/constants/contant_imports.dart';
+import '../../aspects/constants/constant_imports.dart';
 import '../../aspects/enum/body_enum.dart';
 import '../../core/helpers/helper_imports.dart';
 import '../../core/notifiers/design_screen_provider.dart';

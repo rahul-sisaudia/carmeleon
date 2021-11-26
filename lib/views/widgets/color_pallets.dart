@@ -1,7 +1,6 @@
-import 'package:carmeleon/views/screens/camera_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../aspects/constants/contant_imports.dart';
+import '../../aspects/constants/constant_imports.dart';
 import '../../core/helpers/helper_imports.dart';
 import '../../core/modals/car_history_modal.dart';
 import '../../core/notifiers/design_screen_provider.dart';
@@ -12,7 +11,6 @@ class ColorPallets extends StatefulWidget {
   final bool isDoneBtnClicked;
   final DesignScreenProvider designScreenProvider;
   final VoidCallback? onAddColorBtn;
-
 
   ColorPallets({
     required this.designScreenProvider,
@@ -47,8 +45,6 @@ class _ColorPalletsState extends State<ColorPallets> {
       }
     }
   }
-
-
 
   @override
   void initState() {

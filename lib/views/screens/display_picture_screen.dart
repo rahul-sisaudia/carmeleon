@@ -58,6 +58,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   @override
   void initState() {
     _designScreenProvider = DesignScreenProvider();
+
     super.initState();
   }
 
@@ -92,7 +93,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                     (_designScreenProvider.bodyPart == CarEnum.carBody ||
                         _designScreenProvider.bodyPart == CarEnum.carRim ||
                         _designScreenProvider.isDoneBtnClicked))
-                  ColorPallets(onAddColorBtn: _onAddColorTap,
+                  ColorPallets(
+                    onAddColorBtn: _onAddColorTap,
                     isShowAddColorBtn: true,
                     designScreenProvider: _designScreenProvider,
                     isColorPicker: widget.isColorPicker,
