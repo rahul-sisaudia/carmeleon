@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cyclop/cyclop.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +24,6 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
   /// first this function check which index is selected then replace the color
   /// with selected index color otherwise add as a new color in color pallets
   Future<void> onAddNewColor(dynamic value) async {
-    await PreferenceConnector.preferenceInitializer();
     if (widget.designScreenProvider.selectedIndex != null) {
       widget.designScreenProvider.temColorList
           .removeAt(widget.designScreenProvider.selectedIndex);
@@ -30,18 +31,14 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
           .insert(widget.designScreenProvider.selectedIndex!, value);
       widget.designScreenProvider.selectedIndex =
           widget.designScreenProvider.tempColorListLength;
-      PreferenceConnector.setColors(
-          'colorData', widget.designScreenProvider.temColorList.toString());
-      print('Shared Preference Data: '
-          '${PreferenceConnector.getColors('colorData')}');
+      print('update existing color in Temp Color List : '
+          '${widget.designScreenProvider.temColorList}');
     } else {
       widget.designScreenProvider.temColorList.add(value);
       widget.designScreenProvider.selectedIndex =
           widget.designScreenProvider.tempColorListLength;
-      PreferenceConnector.setColors(
-          'colorData', widget.designScreenProvider.temColorList.toString());
-      print('Shared Preference Data: '
-          '${PreferenceConnector.getColors('colorData')}');
+      print('Add new Color in Temp Color List : '
+          '${widget.designScreenProvider.temColorList}');
     }
   }
 
@@ -55,11 +52,16 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
 
   /// this function is called when save the color selection
   /// function copy  the temp list data to the ColorList.color
-  void onDoneBtnClicked() {
-    ColorList.colors = List.from(widget.designScreenProvider.temColorList);
-    print('colorList item:${ColorList.colors.length}');
-    Navigator.pop(context, true);
-    Navigator.pop(context, true);
+  Future<void> onDoneBtnClicked() async {
+    await PreferenceConnector.preferenceInitializer();
+    PreferenceConnector.setColors(
+        'colorData', widget.designScreenProvider.temColorList.toString());
+    var data = PreferenceConnector.getColors('colorData');
+    var stringList = data.split(',');
+    print(stringList);
+
+    // Navigator.pop(context, true);
+    // Navigator.pop(context, true);
   }
 
   @override
