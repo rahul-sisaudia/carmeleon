@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cyclop/cyclop.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +18,8 @@ class ColorPickerButtonsPallet extends StatefulWidget {
 }
 
 class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
+  final List<String> _tempColorData = [];
+
   /// this function takes color value from color picker
   /// first this function check which index is selected then replace the color
   /// with selected index color otherwise add as a new color in color pallets
@@ -31,14 +31,14 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
           .insert(widget.designScreenProvider.selectedIndex!, value);
       widget.designScreenProvider.selectedIndex =
           widget.designScreenProvider.tempColorListLength;
-      print('update existing color in Temp Color List : '
-          '${widget.designScreenProvider.temColorList}');
+      _tempColorData.add(value.toString());
+      print('_tempColorData:$_tempColorData');
     } else {
       widget.designScreenProvider.temColorList.add(value);
       widget.designScreenProvider.selectedIndex =
           widget.designScreenProvider.tempColorListLength;
-      print('Add new Color in Temp Color List : '
-          '${widget.designScreenProvider.temColorList}');
+      _tempColorData.add(value.toString());
+      print('_tempColorData:$_tempColorData');
     }
   }
 
@@ -52,16 +52,14 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
 
   /// this function is called when save the color selection
   /// function copy  the temp list data to the ColorList.color
-  Future<void> onDoneBtnClicked() async {
+  void onDoneBtnClicked() async {
     await PreferenceConnector.preferenceInitializer();
-    PreferenceConnector.setColors(
-        'colorData', widget.designScreenProvider.temColorList.toString());
-    var data = PreferenceConnector.getColors('colorData');
-    var stringList = data.split(',');
-    print(stringList);
+    PreferenceConnector.setColors(_tempColorData);
+    var data = await PreferenceConnector.getColor();
+    print(data);
 
-    // Navigator.pop(context, true);
-    // Navigator.pop(context, true);
+    Navigator.pop(context, true);
+    Navigator.pop(context, true);
   }
 
   @override
