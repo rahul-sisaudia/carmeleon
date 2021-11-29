@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
 
-import 'color_constants.dart';
+import '../../core/extensions/hex_color.dart';
+import '../../core/helpers/helper_imports.dart';
+import 'constant_imports.dart';
 
 class ColorList {
   static List<Color> colorsList = <Color>[];
 
-  static List<String> stringColorList = <String>[
-    ' Color(0xFF0B0B09)',
-    'Color(0xFF7444F4)',
-    'Color(0xFF0F0F0F)',
-    'Color(0xFFF2F6F9)',
-    'Color(0xFF394652)'
+  static List<String> hexColorCodeList = <String>[
+    'FF0B0B09',
+    'FF7444F4',
+    'FF0F0F0F',
+    'FFF2F6F9',
+    'FF394652'
   ];
+
+  static Future checkAndAddDefaultColors() async {
+    final _sharedPrefHelper = SharedPrefHelper();
+
+    final _isColorsListExist =
+        await _sharedPrefHelper.containsKey(SharedPrefsConstants.colorList);
+    if (_isColorsListExist) {
+      var _hexColorCodesList = await _sharedPrefHelper.getHexColorCodesList();
+      ColorList.colorsList.clear();
+      for (var i = 0; i < _hexColorCodesList.length; i++) {
+        ColorList.colorsList.add(HexColor(_hexColorCodesList[i]));
+      }
+    } else {
+      for (var i = 0; i < ColorList.hexColorCodeList.length; i++) {
+        var valueString = ColorList.hexColorCodeList[i];
+        ColorList.colorsList.add(HexColor(valueString));
+      }
+    }
+  }
 }

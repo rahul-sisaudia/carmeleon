@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../core/helpers/helper_imports.dart';
-import '../widgets/camera_buttons_pallet.dart';
+import '../widgets/camera_screen_buttons_pallet.dart';
 import 'color_picker_screen.dart';
 import 'display_picture_screen.dart';
 
@@ -152,7 +152,7 @@ class _CameraScreenState extends State<CameraScreen>
             ),
           ),
         ),
-        CameraButtonsPallet(
+        CameraScreenButtonsPallet(
           cameraBtnClicked: _cameraBtnClicked,
           libraryBtnClicked: _libraryBtnClicked,
         ),

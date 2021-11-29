@@ -1,36 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../../aspects/constants/color_list.dart';
-import '../../aspects/enum/body_enum.dart';
 import '../modals/car_history_modal.dart';
 
 class DesignScreenProvider extends ChangeNotifier {
-  CarEnum? _bodyPart;
   bool _isDoneBtnClicked = false;
-  bool _isOptionVisible = true;
   int? _currentBpSelectedIndex;
   int? _tempColorListLength;
   List<CarHistoryData> historyList = <CarHistoryData>[];
   final List<Color> _temColorList = List.from(ColorList.colorsList);
 
-  CarEnum? get bodyPart => _bodyPart;
-
-  set bodyPart(CarEnum? value) {
-    _bodyPart = value;
-    notifyListeners();
-  }
-
   bool get isDoneBtnClicked => _isDoneBtnClicked;
 
   set isDoneBtnClicked(bool value) {
     _isDoneBtnClicked = value;
-    notifyListeners();
-  }
-
-  bool get isOptionVisible => _isOptionVisible;
-
-  set isOptionVisible(bool value) {
-    _isOptionVisible = value;
     notifyListeners();
   }
 

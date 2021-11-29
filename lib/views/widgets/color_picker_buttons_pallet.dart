@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../aspects/constants/constant_imports.dart';
 import '../../core/helpers/helper_imports.dart';
 import '../../core/notifiers/design_screen_provider.dart';
-import '../../core/shared_preference/preference_connector.dart';
+import '../../core/helpers/shared_pref_helper.dart';
 import 'build_buttons_view.dart';
 
 class ColorPickerButtonsPallet extends StatefulWidget {
@@ -55,8 +55,7 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
       var stringValue = widget.designScreenProvider.temColorList[i].toString();
       _tempColorData.add(stringValue);
     }
-    await PreferenceConnector.preferenceInitializer();
-    PreferenceConnector.setColors(_tempColorData);
+    await SharedPrefHelper().setColorStringList(_tempColorData);
     Navigator.pop(context, true);
     Navigator.pop(context, true);
   }
