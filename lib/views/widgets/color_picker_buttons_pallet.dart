@@ -23,7 +23,7 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
   /// this function takes color value from color picker
   /// first this function check which index is selected then replace the color
   /// with selected index color otherwise add as a new color in color pallets
-  Future<void> onAddNewColor(dynamic value) async {
+  Future<void> onAddNewColor(Color value) async {
     if (widget.designScreenProvider.selectedIndex != null) {
       widget.designScreenProvider.temColorList
           .removeAt(widget.designScreenProvider.selectedIndex);
@@ -31,14 +31,10 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
           .insert(widget.designScreenProvider.selectedIndex!, value);
       widget.designScreenProvider.selectedIndex =
           widget.designScreenProvider.tempColorListLength;
-      _tempColorData.add(value.toString());
-      print('_tempColorData:$_tempColorData');
     } else {
       widget.designScreenProvider.temColorList.add(value);
       widget.designScreenProvider.selectedIndex =
           widget.designScreenProvider.tempColorListLength;
-      _tempColorData.add(value.toString());
-      print('_tempColorData:$_tempColorData');
     }
   }
 
@@ -47,17 +43,20 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
   void onDeleteColor() {
     widget.designScreenProvider.temColorList
         .removeAt(widget.designScreenProvider.selectedIndex);
+    widget.designScreenProvider.tempColorListLength;
     widget.designScreenProvider.selectedIndex = null;
   }
 
   /// this function is called when save the color selection
   /// function copy  the temp list data to the ColorList.color
   void onDoneBtnClicked() async {
+    ColorList.colorsList = List.from(widget.designScreenProvider.temColorList);
+    for (var i = 0; i < widget.designScreenProvider.temColorList.length; i++) {
+      var stringValue = widget.designScreenProvider.temColorList[i].toString();
+      _tempColorData.add(stringValue);
+    }
     await PreferenceConnector.preferenceInitializer();
     PreferenceConnector.setColors(_tempColorData);
-    var data = await PreferenceConnector.getColor();
-    print(data);
-
     Navigator.pop(context, true);
     Navigator.pop(context, true);
   }

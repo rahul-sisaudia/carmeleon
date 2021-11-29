@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../aspects/constants/constant_imports.dart';
 import '../../core/helpers/helper_imports.dart';
+import '../../core/shared_preference/preference_connector.dart';
 import 'camera_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,8 +26,31 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  _checkSharedPreferenceData() async {
+    PreferenceConnector.preferenceInitializer();
+    var prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('colorData')) {
+      var data = await PreferenceConnector.getColor();
+      for (var i = 0; i < data!.length; i++) {
+        var valueString = data[i].split('(0x')[1].split(')')[0];
+        var value = int.parse(valueString, radix: 16);
+        ColorList.colorsList.add(Color(value));
+        print(Color(value));
+      }
+      print(data.toString());
+    } else {
+      for (var i = 0; i < ColorList.stringColorList.length; i++) {
+        var valueString =
+            ColorList.stringColorList[i].split('(0x')[1].split(')')[0];
+        var value = int.parse(valueString, radix: 16);
+        ColorList.colorsList.add(Color(value));
+      }
+    }
+  }
+
   @override
   void initState() {
+    _checkSharedPreferenceData();
     super.initState();
     initializeNetwork();
   }

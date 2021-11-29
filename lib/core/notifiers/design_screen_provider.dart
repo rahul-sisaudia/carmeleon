@@ -11,7 +11,7 @@ class DesignScreenProvider extends ChangeNotifier {
   int? _currentBpSelectedIndex;
   int? _tempColorListLength;
   List<CarHistoryData> historyList = <CarHistoryData>[];
-  final List<Color> _temColorList = List.from(ColorList.colors);
+  final List<Color> _temColorList = List.from(ColorList.colorsList);
 
   CarEnum? get bodyPart => _bodyPart;
 

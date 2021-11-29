@@ -34,7 +34,7 @@ class _ColorPalletsState extends State<ColorPallets> {
     setState(() {});
     if (!widget.designScreenProvider.isDoneBtnClicked) {
       final _hist = CarHistoryData(
-          colorCode: ColorList.colors[index].toString(),
+          colorCode: ColorList.colorsList[index].toString(),
           bodyPart: widget.designScreenProvider.bodyPart);
       widget.designScreenProvider.historyList.add(_hist);
       //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -115,7 +115,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                         scrollDirection: Axis.horizontal,
                         itemCount: widget.isColorPicker
                             ? widget.designScreenProvider.temColorList.length
-                            : ColorList.colors.length,
+                            : ColorList.colorsList.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () => _onColorBtnTap(index),
@@ -131,7 +131,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                                     ? widget.isColorPicker
                                         ? widget.designScreenProvider
                                             .temColorList[index]
-                                        : ColorList.colors[index]
+                                        : ColorList.colorsList[index]
                                     : ColorConstants.white,
                                 borderRadius:
                                     BorderRadius.circular(Dimensions.px20),
@@ -153,7 +153,7 @@ class _ColorPalletsState extends State<ColorPallets> {
                                         color: widget.isColorPicker
                                             ? widget.designScreenProvider
                                                 .temColorList[index]
-                                            : ColorList.colors[index],
+                                            : ColorList.colorsList[index],
                                         borderRadius: BorderRadius.circular(
                                             Dimensions.px40),
                                       ),
