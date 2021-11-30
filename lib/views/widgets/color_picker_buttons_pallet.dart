@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../aspects/constants/constant_imports.dart';
 import '../../core/helpers/helper_imports.dart';
-import '../../core/notifiers/design_screen_provider.dart';
 import '../../core/helpers/shared_pref_helper.dart';
+import '../../core/notifiers/design_screen_provider.dart';
 import 'build_buttons_view.dart';
 
 class ColorPickerButtonsPallet extends StatefulWidget {
@@ -47,13 +47,15 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
     widget.designScreenProvider.selectedIndex = null;
   }
 
-  /// this function is called when save the color selection
+  /// this function is called when save the color selectiong
   /// function copy  the temp list data to the ColorList.color
   void onDoneBtnClicked() async {
     ColorList.colorsList = List.from(widget.designScreenProvider.temColorList);
     for (var i = 0; i < widget.designScreenProvider.temColorList.length; i++) {
-      var stringValue = widget.designScreenProvider.temColorList[i].toString();
-      _tempColorData.add(stringValue);
+      var color = widget.designScreenProvider.temColorList[i];
+      var hexString = '${color.value.toRadixString(16)}';
+      print('color value:$hexString');
+      _tempColorData.add(hexString.toUpperCase());
     }
     await SharedPrefHelper().setColorStringList(_tempColorData);
     Navigator.pop(context, true);

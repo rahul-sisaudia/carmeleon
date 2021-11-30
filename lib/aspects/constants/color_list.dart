@@ -15,6 +15,9 @@ class ColorList {
     'FF394652'
   ];
 
+  /// this method is used for initialize shared preferences
+  /// check the data exist or not in shared preference then
+  /// get color from shared preference stringList
   static Future checkAndAddDefaultColors() async {
     final _sharedPrefHelper = SharedPrefHelper();
 
