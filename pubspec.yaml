@@ -21,6 +21,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   cyclop: ^0.5.2
   image_cropper: ^1.4.1
+  image_gallery_saver: ^1.7.1
   image_picker: ^0.8.4+3
   json_annotation: ^4.3.0
   json_serializable: ^6.0.1

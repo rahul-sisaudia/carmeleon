@@ -12,10 +12,12 @@ class DisplayScreenMainButtonPallets extends StatefulWidget {
   final bool isColorPicker;
   final Function onSelectCarEnum;
   final CarEnum? bodyPart;
+  final VoidCallback? onSaveBtnClicked;
 
   DisplayScreenMainButtonPallets({
     required this.isColorPicker,
     required this.onSelectCarEnum,
+    this.onSaveBtnClicked,
     this.bodyPart,
   });
 
@@ -27,7 +29,6 @@ class DisplayScreenMainButtonPallets extends StatefulWidget {
 class _DisplayScreenMainButtonPalletsState
     extends State<DisplayScreenMainButtonPallets> {
   late DesignScreenProvider _designScreenProvider;
-
 
   void onUndoBtnTap() {
     if (_designScreenProvider.historyList.isNotEmpty) {
@@ -67,38 +68,51 @@ class _DisplayScreenMainButtonPalletsState
           onTap: () => widget.onSelectCarEnum(CarEnum.carRim),
           child: BuildButtonsView(
             icon: ((widget.bodyPart != null) &&
-                (widget.bodyPart == CarEnum.carRim))
+                    (widget.bodyPart == CarEnum.carRim))
                 ? const Icon(
-              Icons.stars_outlined,
-              size: Dimensions.px35,
-              color: Colors.blue,
-            )
+                    Icons.stars_outlined,
+                    size: Dimensions.px35,
+                    color: Colors.blue,
+                  )
                 : const Icon(
-              Icons.stars_outlined,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
+                    Icons.stars_outlined,
+                    size: Dimensions.px35,
+                    color: Colors.black,
+                  ),
           ),
         ),
         GestureDetector(
           onTap: () => widget.onSelectCarEnum(CarEnum.carBody),
           child: BuildButtonsView(
             icon: ((widget.bodyPart != null) &&
-                (widget.bodyPart == CarEnum.carBody))
+                    (widget.bodyPart == CarEnum.carBody))
                 ? const Icon(
-              Icons.car_repair_rounded,
-              size: Dimensions.px35,
-              color: Colors.blue,
-            )
+                    Icons.car_repair_rounded,
+                    size: Dimensions.px35,
+                    color: Colors.blue,
+                  )
                 : const Icon(
-              Icons.car_repair_rounded,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
+                    Icons.car_repair_rounded,
+                    size: Dimensions.px35,
+                    color: Colors.black,
+                  ),
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            AppHelper.showSimpleDialogue(
+              onClick: () {
+                widget.onSaveBtnClicked!();
+              },
+              showNoButton: true,
+              showOkayButton: true,
+              cancelBtnTitle: 'Discard',
+              title: 'Alert',
+              message: 'Do you want to save the Image',
+              okBtnTitle: 'Save',
+              context: context,
+            );
+          },
           child: BuildButtonsView(
             icon: const Icon(
               Icons.save,
@@ -132,5 +146,4 @@ class _DisplayScreenMainButtonPalletsState
       ],
     );
   }
-
 }
