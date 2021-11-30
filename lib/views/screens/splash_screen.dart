@@ -1,20 +1,23 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../aspects/constants/image_constants.dart';
+import '../../aspects/constants/constant_imports.dart';
+import '../../core/helpers/helper_imports.dart';
+import '../../core/helpers/shared_pref_helper.dart';
+import 'camera_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  SplashScreen();
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
   bool _initializationComplete = false;
+  final _sharedPrefHelper = SharedPrefHelper();
 
-  void initializeNetwork() async {
+  Future _initializeNetwork() async {
     ///ToDo : The time duration is to simulate network connection
     ///Replace this with proper backend connectivity
     Timer(Duration(seconds: 2), () {
@@ -27,42 +30,48 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    initializeNetwork();
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+      await ColorList.checkAndAddDefaultColors();
+      await _initializeNetwork();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      color: Colors.white,
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: [
-          Center(
-            child: Image.asset(
-              ImageConstants.imageSplashScreenPng,
-              height: 300.0,
-              width: 300.0,
+      body: Container(
+        color: Colors.white,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Center(
+              child: Image.asset(
+                ImageConstants.imageSplashScreenPng,
+                height: 300.0,
+                width: 300.0,
+              ),
             ),
-          ),
 
-          ///TODO: Replace this with appropriate widget/animation to navigate
-          ///to the next screen. If Login is
-          /// implemented navigate to login screen
-          ///else to the CameraPreview Screen
-          Center(
-            child: _initializationComplete
-                ? TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/cameraPreview/");
-                    },
-                    child: Text("READY! =>"),
-                  )
-                : CircularProgressIndicator(),
-          )
-        ],
+            ///TODO: Replace this with appropriate widget/animation to navigate
+            ///to the next screen. If Login is
+            /// implemented navigate to login screen
+            ///else to the CameraPreview Screen
+            Center(
+              child: _initializationComplete
+                  ? TextButton(
+                      onPressed: () {
+                        RoutingHelper.pushAndRemoveUntilToScreen(
+                            ctx: context, screen: CameraScreen());
+                      },
+                      child: Text("READY! =>"),
+                    )
+                  : CircularProgressIndicator(),
+            )
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

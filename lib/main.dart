@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'core/notifiers/design_screen_provider.dart';
-import 'views/screens/camera_preview.dart';
 import 'views/screens/splash_screen.dart';
 
 void main() async {
@@ -30,11 +29,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => SplashScreen(),
-          '/cameraPreview/': (context) => CameraPreviewScreen(),
-        },
+        home: SplashScreen(),
       ),
     );
   }
