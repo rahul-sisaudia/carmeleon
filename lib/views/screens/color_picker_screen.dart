@@ -43,26 +43,28 @@ class _ColorPickerScreenState extends State<ColorPickerScreen> {
   Widget build(BuildContext context) {
     _designScreenProvider = Provider.of<DesignScreenProvider>(context);
     return EyeDrop(
-        child: Scaffold(
-      body: Stack(
-        children: [
-          GestureDetector(
-            onTap: _onScreenTap,
-            child: Container(
-              color: ColorConstants.white,
-              height: double.infinity,
-              width: double.infinity,
-              child: Image.file(
-                File(widget.imagePath),
-                fit: BoxFit.cover,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            GestureDetector(
+              onTap: _onScreenTap,
+              child: Container(
+                color: ColorConstants.white,
+                height: double.infinity,
+                width: double.infinity,
+                child: Image.file(
+                  File(widget.imagePath),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          if (_isOptionVisible) ColorPickerButtonsPallet(_designScreenProvider),
-          if (_isOptionVisible && _designScreenProvider.isDoneBtnClicked)
-            ColorsPallet(isColorPicker: widget.isColorPicker),
-        ],
+            if (_isOptionVisible)
+              ColorPickerButtonsPallet(_designScreenProvider),
+            if (_isOptionVisible && _designScreenProvider.isDoneBtnClicked)
+              ColorsPallet(isColorPicker: widget.isColorPicker),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
