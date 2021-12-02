@@ -28,7 +28,8 @@ class ColorsPallet extends StatefulWidget {
 
 class _ColorsPalletState extends State<ColorsPallet> {
   late DesignScreenProvider _designScreenProvider;
-
+  final _controller = ScrollController();
+double _move=0.0;
   /// this function takes  integer index value
   /// tap on any color then the index value of that color will be sett as
   /// selected index
@@ -56,23 +57,39 @@ class _ColorsPalletState extends State<ColorsPallet> {
   Widget build(BuildContext context) {
     _designScreenProvider = Provider.of<DesignScreenProvider>(context);
     return Positioned(
-      left: 10,
-      right: 10,
+      left: 20,
+      right: 100,
+      bottom: 5,
       top: DeviceSizeHelper.height(context) / 1.18,
       child: Row(
         children: [
           Padding(
             padding: const EdgeInsets.all(5.0),
-            child: Container(
-              height: DeviceSizeHelper.height(context) / Dimensions.px9,
-              decoration: BoxDecoration(
-                color: Colors.white54,
-                borderRadius: BorderRadius.circular(Dimensions.px10),
-              ),
-              child: const Icon(
-                Icons.chevron_left,
-                size: Dimensions.px25,
-                color: Colors.black,
+            child: GestureDetector(
+              onTap: (){
+                if(_move>_controller.position.minScrollExtent){
+                  _move-=30;
+                }
+                _controller.animateTo(
+
+                  _move  ,
+                  curve: Curves.easeOut,
+                  duration: const Duration(milliseconds: 500),
+                );
+
+              },
+              child: Container(
+                height: DeviceSizeHelper.height(context) / Dimensions.px8,
+                width: DeviceSizeHelper.height(context) / Dimensions.px9,
+                decoration: BoxDecoration(
+                  color: Colors.white54,
+                  borderRadius: BorderRadius.circular(Dimensions.px10),
+                ),
+                child: const Icon(
+                  Icons.chevron_left,
+                  size: Dimensions.px25,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),
@@ -91,31 +108,34 @@ class _ColorsPalletState extends State<ColorsPallet> {
                     widget.isColorPicker
                         ? Container()
                         : GestureDetector(
-                            onTap: widget.onAddColorBtn,
-                            child: Container(
-                              margin: EdgeInsets.only(left: 8),
-                              decoration: BoxDecoration(
-                                color: ColorConstants.white,
-                                borderRadius:
-                                    BorderRadius.circular(Dimensions.px20),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(3.0),
-                                child: Container(
-                                  //width: DeviceSize.width(context) / Dimensions.px26,
-                                  child: const Icon(
-                                    Icons.add,
-                                    size: Dimensions.px42,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
+                      onTap: widget.onAddColorBtn,
+                      child: Container(
+                        margin: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                          color: ColorConstants.white,
+                          borderRadius:
+                          BorderRadius.circular(Dimensions.px20),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Container(
+                            //width: DeviceSize.width(context) / Dimensions.px26,
+                            child: const Icon(
+                              Icons.add,
+                              size: Dimensions.px42,
+                              color: Colors.black,
                             ),
                           ),
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: ListView.builder(
+                        controller: _controller,
                         scrollDirection: Axis.horizontal,
-                        itemCount: widget.isColorPicker
+                        itemCount:
+
+                        widget.isColorPicker
                             ? _designScreenProvider.temColorList.length
                             : ColorList.colorsList.length,
                         itemBuilder: (context, index) {
@@ -124,17 +144,20 @@ class _ColorsPalletState extends State<ColorsPallet> {
                             child: Container(
                               margin: EdgeInsets.only(left: 8),
                               decoration: BoxDecoration(
-                                color: ((_designScreenProvider.selectedIndex !=
-                                            null) &&
-                                        (_designScreenProvider.selectedIndex ==
-                                            index))
+                                color:
+                                ((_designScreenProvider.selectedIndex !=
+                                    null) &&
+                                    (_designScreenProvider.selectedIndex ==
+                                        index))
                                     ? widget.isColorPicker
-                                        ? _designScreenProvider
-                                            .temColorList[index]
-                                        : ColorList.colorsList[index]
+                                    ?
+                                _designScreenProvider
+                                    .temColorList[index]
+                                    :
+                                ColorList.colorsList[index]
                                     : ColorConstants.white,
                                 borderRadius:
-                                    BorderRadius.circular(Dimensions.px20),
+                                BorderRadius.circular(Dimensions.px20),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(3.0),
@@ -142,7 +165,7 @@ class _ColorsPalletState extends State<ColorsPallet> {
                                   decoration: BoxDecoration(
                                     color: ColorConstants.white,
                                     borderRadius:
-                                        BorderRadius.circular(Dimensions.px20),
+                                    BorderRadius.circular(Dimensions.px20),
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
@@ -150,9 +173,11 @@ class _ColorsPalletState extends State<ColorsPallet> {
                                       width: DeviceSizeHelper.width(context) /
                                           Dimensions.px26,
                                       decoration: BoxDecoration(
-                                        color: widget.isColorPicker
-                                            ? _designScreenProvider
-                                                .temColorList[index]
+                                        color:
+                                        widget.isColorPicker
+                                            ?
+                                        _designScreenProvider
+                                            .temColorList[index]
                                             : ColorList.colorsList[index],
                                         borderRadius: BorderRadius.circular(
                                             Dimensions.px40),
@@ -173,16 +198,32 @@ class _ColorsPalletState extends State<ColorsPallet> {
           ),
           Padding(
             padding: const EdgeInsets.all(5.0),
-            child: Container(
-              height: DeviceSizeHelper.height(context) / Dimensions.px9,
-              decoration: BoxDecoration(
-                color: Colors.white54,
-                borderRadius: BorderRadius.circular(Dimensions.px10),
-              ),
-              child: const Icon(
-                Icons.chevron_right,
-                size: Dimensions.px25,
-                color: Colors.black,
+            child: GestureDetector(
+              onTap:() {
+                if(_move<_controller.position.maxScrollExtent){
+                  _move+=30;
+                }
+                _controller.animateTo(
+
+                  _move  ,
+                  curve: Curves.easeOut,
+                  duration: const Duration(milliseconds: 500),
+                );
+
+
+              },
+              child: Container(
+                height: DeviceSizeHelper.height(context) / Dimensions.px8,
+                width: DeviceSizeHelper.height(context) / Dimensions.px9,
+                decoration: BoxDecoration(
+                  color: Colors.white54,
+                  borderRadius: BorderRadius.circular(Dimensions.px10),
+                ),
+                child: const Icon(
+                  Icons.chevron_right,
+                  size: Dimensions.px25,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),
