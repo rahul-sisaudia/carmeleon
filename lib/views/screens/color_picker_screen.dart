@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../../aspects/constants/color_constants.dart';
 import '../../core/notifiers/design_screen_provider.dart';
-import '../widgets/colors_pallet.dart';
 import '../widgets/color_picker_buttons_pallet.dart';
+import '../widgets/colors_pallet.dart';
 
 class ColorPickerScreen extends StatefulWidget {
   final bool isColorPicker;
