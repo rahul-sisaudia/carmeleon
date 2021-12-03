@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,19 +40,20 @@ class _CameraScreenState extends State<CameraScreen>
   /// this method is used for handle camera life cycle
   /// when app is in background then camera controller will be disposed
   /// and when resume app then camera reinitialize the camera controller
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    if (state == AppLifecycleState.inactive ||
-        state == AppLifecycleState.detached) return;
-    final isResumed = state == AppLifecycleState.resumed;
-    if (isResumed) {
-      print('App life cycle state:$state');
-      _initializeControllerFuture = _initializeCamera();
-      setState(() {});
-    } else {
-      print('App life cycle state:$state');
+    // App state changed before we got the chance to initialize.
+    if (_cameraController == null || !_cameraController!.value.isInitialized) {
+      return;
+    }
+    if (state == AppLifecycleState.inactive && !widget.isForColorPicker) {
+      print('AppLifecycleState:$state');
       _cameraController?.dispose();
+    } else if (state == AppLifecycleState.resumed && !widget.isForColorPicker) {
+      print('AppLifecycleState:$state');
+      if (_cameraController != null) {
+        _initializeControllerFuture = _initializeCamera();
+      }
     }
   }
 
@@ -89,22 +92,26 @@ class _CameraScreenState extends State<CameraScreen>
       await _initializeControllerFuture;
       _cameraController?.setFlashMode(FlashMode.off);
       final _image = await _cameraController?.takePicture();
-      if (_image != null) {
-        widget.isForColorPicker
-            ? RoutingHelper.pushToScreen(
-                ctx: context,
-                screen: ColorPickerScreen(
-                  imagePath: _image.path,
-                  isColorPicker: widget.isForColorPicker,
-                ),
-              )
-            : RoutingHelper.pushToScreen(
-                ctx: context,
-                screen: DisplayPictureScreen(
-                  imagePath: _image.path,
-                  isColorPicker: widget.isForColorPicker,
-                ),
-              );
+      var _imageFile = _image != null ? File(_image.path) : null;
+      if (_imageFile != null) {
+        final _croppedFile = await AppHelper.cropImage(_imageFile);
+        if (_croppedFile != null) {
+          widget.isForColorPicker
+              ? RoutingHelper.pushToScreen(
+                  ctx: context,
+                  screen: ColorPickerScreen(
+                    imagePath: _image!.path,
+                    isColorPicker: widget.isForColorPicker,
+                  ),
+                )
+              : RoutingHelper.pushToScreen(
+                  ctx: context,
+                  screen: DisplayPictureScreen(
+                    imagePath: _image!.path,
+                    isColorPicker: widget.isForColorPicker,
+                  ),
+                );
+        }
       }
     } on Exception catch (e) {
       print('_cameraBtnClicked error: $e');
@@ -117,22 +124,26 @@ class _CameraScreenState extends State<CameraScreen>
     try {
       await _initializeControllerFuture;
       final _image = await _getImageFromGallery();
-      if (_image != null) {
-        widget.isForColorPicker
-            ? RoutingHelper.pushToScreen(
-                ctx: context,
-                screen: ColorPickerScreen(
-                  imagePath: _image.path,
-                  isColorPicker: widget.isForColorPicker,
-                ),
-              )
-            : RoutingHelper.pushToScreen(
-                ctx: context,
-                screen: DisplayPictureScreen(
-                  imagePath: _image.path,
-                  isColorPicker: widget.isForColorPicker,
-                ),
-              );
+      var _imageFile = _image != null ? File(_image.path) : null;
+      if (_imageFile != null) {
+        final _croppedFile = await AppHelper.cropImage(_imageFile);
+        if (_croppedFile != null) {
+          widget.isForColorPicker
+              ? RoutingHelper.pushToScreen(
+                  ctx: context,
+                  screen: ColorPickerScreen(
+                    imagePath: _image!.path,
+                    isColorPicker: widget.isForColorPicker,
+                  ),
+                )
+              : RoutingHelper.pushToScreen(
+                  ctx: context,
+                  screen: DisplayPictureScreen(
+                    imagePath: _image!.path,
+                    isColorPicker: widget.isForColorPicker,
+                  ),
+                );
+        }
       }
     } on Exception catch (e) {
       print('_libraryBtnClicked error: $e');
