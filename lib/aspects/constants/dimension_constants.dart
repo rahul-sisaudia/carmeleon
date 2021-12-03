@@ -13,7 +13,11 @@ class Dimensions {
   static const double px20 = 20;
   static const double px25 = 25;
   static const double px26 = 26;
+  static const double px30 = 30;
   static const double px35 = 35;
   static const double px40 = 40;
   static const double px42 = 42;
+  static const double px50 = 50;
+  static const double px80 = 80;
+
 }
