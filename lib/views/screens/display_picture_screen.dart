@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 import '../../aspects/constants/color_constants.dart';
+import '../../aspects/constants/constant_imports.dart';
 import '../../aspects/enum/body_enum.dart';
 import '../widgets/colors_pallet.dart';
 import '../widgets/display_screen_main_button_pallets.dart';
@@ -24,7 +26,7 @@ class DisplayPictureScreen extends StatefulWidget {
 
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   bool _isOptionVisible = true;
-  bool _isLongPress = true;
+  bool _isLongPressed = false;
   CarEnum? _bodyPart;
 
   /// this function is used for show and hide color pallets and
@@ -35,9 +37,9 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     });
   }
 
-  _onLongPress() {
+  _onLongPressed() {
     setState(() {
-      _isLongPress = !_isLongPress;
+      _isLongPressed = !_isLongPressed;
     });
   }
 
@@ -49,15 +51,16 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   }
 
   Future _onSaveImage() async {
-    final result = await ImageGallerySaver.saveFile(
-      widget.imagePath,
-      name: 'new image',
-    );
-    // final String path = directory.path;
-    //
-    // var tmpFile = File(widget.imagePath);
-    // tmpFile = await tmpFile.copy(tmpFile.path);
-    print('File save Location: $result');
+    try {
+      final _img = File(widget.imagePath);
+      final result = await ImageGallerySaver.saveImage(
+        Uint8List.fromList(_img.readAsBytesSync()),
+        name: 'new image',
+      );
+      print('File save Location: $result');
+    } on Exception catch (e) {
+      print('_onSaveImage error: $e');
+    }
   }
 
   /// this function called when the user tap on add color button
@@ -76,22 +79,20 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       body: Stack(
         children: [
           GestureDetector(
-            onLongPressStart: (details) {
-              _onLongPress();
-            },
-            onLongPressEnd: (details) {
-              _onLongPress();
-            },
+            onLongPress: _onLongPressed,
             onTap: _onScreenTap,
             child: Container(
               color: ColorConstants.white,
               height: double.infinity,
               width: double.infinity,
-              child: Image.file(
-                File(
-                    _isLongPress ? widget.imagePath : 'assets/images/logo.png'),
-                fit: BoxFit.cover,
-              ),
+              child: _isLongPressed
+                  ? Image.asset(
+                      ImageConstants.imageSplashScreenPng,
+                    )
+                  : Image.file(
+                      File(widget.imagePath),
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
           if (_isOptionVisible)
