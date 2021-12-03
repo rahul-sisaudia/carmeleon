@@ -48,7 +48,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     });
   }
 
-  Future<void> _onSaveImage() async {
+  Future _onSaveImage() async {
     final result = await ImageGallerySaver.saveFile(
       widget.imagePath,
       name: 'new image',
@@ -99,14 +99,14 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
               onSelectCarEnum: _onSelectCarEnum,
               isColorPicker: widget.isColorPicker,
               onSaveBtnClicked: _onSaveImage,
-              bodyPart: _bodyPart,
+              selBodyPart: _bodyPart,
             ),
           if (_isOptionVisible && (_bodyPart != null))
             ColorsPallet(
-              onAddColorBtn: _onAddColorTap,
+              addColorBtnTapped: _onAddColorTap,
               isShowAddColorBtn: true,
               isColorPicker: widget.isColorPicker,
-              bodyPart: _bodyPart,
+              selBodyPart: _bodyPart,
             ),
         ],
       ),
