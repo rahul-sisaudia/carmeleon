@@ -1,8 +1,11 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 import '../../aspects/constants/color_constants.dart';
+import '../../aspects/constants/constant_imports.dart';
 import '../../aspects/enum/body_enum.dart';
 import '../widgets/colors_pallet.dart';
 import '../widgets/display_screen_main_button_pallets.dart';
@@ -23,6 +26,7 @@ class DisplayPictureScreen extends StatefulWidget {
 
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   bool _isOptionVisible = true;
+  bool _isLongPressed = false;
   CarEnum? _bodyPart;
 
   /// this function is used for show and hide color pallets and
@@ -33,11 +37,30 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     });
   }
 
+  _onLongPressed() {
+    setState(() {
+      _isLongPressed = !_isLongPressed;
+    });
+  }
+
   /// this function is used for select car part from enum
   void _onSelectCarEnum(CarEnum carEnum) {
     setState(() {
       _bodyPart = carEnum;
     });
+  }
+
+  Future _onSaveImage() async {
+    try {
+      final _img = File(widget.imagePath);
+      final result = await ImageGallerySaver.saveImage(
+        Uint8List.fromList(_img.readAsBytesSync()),
+        name: 'new image',
+      );
+      print('File save Location: $result');
+    } on Exception catch (e) {
+      print('_onSaveImage error: $e');
+    }
   }
 
   /// this function called when the user tap on add color button
@@ -56,21 +79,27 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       body: Stack(
         children: [
           GestureDetector(
+            onLongPress: _onLongPressed,
             onTap: _onScreenTap,
             child: Container(
               color: ColorConstants.white,
               height: double.infinity,
               width: double.infinity,
-              child: Image.file(
-                File(widget.imagePath),
-                fit: BoxFit.cover,
-              ),
+              child: _isLongPressed
+                  ? Image.asset(
+                      ImageConstants.imageSplashScreenPng,
+                    )
+                  : Image.file(
+                      File(widget.imagePath),
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
           if (_isOptionVisible)
             DisplayScreenMainButtonPallets(
               onSelectCarEnum: _onSelectCarEnum,
               isColorPicker: widget.isColorPicker,
+              onSaveBtnClicked: _onSaveImage,
               selBodyPart: _bodyPart,
             ),
           if (_isOptionVisible && (_bodyPart != null))

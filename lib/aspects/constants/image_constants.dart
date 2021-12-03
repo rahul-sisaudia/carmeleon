@@ -1,3 +1,4 @@
 class ImageConstants {
-  static const String imageSplashScreenPng = 'assets/images/splash_screen_logo.png';
+  static const String imageSplashScreenPng =
+      'assets/images/splash_screen_logo.png';
 }

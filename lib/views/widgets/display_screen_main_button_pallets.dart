@@ -11,11 +11,13 @@ import 'icon_button_view.dart';
 class DisplayScreenMainButtonPallets extends StatefulWidget {
   final bool isColorPicker;
   final Function onSelectCarEnum;
+  final VoidCallback? onSaveBtnClicked;
   final CarEnum? selBodyPart;
 
   DisplayScreenMainButtonPallets({
     required this.isColorPicker,
     required this.onSelectCarEnum,
+    this.onSaveBtnClicked,
     this.selBodyPart,
   });
 
@@ -81,6 +83,7 @@ class _DisplayScreenMainButtonPalletsState
         IconButtonView(
           icon: Icons.save,
           color: Colors.black,
+          onTap: widget.onSaveBtnClicked,
         ),
         IconButtonView(
           icon: Icons.share,
