@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../aspects/constants/constant_imports.dart';
 import '../../core/helpers/helper_imports.dart';
-import '../../core/helpers/shared_pref_helper.dart';
 import 'camera_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,7 +13,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool _initializationComplete = false;
-  final _sharedPrefHelper = SharedPrefHelper();
 
   Future _initializeNetwork() async {
     ///ToDo : The time duration is to simulate network connection

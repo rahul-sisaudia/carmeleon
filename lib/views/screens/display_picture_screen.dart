@@ -71,14 +71,14 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
             DisplayScreenMainButtonPallets(
               onSelectCarEnum: _onSelectCarEnum,
               isColorPicker: widget.isColorPicker,
-              bodyPart: _bodyPart,
+              selBodyPart: _bodyPart,
             ),
           if (_isOptionVisible && (_bodyPart != null))
             ColorsPallet(
-              onAddColorBtn: _onAddColorTap,
+              addColorBtnTapped: _onAddColorTap,
               isShowAddColorBtn: true,
               isColorPicker: widget.isColorPicker,
-              bodyPart: _bodyPart,
+              selBodyPart: _bodyPart,
             ),
         ],
       ),

@@ -1,25 +1,24 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../aspects/constants/constant_imports.dart';
 import '../../aspects/enum/body_enum.dart';
-import '../../core/helpers/helper_imports.dart';
 import '../../core/modals/car_history_modal.dart';
 import '../../core/notifiers/design_screen_provider.dart';
 
 class ColorsPallet extends StatefulWidget {
   final bool isShowAddColorBtn;
   final bool isColorPicker;
-  final bool isDoneBtnClicked;
-  final VoidCallback? onAddColorBtn;
-  final CarEnum? bodyPart;
+  final VoidCallback? addColorBtnTapped;
+  final CarEnum? selBodyPart;
 
   ColorsPallet({
     this.isShowAddColorBtn = false,
     this.isColorPicker = false,
-    this.isDoneBtnClicked = false,
-    this.onAddColorBtn,
-    this.bodyPart,
+    this.addColorBtnTapped,
+    this.selBodyPart,
   });
 
   @override
@@ -28,6 +27,9 @@ class ColorsPallet extends StatefulWidget {
 
 class _ColorsPalletState extends State<ColorsPallet> {
   late DesignScreenProvider _designScreenProvider;
+  final _scrollController = ScrollController();
+  double _move = 0.0;
+  final double _height = 55;
 
   /// this function takes  integer index value
   /// tap on any color then the index value of that color will be sett as
@@ -37,18 +39,12 @@ class _ColorsPalletState extends State<ColorsPallet> {
     _designScreenProvider.selectedIndex = index;
     setState(() {});
     if ((!_designScreenProvider.isDoneBtnClicked) &&
-        (widget.bodyPart != null)) {
+        (widget.selBodyPart != null)) {
       final _hist = CarHistoryData(
         colorCode: ColorList.colorsList[index].toString(),
-        bodyPart: widget.bodyPart,
+        bodyPart: widget.selBodyPart,
       );
       _designScreenProvider.historyList.add(_hist);
-      // //<<<<<<<<<<<<<<<<<<<<<<<< print List Data>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-      //
-      // for (var i = 0; i < _designScreenProvider.historyList.length; i++) {
-      //   print('${_designScreenProvider.historyList[i].bodyPart} => '
-      //       '${_designScreenProvider.historyList[i].colorCode}');
-      // }
     }
   }
 
@@ -56,113 +52,47 @@ class _ColorsPalletState extends State<ColorsPallet> {
   Widget build(BuildContext context) {
     _designScreenProvider = Provider.of<DesignScreenProvider>(context);
     return Positioned(
-      left: 10,
-      right: 10,
-      top: DeviceSizeHelper.height(context) / 1.18,
+      left: Dimensions.px10,
+      right: Dimensions.px80,
+      bottom: Dimensions.px10,
+      height: _height,
       child: Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Container(
-              height: DeviceSizeHelper.height(context) / Dimensions.px9,
-              decoration: BoxDecoration(
-                color: Colors.white54,
-                borderRadius: BorderRadius.circular(Dimensions.px10),
-              ),
-              child: const Icon(
-                Icons.chevron_left,
-                size: Dimensions.px25,
-                color: Colors.black,
-              ),
-            ),
+          _buildArrowView(
+            icon: Icons.chevron_left,
+            onTap: () {
+              if (_move > _scrollController.position.minScrollExtent) {
+                _move -= _height;
+              }
+              _scrollController.animateTo(
+                _move,
+                curve: Curves.easeOut,
+                duration: const Duration(milliseconds: 500),
+              );
+            },
           ),
+          SizedBox(width: Dimensions.px10),
           Expanded(
             child: Container(
-              height: DeviceSizeHelper.height(context) / Dimensions.px7,
               decoration: BoxDecoration(
                 color: Colors.white54,
-                borderRadius: BorderRadius.circular(Dimensions.px20),
+                borderRadius: BorderRadius.circular(Dimensions.px15),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 10, top: 5, bottom: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Row(
                   children: [
-                    widget.isColorPicker
-                        ? Container()
-                        : GestureDetector(
-                            onTap: widget.onAddColorBtn,
-                            child: Container(
-                              margin: EdgeInsets.only(left: 8),
-                              decoration: BoxDecoration(
-                                color: ColorConstants.white,
-                                borderRadius:
-                                    BorderRadius.circular(Dimensions.px20),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(3.0),
-                                child: Container(
-                                  //width: DeviceSize.width(context) / Dimensions.px26,
-                                  child: const Icon(
-                                    Icons.add,
-                                    size: Dimensions.px42,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                    if (widget.isShowAddColorBtn) _buildAddBtnView(),
                     Expanded(
                       child: ListView.builder(
+                        controller: _scrollController,
                         scrollDirection: Axis.horizontal,
                         itemCount: widget.isColorPicker
                             ? _designScreenProvider.temColorList.length
                             : ColorList.colorsList.length,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () => _onColorBtnTap(index),
-                            child: Container(
-                              margin: EdgeInsets.only(left: 8),
-                              decoration: BoxDecoration(
-                                color: ((_designScreenProvider.selectedIndex !=
-                                            null) &&
-                                        (_designScreenProvider.selectedIndex ==
-                                            index))
-                                    ? widget.isColorPicker
-                                        ? _designScreenProvider
-                                            .temColorList[index]
-                                        : ColorList.colorsList[index]
-                                    : ColorConstants.white,
-                                borderRadius:
-                                    BorderRadius.circular(Dimensions.px20),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(3.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: ColorConstants.white,
-                                    borderRadius:
-                                        BorderRadius.circular(Dimensions.px20),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Container(
-                                      width: DeviceSizeHelper.width(context) /
-                                          Dimensions.px26,
-                                      decoration: BoxDecoration(
-                                        color: widget.isColorPicker
-                                            ? _designScreenProvider
-                                                .temColorList[index]
-                                            : ColorList.colorsList[index],
-                                        borderRadius: BorderRadius.circular(
-                                            Dimensions.px40),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
+                          return _buildColorViewFor(index: index);
                         },
                       ),
                     ),
@@ -171,22 +101,95 @@ class _ColorsPalletState extends State<ColorsPallet> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Container(
-              height: DeviceSizeHelper.height(context) / Dimensions.px9,
-              decoration: BoxDecoration(
-                color: Colors.white54,
-                borderRadius: BorderRadius.circular(Dimensions.px10),
-              ),
-              child: const Icon(
-                Icons.chevron_right,
-                size: Dimensions.px25,
-                color: Colors.black,
-              ),
-            ),
+          SizedBox(width: Dimensions.px10),
+          _buildArrowView(
+            icon: Icons.chevron_right,
+            onTap: () {
+              if (_move < _scrollController.position.maxScrollExtent) {
+                _move += _height;
+              }
+              _scrollController.animateTo(
+                _move,
+                curve: Curves.easeOut,
+                duration: const Duration(milliseconds: 500),
+              );
+            },
           ),
         ],
+      ),
+    );
+  }
+
+  _buildColorViewFor({required int index}) {
+    return GestureDetector(
+      onTap: () => _onColorBtnTap(index),
+      child: Container(
+        margin: EdgeInsets.only(left: 8),
+        decoration: BoxDecoration(
+          color: ((_designScreenProvider.selectedIndex != null) &&
+                  (_designScreenProvider.selectedIndex == index))
+              ? widget.isColorPicker
+                  ? _designScreenProvider.temColorList[index]
+                  : ColorList.colorsList[index]
+              : ColorConstants.white,
+          borderRadius: BorderRadius.circular(Dimensions.px20),
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(6.0),
+          decoration: BoxDecoration(
+            color: ColorConstants.white,
+            borderRadius: BorderRadius.circular(Dimensions.px20),
+          ),
+          child: Container(
+            width: Dimensions.px35,
+            decoration: BoxDecoration(
+              color: widget.isColorPicker
+                  ? _designScreenProvider.temColorList[index]
+                  : ColorList.colorsList[index],
+              borderRadius: BorderRadius.circular(Dimensions.px40),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  _buildAddBtnView() {
+    return GestureDetector(
+      onTap: widget.addColorBtnTapped,
+      child: Container(
+        padding: const EdgeInsets.all(3.0),
+        decoration: BoxDecoration(
+          color: ColorConstants.white,
+          borderRadius: BorderRadius.circular(Dimensions.px20),
+        ),
+        child: const Icon(
+          Icons.add,
+          size: Dimensions.px40,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
+  _buildArrowView({
+    required VoidCallback onTap,
+    required IconData icon,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: Dimensions.px50,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white54,
+          borderRadius: BorderRadius.circular(Dimensions.px15),
+        ),
+        child: Icon(
+          icon,
+          size: Dimensions.px40,
+          color: Colors.black,
+        ),
       ),
     );
   }

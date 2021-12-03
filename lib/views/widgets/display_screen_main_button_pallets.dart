@@ -6,17 +6,17 @@ import '../../aspects/constants/constant_imports.dart';
 import '../../aspects/enum/body_enum.dart';
 import '../../core/helpers/helper_imports.dart';
 import '../../core/notifiers/design_screen_provider.dart';
-import 'build_buttons_view.dart';
+import 'icon_button_view.dart';
 
 class DisplayScreenMainButtonPallets extends StatefulWidget {
   final bool isColorPicker;
   final Function onSelectCarEnum;
-  final CarEnum? bodyPart;
+  final CarEnum? selBodyPart;
 
   DisplayScreenMainButtonPallets({
     required this.isColorPicker,
     required this.onSelectCarEnum,
-    this.bodyPart,
+    this.selBodyPart,
   });
 
   @override
@@ -28,13 +28,12 @@ class _DisplayScreenMainButtonPalletsState
     extends State<DisplayScreenMainButtonPallets> {
   late DesignScreenProvider _designScreenProvider;
 
-
-  void onUndoBtnTap() {
+  void _undoBtnTapped() {
     if (_designScreenProvider.historyList.isNotEmpty) {
       _designScreenProvider.historyList.removeLast();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(" History List is empty ")),
+        SnackBar(content: Text(' History List is empty ')),
       );
     }
   }
@@ -52,7 +51,7 @@ class _DisplayScreenMainButtonPalletsState
           borderRadius: BorderRadius.circular(Dimensions.px15),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
+          padding: const EdgeInsets.all(5),
           child: _buildDesignScreenButtonPallets(),
         ),
       ),
@@ -63,74 +62,39 @@ class _DisplayScreenMainButtonPalletsState
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        GestureDetector(
+        IconButtonView(
+          icon: Icons.stars_outlined,
+          color: ((widget.selBodyPart != null) &&
+                  (widget.selBodyPart == CarEnum.carRim))
+              ? Colors.blue
+              : Colors.black,
           onTap: () => widget.onSelectCarEnum(CarEnum.carRim),
-          child: BuildButtonsView(
-            icon: ((widget.bodyPart != null) &&
-                (widget.bodyPart == CarEnum.carRim))
-                ? const Icon(
-              Icons.stars_outlined,
-              size: Dimensions.px35,
-              color: Colors.blue,
-            )
-                : const Icon(
-              Icons.stars_outlined,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
-          ),
         ),
-        GestureDetector(
+        IconButtonView(
+          icon: Icons.car_repair_rounded,
+          color: ((widget.selBodyPart != null) &&
+                  (widget.selBodyPart == CarEnum.carBody))
+              ? Colors.blue
+              : Colors.black,
           onTap: () => widget.onSelectCarEnum(CarEnum.carBody),
-          child: BuildButtonsView(
-            icon: ((widget.bodyPart != null) &&
-                (widget.bodyPart == CarEnum.carBody))
-                ? const Icon(
-              Icons.car_repair_rounded,
-              size: Dimensions.px35,
-              color: Colors.blue,
-            )
-                : const Icon(
-              Icons.car_repair_rounded,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
-          ),
         ),
-        GestureDetector(
-          onTap: () {},
-          child: BuildButtonsView(
-            icon: const Icon(
-              Icons.save,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
-          ),
+        IconButtonView(
+          icon: Icons.save,
+          color: Colors.black,
         ),
-        GestureDetector(
+        IconButtonView(
+          icon: Icons.share,
+          color: Colors.black,
           onTap: () {
             Share.share('Share Carmeleon App');
           },
-          child: BuildButtonsView(
-            icon: const Icon(
-              Icons.share,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
-          ),
         ),
-        GestureDetector(
-          onTap: onUndoBtnTap,
-          child: BuildButtonsView(
-            icon: const Icon(
-              Icons.undo_rounded,
-              size: Dimensions.px35,
-              color: Colors.black,
-            ),
-          ),
+        IconButtonView(
+          icon: Icons.undo_rounded,
+          color: Colors.black,
+          onTap: _undoBtnTapped,
         ),
       ],
     );
   }
-
 }
