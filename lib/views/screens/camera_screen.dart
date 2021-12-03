@@ -35,6 +35,25 @@ class _CameraScreenState extends State<CameraScreen>
     });
   }
 
+  /// this method is used for handle camera life cycle
+  /// when app is in background then camera controller will be disposed
+  /// and when resume app then camera reinitialize the camera controller
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.detached) return;
+    final isResumed = state == AppLifecycleState.resumed;
+    if (isResumed) {
+      print('App life cycle state:$state');
+      _initializeControllerFuture = _initializeCamera();
+      setState(() {});
+    } else {
+      print('App life cycle state:$state');
+      _cameraController?.dispose();
+    }
+  }
+
   @override
   void dispose() {
     _cameraController?.dispose();
