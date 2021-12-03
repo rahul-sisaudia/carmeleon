@@ -92,7 +92,7 @@ class _CameraScreenState extends State<CameraScreen>
       await _initializeControllerFuture;
       _cameraController?.setFlashMode(FlashMode.off);
       final _image = await _cameraController?.takePicture();
-      var _imageFile = _image != null ? File(_image.path) : null;
+      final _imageFile = (_image != null) ? File(_image.path) : null;
       if (_imageFile != null) {
         final _croppedFile = await AppHelper.cropImage(_imageFile);
         if (_croppedFile != null) {
@@ -100,14 +100,14 @@ class _CameraScreenState extends State<CameraScreen>
               ? RoutingHelper.pushToScreen(
                   ctx: context,
                   screen: ColorPickerScreen(
-                    imagePath: _image!.path,
+                    imagePath: _croppedFile.path,
                     isColorPicker: widget.isForColorPicker,
                   ),
                 )
               : RoutingHelper.pushToScreen(
                   ctx: context,
                   screen: DisplayPictureScreen(
-                    imagePath: _image!.path,
+                    imagePath: _croppedFile.path,
                     isColorPicker: widget.isForColorPicker,
                   ),
                 );
@@ -124,7 +124,7 @@ class _CameraScreenState extends State<CameraScreen>
     try {
       await _initializeControllerFuture;
       final _image = await _getImageFromGallery();
-      var _imageFile = _image != null ? File(_image.path) : null;
+      final _imageFile = (_image != null) ? File(_image.path) : null;
       if (_imageFile != null) {
         final _croppedFile = await AppHelper.cropImage(_imageFile);
         if (_croppedFile != null) {
@@ -132,14 +132,14 @@ class _CameraScreenState extends State<CameraScreen>
               ? RoutingHelper.pushToScreen(
                   ctx: context,
                   screen: ColorPickerScreen(
-                    imagePath: _image!.path,
+                    imagePath: _croppedFile.path,
                     isColorPicker: widget.isForColorPicker,
                   ),
                 )
               : RoutingHelper.pushToScreen(
                   ctx: context,
                   screen: DisplayPictureScreen(
-                    imagePath: _image!.path,
+                    imagePath: _croppedFile.path,
                     isColorPicker: widget.isForColorPicker,
                   ),
                 );
