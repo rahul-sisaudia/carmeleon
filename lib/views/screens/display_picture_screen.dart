@@ -76,40 +76,42 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          GestureDetector(
-            onLongPress: _onLongPressed,
-            onTap: _onScreenTap,
-            child: Container(
-              color: ColorConstants.white,
-              height: double.infinity,
-              width: double.infinity,
-              child: _isLongPressed
-                  ? Image.asset(
-                      ImageConstants.imageSplashScreenPng,
-                    )
-                  : Image.file(
-                      File(widget.imagePath),
-                      fit: BoxFit.cover,
-                    ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            GestureDetector(
+              onLongPress: _onLongPressed,
+              onTap: _onScreenTap,
+              child: Container(
+                color: ColorConstants.white,
+                height: double.infinity,
+                width: double.infinity,
+                child: _isLongPressed
+                    ? Image.asset(
+                        ImageConstants.imageSplashScreenPng,
+                      )
+                    : Image.file(
+                        File(widget.imagePath),
+                        fit: BoxFit.cover,
+                      ),
+              ),
             ),
-          ),
-          if (_isOptionVisible)
-            DisplayScreenMainButtonPallets(
-              onSelectCarEnum: _onSelectCarEnum,
-              isColorPicker: widget.isColorPicker,
-              onSaveBtnClicked: _onSaveImage,
-              selBodyPart: _bodyPart,
-            ),
-          if (_isOptionVisible && (_bodyPart != null))
-            ColorsPallet(
-              addColorBtnTapped: _onAddColorTap,
-              isShowAddColorBtn: true,
-              isColorPicker: widget.isColorPicker,
-              selBodyPart: _bodyPart,
-            ),
-        ],
+            if (_isOptionVisible)
+              DisplayScreenMainButtonPallets(
+                onSelectCarEnum: _onSelectCarEnum,
+                isColorPicker: widget.isColorPicker,
+                onSaveBtnClicked: _onSaveImage,
+                selBodyPart: _bodyPart,
+              ),
+            if (_isOptionVisible && (_bodyPart != null))
+              ColorsPallet(
+                addColorBtnTapped: _onAddColorTap,
+                isShowAddColorBtn: true,
+                isColorPicker: widget.isColorPicker,
+                selBodyPart: _bodyPart,
+              ),
+          ],
+        ),
       ),
     );
   }

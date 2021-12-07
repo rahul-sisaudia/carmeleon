@@ -50,10 +50,8 @@ class _CameraScreenState extends State<CameraScreen>
       print('AppLifecycleState:$state');
       _cameraController?.dispose();
     } else if (state == AppLifecycleState.resumed && !widget.isForColorPicker) {
-      print('AppLifecycleState:$state');
-      if (_cameraController != null) {
-        _initializeControllerFuture = _initializeCamera();
-      }
+      _initializeControllerFuture = _initializeCamera();
+      setState(() {});
     }
   }
 
@@ -154,14 +152,16 @@ class _CameraScreenState extends State<CameraScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: FutureBuilder(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return _buildCameraPreview();
-          }
-          return Text("Camera Initializing...");
-        },
+      body: SafeArea(
+        child: FutureBuilder(
+          future: _initializeControllerFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return _buildCameraPreview();
+            }
+            return Text("Camera Initializing...");
+          },
+        ),
       ),
     );
   }

@@ -46,7 +46,8 @@ class _DisplayScreenMainButtonPalletsState
 
     return Positioned(
       right: Dimensions.px10,
-      top: DeviceSizeHelper.height(context) / Dimensions.px5,
+      top: DeviceSizeHelper.height(context) -
+          (DeviceSizeHelper.height(context)) / 1.25,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,
