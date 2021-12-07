@@ -24,7 +24,7 @@ class IconButtonView extends StatelessWidget {
         child: Icon(
           icon,
           color: color,
-          size: Dimensions.px30,
+          // size: Dimensions.px30,
         ),
       ),
     );

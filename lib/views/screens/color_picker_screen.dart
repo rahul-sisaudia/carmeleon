@@ -10,12 +10,10 @@ import '../widgets/color_picker_buttons_pallet.dart';
 import '../widgets/colors_pallet.dart';
 
 class ColorPickerScreen extends StatefulWidget {
-  final bool isColorPicker;
   final String imagePath;
 
   ColorPickerScreen({
     required this.imagePath,
-    required this.isColorPicker,
   });
 
   @override
@@ -35,34 +33,31 @@ class _ColorPickerScreenState extends State<ColorPickerScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     _designScreenProvider = Provider.of<DesignScreenProvider>(context);
-    return EyeDrop(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            GestureDetector(
-              onTap: _onScreenTap,
-              child: Container(
-                color: ColorConstants.white,
-                height: double.infinity,
-                width: double.infinity,
-                child: Image.file(
-                  File(widget.imagePath),
-                  fit: BoxFit.cover,
+    return Scaffold(
+      body: EyeDrop(
+        child: SafeArea(
+          child: Stack(
+            children: [
+              GestureDetector(
+                onTap: _onScreenTap,
+                child: Container(
+                  color: ColorConstants.white,
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: Image.file(
+                    File(widget.imagePath),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            if (_isOptionVisible)
-              ColorPickerButtonsPallet(_designScreenProvider),
-            if (_isOptionVisible && _designScreenProvider.isDoneBtnClicked)
-              ColorsPallet(isColorPicker: widget.isColorPicker),
-          ],
+              if (_isOptionVisible)
+                ColorPickerButtonsPallet(_designScreenProvider),
+              if (_isOptionVisible && _designScreenProvider.isDoneBtnClicked)
+                ColorsPallet(isColorPicker: true),
+            ],
+          ),
         ),
       ),
     );

@@ -67,7 +67,7 @@ class AppHelper {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: DeviceSizeHelper.width(context) / Dimensions.px3,
+                width: SizeHelper.getDeviceWidth(context) / Dimensions.px3,
                 decoration: BoxDecoration(
                     color: ColorConstants.white,
                     borderRadius: BorderRadius.circular(Dimensions.px10)),

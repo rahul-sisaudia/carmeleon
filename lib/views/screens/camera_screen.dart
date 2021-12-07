@@ -50,10 +50,8 @@ class _CameraScreenState extends State<CameraScreen>
       print('AppLifecycleState:$state');
       _cameraController?.dispose();
     } else if (state == AppLifecycleState.resumed && !widget.isForColorPicker) {
-      print('AppLifecycleState:$state');
-      if (_cameraController != null) {
-        _initializeControllerFuture = _initializeCamera();
-      }
+      _initializeControllerFuture = _initializeCamera();
+      setState(() {});
     }
   }
 
@@ -71,7 +69,7 @@ class _CameraScreenState extends State<CameraScreen>
     var _cameras = await availableCameras();
     _cameraController = CameraController(
       _cameras.first,
-      ResolutionPreset.medium,
+      ResolutionPreset.high,
     );
 
     return _cameraController?.initialize();
@@ -101,7 +99,6 @@ class _CameraScreenState extends State<CameraScreen>
                   ctx: context,
                   screen: ColorPickerScreen(
                     imagePath: _croppedFile.path,
-                    isColorPicker: widget.isForColorPicker,
                   ),
                 )
               : RoutingHelper.pushToScreen(
@@ -133,7 +130,6 @@ class _CameraScreenState extends State<CameraScreen>
                   ctx: context,
                   screen: ColorPickerScreen(
                     imagePath: _croppedFile.path,
-                    isColorPicker: widget.isForColorPicker,
                   ),
                 )
               : RoutingHelper.pushToScreen(
@@ -154,21 +150,23 @@ class _CameraScreenState extends State<CameraScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: FutureBuilder(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return _buildCameraPreview();
-          }
-          return Text("Camera Initializing...");
-        },
+      body: SafeArea(
+        child: FutureBuilder(
+          future: _initializeControllerFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return _buildCameraPreview();
+            }
+            return Text("Camera Initializing...");
+          },
+        ),
       ),
     );
   }
 
   Widget _buildCameraPreview() {
     final deviceRatio =
-        DeviceSizeHelper.width(context) / DeviceSizeHelper.height(context);
+        SizeHelper.getDeviceWidth(context) / SizeHelper.getDeviceHeight(context);
     final controllerAspectRatio = _cameraController?.value.aspectRatio ?? 1;
 
     return Stack(

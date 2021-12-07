@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../aspects/constants/constant_imports.dart';
+import '../../core/helpers/helper_imports.dart';
 
 class ButtonViewWrapper extends StatelessWidget {
   final Widget child;
@@ -9,9 +10,12 @@ class ButtonViewWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _width = SizeHelper.getButtonViewWidth(context);
+    print('_width: $_width');
+
     return Container(
-      height: Dimensions.px50,
-      width: Dimensions.px50,
+      height: _width,
+      width: _width,
       color: Colors.transparent,
       padding: const EdgeInsets.all(Dimensions.px4),
       child: Container(

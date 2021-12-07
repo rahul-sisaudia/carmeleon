@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:carmeleon/core/helpers/helper_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,7 @@ class _ColorsPalletState extends State<ColorsPallet> {
     _designScreenProvider = Provider.of<DesignScreenProvider>(context);
     return Positioned(
       left: Dimensions.px10,
-      right: Dimensions.px80,
+      right: (Dimensions.px30 + SizeHelper.getButtonViewWidth(context)),
       bottom: Dimensions.px10,
       height: _height,
       child: Row(
@@ -135,18 +136,21 @@ class _ColorsPalletState extends State<ColorsPallet> {
           borderRadius: BorderRadius.circular(Dimensions.px20),
         ),
         child: Container(
-          padding: const EdgeInsets.all(6.0),
+          margin: EdgeInsets.all(3),
           decoration: BoxDecoration(
             color: ColorConstants.white,
             borderRadius: BorderRadius.circular(Dimensions.px20),
           ),
-          child: Container(
-            width: Dimensions.px35,
-            decoration: BoxDecoration(
-              color: widget.isColorPicker
-                  ? _designScreenProvider.temColorList[index]
-                  : ColorList.colorsList[index],
-              borderRadius: BorderRadius.circular(Dimensions.px40),
+          child: Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Container(
+              width: Dimensions.px35,
+              decoration: BoxDecoration(
+                color: widget.isColorPicker
+                    ? _designScreenProvider.temColorList[index]
+                    : ColorList.colorsList[index],
+                borderRadius: BorderRadius.circular(Dimensions.px40),
+              ),
             ),
           ),
         ),
