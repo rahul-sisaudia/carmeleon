@@ -69,7 +69,7 @@ class _CameraScreenState extends State<CameraScreen>
     var _cameras = await availableCameras();
     _cameraController = CameraController(
       _cameras.first,
-      ResolutionPreset.medium,
+      ResolutionPreset.high,
     );
 
     return _cameraController?.initialize();
@@ -99,7 +99,6 @@ class _CameraScreenState extends State<CameraScreen>
                   ctx: context,
                   screen: ColorPickerScreen(
                     imagePath: _croppedFile.path,
-                    isColorPicker: widget.isForColorPicker,
                   ),
                 )
               : RoutingHelper.pushToScreen(
@@ -131,7 +130,6 @@ class _CameraScreenState extends State<CameraScreen>
                   ctx: context,
                   screen: ColorPickerScreen(
                     imagePath: _croppedFile.path,
-                    isColorPicker: widget.isForColorPicker,
                   ),
                 )
               : RoutingHelper.pushToScreen(
@@ -168,7 +166,7 @@ class _CameraScreenState extends State<CameraScreen>
 
   Widget _buildCameraPreview() {
     final deviceRatio =
-        DeviceSizeHelper.width(context) / DeviceSizeHelper.height(context);
+        SizeHelper.getDeviceWidth(context) / SizeHelper.getDeviceHeight(context);
     final controllerAspectRatio = _cameraController?.value.aspectRatio ?? 1;
 
     return Stack(

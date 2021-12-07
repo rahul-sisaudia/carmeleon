@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:carmeleon/core/helpers/helper_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,7 @@ class _ColorsPalletState extends State<ColorsPallet> {
     _designScreenProvider = Provider.of<DesignScreenProvider>(context);
     return Positioned(
       left: Dimensions.px10,
-      right: Dimensions.px80,
+      right: (Dimensions.px30 + SizeHelper.getButtonViewWidth(context)),
       bottom: Dimensions.px10,
       height: _height,
       child: Row(

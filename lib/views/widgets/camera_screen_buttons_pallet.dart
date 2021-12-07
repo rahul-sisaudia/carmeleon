@@ -21,8 +21,8 @@ class _CameraScreenButtonsPalletState extends State<CameraScreenButtonsPallet> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      right: DeviceSizeHelper.width(context) / 100,
-      top: DeviceSizeHelper.height(context) / 2.6,
+      right: SizeHelper.getDeviceWidth(context) / 100,
+      top: SizeHelper.getDeviceHeight(context) / 2.6,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,

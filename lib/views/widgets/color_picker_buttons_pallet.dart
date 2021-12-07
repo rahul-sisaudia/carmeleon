@@ -98,8 +98,8 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
     return Positioned(
       right: Dimensions.px10,
       top: widget.designScreenProvider.isDoneBtnClicked
-          ? DeviceSizeHelper.height(context) / 3.2
-          : DeviceSizeHelper.height(context) / Dimensions.px5,
+          ? SizeHelper.getDeviceHeight(context) / 3.2
+          : SizeHelper.getDeviceHeight(context) / Dimensions.px5,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,
