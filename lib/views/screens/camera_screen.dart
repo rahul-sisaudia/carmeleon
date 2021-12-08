@@ -32,7 +32,6 @@ class _CameraScreenState extends State<CameraScreen>
 
     WidgetsBinding.instance?.addPostFrameCallback((_) async {
       _initializeControllerFuture = _initializeCamera();
-
       setState(() {});
     });
   }
@@ -43,6 +42,9 @@ class _CameraScreenState extends State<CameraScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // App state changed before we got the chance to initialize.
+    if (_cameraController == null || !_cameraController!.value.isInitialized) {
+      return;
+    }
     if (state == AppLifecycleState.paused && !widget.isForColorPicker) {
       _cameraController?.dispose();
     } else if (state == AppLifecycleState.resumed && !widget.isForColorPicker) {
