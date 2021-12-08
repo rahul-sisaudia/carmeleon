@@ -54,7 +54,7 @@ class _ColorPickerScreenState extends State<ColorPickerScreen> {
               ),
               if (_isOptionVisible)
                 ColorPickerButtonsPallet(_designScreenProvider),
-              if (_isOptionVisible && _designScreenProvider.isDoneBtnClicked)
+              if (_isOptionVisible)
                 ColorsPallet(isColorPicker: true),
             ],
           ),

@@ -97,9 +97,8 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
   Widget build(BuildContext context) {
     return Positioned(
       right: Dimensions.px10,
-      top: widget.designScreenProvider.isDoneBtnClicked
-          ? SizeHelper.getDeviceHeight(context) / 3.2
-          : SizeHelper.getDeviceHeight(context) / Dimensions.px5,
+      top: SizeHelper.getDeviceHeight(context) -
+          (SizeHelper.getDeviceHeight(context)) / 1.4,
       child: Container(
         decoration: BoxDecoration(
           color: ColorConstants.transparentWhite,
@@ -108,9 +107,7 @@ class _ColorPickerButtonsPalletState extends State<ColorPickerButtonsPallet> {
         child: Padding(
             padding:
                 const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
-            child: widget.designScreenProvider.isDoneBtnClicked
-                ? _buildColorPickerButtonPallets()
-                : _buildConfirmColorPickerButtonPallets()),
+            child: _buildColorPickerButtonPallets()),
       ),
     );
   }
