@@ -43,11 +43,7 @@ class _CameraScreenState extends State<CameraScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // App state changed before we got the chance to initialize.
-    if (_cameraController == null || !_cameraController!.value.isInitialized) {
-      return;
-    }
-    if (state == AppLifecycleState.inactive && !widget.isForColorPicker) {
-      print('AppLifecycleState:$state');
+    if (state == AppLifecycleState.paused && !widget.isForColorPicker) {
       _cameraController?.dispose();
     } else if (state == AppLifecycleState.resumed && !widget.isForColorPicker) {
       _initializeControllerFuture = _initializeCamera();
@@ -62,7 +58,7 @@ class _CameraScreenState extends State<CameraScreen>
     super.dispose();
   }
 
-  /// in thi function initialize the camera controller
+  /// in this function initialize the camera controller
   /// and set the camera is first and also set the resolution is medium
   /// and return the camera controller initialization
   Future<void> _initializeCamera() async {
@@ -165,8 +161,8 @@ class _CameraScreenState extends State<CameraScreen>
   }
 
   Widget _buildCameraPreview() {
-    final deviceRatio =
-        SizeHelper.getDeviceWidth(context) / SizeHelper.getDeviceHeight(context);
+    final deviceRatio = SizeHelper.getDeviceWidth(context) /
+        SizeHelper.getDeviceHeight(context);
     final controllerAspectRatio = _cameraController?.value.aspectRatio ?? 1;
 
     return Stack(
