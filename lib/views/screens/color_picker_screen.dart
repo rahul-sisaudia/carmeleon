@@ -12,9 +12,7 @@ import '../widgets/colors_pallet.dart';
 class ColorPickerScreen extends StatefulWidget {
   final String imagePath;
 
-  ColorPickerScreen({
-    required this.imagePath,
-  });
+  ColorPickerScreen({required this.imagePath});
 
   @override
   State<ColorPickerScreen> createState() => _ColorPickerScreenState();
@@ -54,8 +52,7 @@ class _ColorPickerScreenState extends State<ColorPickerScreen> {
               ),
               if (_isOptionVisible)
                 ColorPickerButtonsPallet(_designScreenProvider),
-              if (_isOptionVisible)
-                ColorsPallet(isColorPicker: true),
+              if (_isOptionVisible) ColorsPallet(isColorPicker: true),
             ],
           ),
         ),

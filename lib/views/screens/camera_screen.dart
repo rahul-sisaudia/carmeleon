@@ -41,8 +41,9 @@ class _CameraScreenState extends State<CameraScreen>
   /// and when resume app then camera reinitialize the camera controller
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('didChangeAppLifecycleState state: $state');
     // App state changed before we got the chance to initialize.
-    if (_cameraController == null || !_cameraController!.value.isInitialized) {
+    if (_cameraController == null && !_cameraController!.value.isInitialized) {
       return;
     }
     if (state == AppLifecycleState.paused && !widget.isForColorPicker) {
@@ -95,9 +96,7 @@ class _CameraScreenState extends State<CameraScreen>
           widget.isForColorPicker
               ? RoutingHelper.pushToScreen(
                   ctx: context,
-                  screen: ColorPickerScreen(
-                    imagePath: _croppedFile.path,
-                  ),
+                  screen: ColorPickerScreen(imagePath: _croppedFile.path),
                 )
               : RoutingHelper.pushToScreen(
                   ctx: context,
