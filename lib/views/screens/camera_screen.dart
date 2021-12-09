@@ -43,7 +43,7 @@ class _CameraScreenState extends State<CameraScreen>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print('didChangeAppLifecycleState state: $state');
     // App state changed before we got the chance to initialize.
-    if (_cameraController == null && !_cameraController!.value.isInitialized) {
+    if (_cameraController == null || !_cameraController!.value.isInitialized) {
       return;
     }
     if (state == AppLifecycleState.paused && !widget.isForColorPicker) {
