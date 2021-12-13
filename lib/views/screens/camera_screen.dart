@@ -32,7 +32,6 @@ class _CameraScreenState extends State<CameraScreen>
 
     WidgetsBinding.instance?.addPostFrameCallback((_) async {
       _initializeControllerFuture = _initializeCamera();
-
       setState(() {});
     });
   }
@@ -42,12 +41,12 @@ class _CameraScreenState extends State<CameraScreen>
   /// and when resume app then camera reinitialize the camera controller
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('didChangeAppLifecycleState state: $state');
     // App state changed before we got the chance to initialize.
     if (_cameraController == null || !_cameraController!.value.isInitialized) {
       return;
     }
-    if (state == AppLifecycleState.inactive && !widget.isForColorPicker) {
-      print('AppLifecycleState:$state');
+    if (state == AppLifecycleState.paused && !widget.isForColorPicker) {
       _cameraController?.dispose();
     } else if (state == AppLifecycleState.resumed && !widget.isForColorPicker) {
       _initializeControllerFuture = _initializeCamera();
@@ -62,7 +61,7 @@ class _CameraScreenState extends State<CameraScreen>
     super.dispose();
   }
 
-  /// in thi function initialize the camera controller
+  /// in this function initialize the camera controller
   /// and set the camera is first and also set the resolution is medium
   /// and return the camera controller initialization
   Future<void> _initializeCamera() async {
@@ -97,9 +96,7 @@ class _CameraScreenState extends State<CameraScreen>
           widget.isForColorPicker
               ? RoutingHelper.pushToScreen(
                   ctx: context,
-                  screen: ColorPickerScreen(
-                    imagePath: _croppedFile.path,
-                  ),
+                  screen: ColorPickerScreen(imagePath: _croppedFile.path),
                 )
               : RoutingHelper.pushToScreen(
                   ctx: context,
@@ -165,8 +162,8 @@ class _CameraScreenState extends State<CameraScreen>
   }
 
   Widget _buildCameraPreview() {
-    final deviceRatio =
-        SizeHelper.getDeviceWidth(context) / SizeHelper.getDeviceHeight(context);
+    final deviceRatio = SizeHelper.getDeviceWidth(context) /
+        SizeHelper.getDeviceHeight(context);
     final controllerAspectRatio = _cameraController?.value.aspectRatio ?? 1;
 
     return Stack(
